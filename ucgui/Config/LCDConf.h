@@ -27,8 +27,8 @@ Purpose     : Sample configuration file
 **********************************************************************
 */
 
-#define LCD_XSIZE                      (640)   /* X-resolution of LCD, Logical coor. */
-#define LCD_YSIZE                      (480)   /* Y-resolution of LCD, Logical coor. */
+#define LCD_XSIZE                      (160)   /* X-resolution of LCD, Logical coor. */
+#define LCD_YSIZE                      (80)   /* Y-resolution of LCD, Logical coor. */
 
 #define LCD_BITSPERPIXEL               (8)
 
