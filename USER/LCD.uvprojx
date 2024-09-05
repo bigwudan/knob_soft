@@ -606,6 +606,21 @@
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\LCD.c</FilePath>
             </File>
+            <File>
+              <FileName>GUI_UC_EncodeNone.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_UC_EncodeNone.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_L0_Generic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCD_L0_Generic.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDP233.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\ConvertColor\LCDP233.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
