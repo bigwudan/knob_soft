@@ -621,6 +621,11 @@
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\ConvertColor\LCDP233.c</FilePath>
             </File>
+            <File>
+              <FileName>LCDColor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCDColor.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -73,7 +73,7 @@ static int _GetColorIndex(int i)  /* i is 0 or 1 */ {
 *       LCD_SetColorIndex
 */
 void LCD_SetColorIndex(int Index) {
-
+  LCD_ACOLORINDEX[_GetColorIndex(1)] = Index;
 }
 
 /*********************************************************************
@@ -81,7 +81,7 @@ void LCD_SetColorIndex(int Index) {
 *       LCD_SetBkColorIndex
 */
 void LCD_SetBkColorIndex(int Index) {
-
+  LCD_ACOLORINDEX[_GetColorIndex(0)] = Index;
 }
 
 /*********************************************************************
@@ -90,7 +90,12 @@ void LCD_SetBkColorIndex(int Index) {
 */
 LCD_DRAWMODE LCD_SetDrawMode(LCD_DRAWMODE dm) {
   LCD_DRAWMODE OldDM = GUI_Context.DrawMode;
-
+  if ((GUI_Context.DrawMode^dm) & LCD_DRAWMODE_REV) {
+    LCD_PIXELINDEX temp = LCD_BKCOLORINDEX;
+    LCD_BKCOLORINDEX    = LCD_COLORINDEX;
+    LCD_COLORINDEX = temp;
+  }
+  GUI_Context.DrawMode = dm;
   return OldDM;
 }
 
@@ -115,7 +120,15 @@ void LCD_DrawHLine(int x0, int y,  int x1) {
 *       LCD_FillRect
 */
 void LCD_FillRect(int x0, int y0, int x1, int y1) {
-
+  /* Perform clipping and check if there is something to do */
+  CLIP_X();
+  if (x1<x0)
+    return;
+  CLIP_Y();
+  if (y1<y0)
+    return;
+  /* Call driver to draw */
+  LCDDEV_L0_FillRect(x0,y0,x1,y1);
 }
 
 /*********************************************************************
@@ -135,7 +148,7 @@ void LCD_DrawBitmap(int x0, int y0, int xsize, int ysize, int xMul, int yMul,
 *       LCD_SetClipRectMax
 */
 void LCD_SetClipRectMax(void) {
- 
+  LCDDEV_L0_GetRect(&GUI_Context.ClipRect); 
 }
 
 /*********************************************************************
@@ -144,7 +157,40 @@ void LCD_SetClipRectMax(void) {
 */
 int LCD_Init(void) {
   int r = 0;
-
+  GUI_DEBUG_LOG("\nLCD_Init...");
+  LCD_SetClipRectMax();
+  r |= LCD_L0_Init();
+  #if GUI_NUM_LAYERS > 1
+    r |= LCD_L0_1_Init();
+  #endif
+  #if GUI_NUM_LAYERS > 2
+    r |= LCD_L0_2_Init();
+  #endif
+  #if GUI_NUM_LAYERS > 3
+    r |= LCD_L0_3_Init();
+  #endif
+  #if GUI_NUM_LAYERS > 4
+    r |= LCD_L0_4_Init();
+  #endif
+  LCD_InitLUT();
+  {
+  #if GUI_NUM_LAYERS > 1
+    int i;
+    for (i = GUI_NUM_LAYERS - 1; i >= 0; i--) {
+      GUI_SelectLayer(i);
+  #else
+    {
+  #endif
+      #if (GUI_DEFAULT_BKCOLOR != GUI_INVALID_COLOR)
+        /* Clear video memory */
+        LCD_SetDrawMode(GUI_DRAWMODE_REV);
+        LCD_FillRect(0,0, GUI_XMAX, GUI_YMAX);
+        LCD_SetDrawMode(0);
+      #endif
+    }
+  }
+  /* Switch LCD on */
+  LCD_On();
   return r;
 }
 
@@ -169,7 +215,10 @@ LCD_COLOR LCD_Index2Color(int Index) {
 *       LCD_SetBkColor
 */
 void LCD_SetBkColor(GUI_COLOR color) {
- 
+  if (GUI_Context.BkColor != color) {
+    GUI_Context.BkColor = color;
+    LCD_SetBkColorIndex(LCD_Color2Index(color));
+  } 
 }
 
 /*********************************************************************
@@ -177,7 +226,10 @@ void LCD_SetBkColor(GUI_COLOR color) {
 *       LCD_SetColor
 */
 void LCD_SetColor(GUI_COLOR color) {
-  
+  if (GUI_Context.Color != color) {
+    GUI_Context.Color = color;
+    LCD_SetColorIndex(LCD_Color2Index(color));
+  }  
 }
 
 /*************************** End of file ****************************/
