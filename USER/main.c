@@ -97,6 +97,8 @@ int main(void)
 //	
 	GUI_DrawHLine(10,10,40);
 
+//	GUI_DispStringAt("Line ",0,1);
+
 	while(1)
 	{
 		LED=0; //PC13µ„¡¡

@@ -641,6 +641,36 @@
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\LCDP565_Index2Color.c</FilePath>
             </File>
+            <File>
+              <FileName>GUI_DispStringAt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_DispStringAt.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DispString.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_DispString.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUIChar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUIChar.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_UC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_UC.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUICharLine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUICharLine.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_RectsIntersect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_RectsIntersect.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
