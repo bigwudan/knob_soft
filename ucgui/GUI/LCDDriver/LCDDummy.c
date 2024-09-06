@@ -471,9 +471,11 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
 *       LCD_L0_FillRect
 */
 void LCD_L0_FillRect(int x0, int y0, int x1, int y1) {
-  for (; y0 <= y1; y0++) {
-    LCD_L0_DrawHLine(x0, y0, x1);
-  }
+//  for (; y0 <= y1; y0++) {
+//    LCD_L0_DrawHLine(x0, y0, x1);
+//  }
+	LCD_Fill(x0,y0,x1,y1,LCD_COLORINDEX);	
+	
 }
 
 /*********************************************************************

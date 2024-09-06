@@ -617,14 +617,29 @@
               <FilePath>..\ucgui\GUI\Core\LCD_L0_Generic.c</FilePath>
             </File>
             <File>
-              <FileName>LCDP233.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ucgui\GUI\ConvertColor\LCDP233.c</FilePath>
-            </File>
-            <File>
               <FileName>LCDColor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\LCDColor.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_SetColor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_SetColor.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_Goto.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_Goto.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDP565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\ConvertColor\LCDP565.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDP565_Index2Color.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCDP565_Index2Color.c</FilePath>
             </File>
           </Files>
         </Group>

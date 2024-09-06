@@ -402,10 +402,10 @@ which ever one you like best.
       *********************************
 */
 /* Define minimum and maximum coordinates in x and y */
-#define GUI_XMIN -4095
-#define GUI_XMAX  4095
-#define GUI_YMIN -4095
-#define GUI_YMAX  4095
+#define GUI_XMIN 0
+#define GUI_XMAX  160
+#define GUI_YMIN 0
+#define GUI_YMAX  80
 
 /*********************************************************************
 *

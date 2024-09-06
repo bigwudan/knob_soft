@@ -93,7 +93,7 @@ the PC)
 #define LCD_DRAWMODE_TRANS  (1<<1)
 #define LCD_DRAWMODE_REV    (1<<2)
 
-
+#define RGB_565_BITS U16
  
 /*      *************************************************************
         *                                                           *
@@ -103,7 +103,7 @@ the PC)
 */
 
 typedef int LCD_DRAWMODE;
-typedef U32 LCD_COLOR;
+typedef RGB_565_BITS LCD_COLOR;
 
  
 /********************************************************

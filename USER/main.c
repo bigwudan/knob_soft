@@ -82,11 +82,12 @@ int main(void)
 
 	LCD_HW_Init();//LCD³õÊ¼»¯
 	GUI_Init();
-
+	GUI_SetBkColor(RED); 
+	GUI_Clear();
 	LED=0;
 
 
-	GUI_DrawHLine(10,0,100);
+	//GUI_DrawHLine(10,0,100);
 
 	while(1)
 	{
@@ -96,6 +97,7 @@ int main(void)
 		delay_ms(500);
 		LED=1;//PC13Ï¨Ãð	
 		delay_ms(500);
+		printf("SPI_FLASH_PageWrite too large!\n\r");
 	}
 	
 }
