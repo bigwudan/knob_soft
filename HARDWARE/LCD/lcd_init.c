@@ -88,41 +88,41 @@ void LCD_Address_Set(u16 x1,u16 y1,u16 x2,u16 y2)
 	if(USE_HORIZONTAL==0)
 	{
 		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1+26);
-		LCD_WR_DATA(x2+26);
+		LCD_WR_DATA(x1+24);
+		LCD_WR_DATA(x2+24);
 		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1+1);
-		LCD_WR_DATA(y2+1);
+		LCD_WR_DATA(y1);
+		LCD_WR_DATA(y2);
 		LCD_WR_REG(0x2c);//储存器写
 	}
 	else if(USE_HORIZONTAL==1)
 	{
 		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1+26);
-		LCD_WR_DATA(x2+26);
+		LCD_WR_DATA(x1+24);
+		LCD_WR_DATA(x2+24);
 		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1+1);
-		LCD_WR_DATA(y2+1);
+		LCD_WR_DATA(y1);
+		LCD_WR_DATA(y2);
 		LCD_WR_REG(0x2c);//储存器写
 	}
 	else if(USE_HORIZONTAL==2)
 	{
 		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1+1);
-		LCD_WR_DATA(x2+1);
+		LCD_WR_DATA(x1);
+		LCD_WR_DATA(x2);
 		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1+26);
-		LCD_WR_DATA(y2+26);
+		LCD_WR_DATA(y1+24);
+		LCD_WR_DATA(y2+24);
 		LCD_WR_REG(0x2c);//储存器写
 	}
 	else
 	{
 		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1+1);
-		LCD_WR_DATA(x2+1);
+		LCD_WR_DATA(x1);
+		LCD_WR_DATA(x2);
 		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1+26);
-		LCD_WR_DATA(y2+26);
+		LCD_WR_DATA(y1+24);
+		LCD_WR_DATA(y2+24);
 		LCD_WR_REG(0x2c);//储存器写
 	}
 }
@@ -139,100 +139,100 @@ void LCD_HW_Init(void)
 	LCD_BLK_Set();//打开背光
   delay_ms(100);
 	
-	LCD_WR_REG(0x11);     //Sleep out
-	delay_ms(120);                //Delay 120ms
-	LCD_WR_REG(0xB1);     //Normal mode
+	LCD_WR_REG(0x11);//Sleep exit 
+	delay_ms(120);                //Delay 120ms 
+	LCD_WR_REG(0xB1);     
 	LCD_WR_DATA8(0x05);   
 	LCD_WR_DATA8(0x3C);   
 	LCD_WR_DATA8(0x3C);   
-	LCD_WR_REG(0xB2);     //Idle mode
+
+	LCD_WR_REG(0xB2);     
 	LCD_WR_DATA8(0x05);   
 	LCD_WR_DATA8(0x3C);   
 	LCD_WR_DATA8(0x3C);   
-	LCD_WR_REG(0xB3);     //Partial mode
+
+	LCD_WR_REG(0xB3);     
 	LCD_WR_DATA8(0x05);   
 	LCD_WR_DATA8(0x3C);   
 	LCD_WR_DATA8(0x3C);   
 	LCD_WR_DATA8(0x05);   
 	LCD_WR_DATA8(0x3C);   
 	LCD_WR_DATA8(0x3C);   
+
 	LCD_WR_REG(0xB4);     //Dot inversion
 	LCD_WR_DATA8(0x03);   
-	LCD_WR_REG(0xC0);     //AVDD GVDD
-	LCD_WR_DATA8(0xAB);   
-	LCD_WR_DATA8(0x0B);   
+
+	LCD_WR_REG(0xC0);     
+	LCD_WR_DATA8(0x0E);   
+	LCD_WR_DATA8(0x0E);   
 	LCD_WR_DATA8(0x04);   
-	LCD_WR_REG(0xC1);     //VGH VGL
-	LCD_WR_DATA8(0xC5);   //C0
-	LCD_WR_REG(0xC2);     //Normal Mode
-	LCD_WR_DATA8(0x0D);   
+
+	LCD_WR_REG(0xC1);     
+	LCD_WR_DATA8(0xC5);   
+
+	LCD_WR_REG(0xC2);     
+	LCD_WR_DATA8(0x0d);   
 	LCD_WR_DATA8(0x00);   
-	LCD_WR_REG(0xC3);     //Idle
+
+	LCD_WR_REG(0xC3);     
 	LCD_WR_DATA8(0x8D);   
-	LCD_WR_DATA8(0x6A);   
-	LCD_WR_REG(0xC4);     //Partial+Full
+	LCD_WR_DATA8(0x2A);   
+
+	LCD_WR_REG(0xC4);     
 	LCD_WR_DATA8(0x8D);   
 	LCD_WR_DATA8(0xEE);   
+
 	LCD_WR_REG(0xC5);     //VCOM
-	LCD_WR_DATA8(0x0F);   
-	LCD_WR_REG(0xE0);     //positive gamma
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x0E);   
-	LCD_WR_DATA8(0x08);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x10);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x02);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x09);   
-	LCD_WR_DATA8(0x0F);   
-	LCD_WR_DATA8(0x25);   
-	LCD_WR_DATA8(0x36);   
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0x08);   
-	LCD_WR_DATA8(0x04);   
-	LCD_WR_DATA8(0x10);   
-	LCD_WR_REG(0xE1);     //negative gamma
-	LCD_WR_DATA8(0x0A);   
-	LCD_WR_DATA8(0x0D);   
-	LCD_WR_DATA8(0x08);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x0F);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x02);   
-	LCD_WR_DATA8(0x07);   
-	LCD_WR_DATA8(0x09);   
-	LCD_WR_DATA8(0x0F);   
-	LCD_WR_DATA8(0x25);   
-	LCD_WR_DATA8(0x35);   
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0x09);   
-	LCD_WR_DATA8(0x04);   
-	LCD_WR_DATA8(0x10);
-		 
-	LCD_WR_REG(0xFC);    
-	LCD_WR_DATA8(0x80);  
-		
-	LCD_WR_REG(0x3A);     
-	LCD_WR_DATA8(0x05);   
-	LCD_WR_REG(0x36);
+	LCD_WR_DATA8(0x06); //1D  .06
+
+
+	LCD_WR_REG(0x36);     //MX, MY, RGB mode
 	if(USE_HORIZONTAL==0)LCD_WR_DATA8(0x08);
 	else if(USE_HORIZONTAL==1)LCD_WR_DATA8(0xC8);
 	else if(USE_HORIZONTAL==2)LCD_WR_DATA8(0x78);
-	else LCD_WR_DATA8(0xA8);   
-	LCD_WR_REG(0x21);     //Display inversion
+	else LCD_WR_DATA8(0xA8);  
+
+	LCD_WR_REG(0x3A); 
+	LCD_WR_DATA8(0x55);
+		
+	LCD_WR_REG(0xE0);     
+	LCD_WR_DATA8(0x0b);   
+	LCD_WR_DATA8(0x17);   
+	LCD_WR_DATA8(0x0a);   
+	LCD_WR_DATA8(0x0d);   
+	LCD_WR_DATA8(0x1a);   
+	LCD_WR_DATA8(0x19);   
+	LCD_WR_DATA8(0x16);   
+	LCD_WR_DATA8(0x1d);   
+	LCD_WR_DATA8(0x21);   
+	LCD_WR_DATA8(0x26);   
+	LCD_WR_DATA8(0x37);   
+	LCD_WR_DATA8(0x3c);   
+	LCD_WR_DATA8(0x00);   
+	LCD_WR_DATA8(0x09);   
+	LCD_WR_DATA8(0x05);   
+	LCD_WR_DATA8(0x10);   
+
+	LCD_WR_REG(0xE1);     
+	LCD_WR_DATA8(0x0c);   
+	LCD_WR_DATA8(0x19);   
+	LCD_WR_DATA8(0x09);   
+	LCD_WR_DATA8(0x0d);   
+	LCD_WR_DATA8(0x1b);   
+	LCD_WR_DATA8(0x19);   
+	LCD_WR_DATA8(0x15);   
+	LCD_WR_DATA8(0x1d);   
+	LCD_WR_DATA8(0x21);   
+	LCD_WR_DATA8(0x26);   
+	LCD_WR_DATA8(0x39);   
+	LCD_WR_DATA8(0x3E);   
+	LCD_WR_DATA8(0x00);   
+	LCD_WR_DATA8(0x09);   
+	LCD_WR_DATA8(0x05);   
+	LCD_WR_DATA8(0x10);   
+	 
+	delay_ms (120);
 	LCD_WR_REG(0x29);     //Display on
-	LCD_WR_REG(0x2A);     //Set Column Address
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0x1A);  //26  
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0x69);   //105 
-	LCD_WR_REG(0x2B);     //Set Page Address
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0x01);    //1
-	LCD_WR_DATA8(0x00);   
-	LCD_WR_DATA8(0xA0);    //160
-	LCD_WR_REG(0x2C); 
 }
 
 

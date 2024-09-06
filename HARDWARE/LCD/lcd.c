@@ -14,7 +14,7 @@
 void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
 {          
 	u16 i,j; 
-	LCD_Address_Set(xsta,ysta,xend-1,yend-1);//…Ë÷√œ‘ æ∑∂Œß
+	LCD_Address_Set(xsta,ysta,xend,yend);//…Ë÷√œ‘ æ∑∂Œß
 	for(i=ysta;i<yend;i++)
 	{													   	 	
 		for(j=xsta;j<xend;j++)
