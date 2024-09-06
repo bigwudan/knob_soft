@@ -160,6 +160,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>GUI_Context</ItemText>
         </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>LCD_COLORINDEX</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>

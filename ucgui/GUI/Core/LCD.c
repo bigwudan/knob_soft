@@ -112,7 +112,13 @@ void LCD_DrawPixel(int x, int y) {
 *       LCD_DrawHLine
 */
 void LCD_DrawHLine(int x0, int y,  int x1) {
-	LCDDEV_L0_DrawHLine(x0, y, x1);
+  /* Perform clipping and check if there is something to do */
+  RETURN_IF_Y_OUT();
+  CLIP_X();
+  if (x1<x0)
+    return;
+  /* Call driver to draw */
+  LCDDEV_L0_DrawHLine(x0, y, x1);
 }
 
 /*********************************************************************
@@ -228,7 +234,7 @@ void LCD_SetBkColor(GUI_COLOR color) {
 void LCD_SetColor(GUI_COLOR color) {
   if (GUI_Context.Color != color) {
     GUI_Context.Color = color;
-    //LCD_SetColorIndex(LCD_Color2Index(color));
+    LCD_SetColorIndex(LCD_Color2Index(color));
   }  
 }
 

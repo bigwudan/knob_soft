@@ -440,13 +440,15 @@ void LCD_L0_XorPixel(int x, int y) {
 */
 void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
   if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
-    for (; x0 <= x1; x0++) {
-      LCD_L0_XorPixel(x0, y);
-    }
+//    for (; x0 <= x1; x0++) {
+//      LCD_L0_XorPixel(x0, y);
+//    }
+		LCD_Fill(x0, y, x1, y + 1, LCD_COLORINDEX);
   } else {
-    for (; x0 <= x1; x0++) {
-      LCD_L0_SetPixelIndex(x0, y, LCD_COLORINDEX);
-    }
+//    for (; x0 <= x1; x0++) {
+//      LCD_L0_SetPixelIndex(x0, y, LCD_COLORINDEX);
+//    }
+		LCD_Fill(x0, y, x1, y + 1, LCD_COLORINDEX);
   }
 }
 

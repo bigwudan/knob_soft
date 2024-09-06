@@ -82,12 +82,20 @@ int main(void)
 
 	LCD_HW_Init();//LCD≥ı ºªØ
 	GUI_Init();
-	GUI_SetBkColor(RED); 
-	GUI_Clear();
-	LED=0;
+	GUI_SetBkColor(WHITE); 
+	GUI_Clear();	
+	
+	//LCD_Fill(10, 10, 40-1, 10+1, RED);
+	
+//	GUI_SetBkColor(RED); 
+//	GUI_Clear();
+//	LED=0;
 
-
-	//GUI_DrawHLine(10,0,100);
+//	
+	GUI_SetColor(RED);
+//	
+//	
+	GUI_DrawHLine(10,10,40);
 
 	while(1)
 	{
