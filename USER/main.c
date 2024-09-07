@@ -72,8 +72,46 @@ __IO TestStatus TransferStatus1 = FAILED;
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
 extern const GUI_BITMAP bm111;
 extern const unsigned char gImage_pic1[25600];
-extern const unsigned char gImage_pic2[25600];
-extern const unsigned char gImage_pic3[25600];
+//extern const unsigned char gImage_pic2[25600];
+unsigned char buf_gImage_pic2[1024*10] = {0};
+
+
+static void _flash_write(){
+
+	
+//	SPI_FLASH_BulkErase();
+	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_0);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_1);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_2);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_3);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_4);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_5);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_6);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_7);	 	 
+	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_8);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_9);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_10);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_11);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_12);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_13);	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_14);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_15);
+	
+	
+	SPI_FLASH_BufferWrite((u8 *)gImage_pic1, FLASH_SectionAddress_0_0, countof(gImage_pic1));		
+//	SPI_FLASH_BufferRead((u8 *)buf_gImage_pic2, FLASH_SectionAddress_0_0, countof(buf_gImage_pic2));
+
+	
+			
+}
+
+static void _flash_read(){
+	SPI_FLASH_BufferRead((u8 *)buf_gImage_pic2, FLASH_SectionAddress_0_0, countof(buf_gImage_pic2));
+}
+
+
 int main(void)
 {
 	float t=0;
@@ -101,20 +139,87 @@ int main(void)
 	
 	GUI_DrawBitmap(&bm111,0,0);
 */	
-	
+
+//		_flash_write();
+	_flash_read();
+
+//		/* 检验 SPI Flash ID */
+//		if (FlashID == W25Q16ID || W25Q32ID || W25Q64ID || W25Q80ID)
+//		{	
+//			
+//				printf("\r\n 检测到串行flash芯片!\r\n");
+//			  switch(FlashID)
+//					{
+//					case W25Q16ID :
+//						printf("\r\n flash芯片型号为W25Q16ID!\r\n");
+//						Flash_Size = 2;
+//						break;
+//					case W25Q32ID :
+//						printf("\r\n flash芯片型号为W25Q32!\r\n");
+//						Flash_Size = 4;
+//						break;
+//					case W25Q64ID :
+//						printf("\r\n flash芯片型号为W25Q64!\r\n");
+//						Flash_Size = 8;
+//						break;
+//					case W25Q80ID :
+//						printf("\r\n flash芯片型号为W25Q80!\r\n");
+//						Flash_Size = 1;
+//						break;
+//					default :
+//						printf("\r\n flash芯片型号为其他!\r\n");
+//						Flash_Size = 0;
+//						break;
+//					}
+
+//				/* 擦除将要写入的 SPI FLASH 扇区，FLASH写入前要先擦除 */
+//				// 这里擦除4K，即一个扇区，擦除的最小单位是扇区
+//				SPI_FLASH_SectorErase(FLASH_SectorToErase);	 	 
+
+//				/* 将发送缓冲区的数据写到flash中 */
+//				// 这里写一页，一页的大小为256个字节
+//				SPI_FLASH_BufferWrite(Tx_Buffer, FLASH_WriteAddress, BufferSize);		
+//				printf("\r\n 写入的数据为：%s \r\t", Tx_Buffer);
+
+//			
+//				/* 将刚刚写入的数据读出来放到接收缓冲区中 */
+//				SPI_FLASH_BufferRead(Rx_Buffer, FLASH_ReadAddress, BufferSize);
+//				printf("\r\n 读出的数据为：%s \r\n", Rx_Buffer);
+//			
+
+//				/* 检查写入的数据与读出的数据是否相等 */
+//				TransferStatus1 = Buffercmp(Tx_Buffer, Rx_Buffer, BufferSize);
+
+//				if( PASSED == TransferStatus1 )
+//				{ 
+
+//						printf("\r\n 串行flash测试成功!\n\r");
+//				}
+//				else
+//				{        
+
+//						printf("\r\n 串行flash测试失败!\n\r");
+//				}
+//		}// if (FlashID == sFLASH_ID)
+//		else// if (FlashID == sFLASH_ID)
+//		{ 
+
+//				printf("\r\n 获取不到 W25Q64 ID!\n\r");
+//		}
+
 	while(1)
 	{
 		LED=0; //PC13点亮
 
-		LCD_ShowPicture(0,0,160,80,gImage_pic1);
+		LCD_ShowPicture(0,0,20,20,buf_gImage_pic2);
 		delay_ms(1000);
 		LED=1;//PC13熄灭	
-		LCD_ShowPicture(0,0,160,80,gImage_pic2);
+//		LCD_ShowPicture(0,0,160,80,gImage_pic2);
 		delay_ms(1000);
 		
 		
 		
-		printf("SPI_FLASH_PageWrite too large!\n\r");
+		
 	}
 	
 }

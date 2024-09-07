@@ -32,6 +32,24 @@
 #define W25Q64ID 0xEF4017
 #define W25Q80ID 0xEF4014
 
+#define  FLASH_SectionDec             0x1000 
+#define  FLASH_SectionAddress_0_0     0x00000
+#define  FLASH_SectionAddress_0_1     FLASH_SectionAddress_0_0 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_2     FLASH_SectionAddress_0_1 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_3     FLASH_SectionAddress_0_2 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_4     FLASH_SectionAddress_0_3 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_5     FLASH_SectionAddress_0_4 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_6     FLASH_SectionAddress_0_5 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_7     FLASH_SectionAddress_0_6 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_8     FLASH_SectionAddress_0_7 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_9     FLASH_SectionAddress_0_8 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_10    FLASH_SectionAddress_0_9 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_11    FLASH_SectionAddress_0_10 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_12    FLASH_SectionAddress_0_11 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_13    FLASH_SectionAddress_0_12 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_14    FLASH_SectionAddress_0_13 + FLASH_SectionDec
+#define  FLASH_SectionAddress_0_15    FLASH_SectionAddress_0_14 + FLASH_SectionDec
+
 void SPI_FLASH_Init(void);
 void SPI_FLASH_SectorErase(u32 SectorAddr);
 void SPI_FLASH_BulkErase(void);
