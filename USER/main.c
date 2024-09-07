@@ -72,8 +72,8 @@ __IO TestStatus TransferStatus1 = FAILED;
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
 extern const GUI_BITMAP bm111;
 extern const unsigned char gImage_pic1[25600];
-//extern const unsigned char gImage_pic2[25600];
-unsigned char buf_gImage_pic2[1024*10] = {0};
+extern const unsigned char gImage_pic2[25600];
+unsigned char buf_gImage_pic2[160*40*2] = {0};
 
 
 static void _flash_write(){
@@ -84,11 +84,13 @@ static void _flash_write(){
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_0);	 	 
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_1);	 	 
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_2);	 	 
-	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_3);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_3);	
+	
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_4);	 	 
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_5);	 	 
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_6);	 	 
-	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_7);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_7);
+
 	
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_8);
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_9);
@@ -100,17 +102,63 @@ static void _flash_write(){
 	SPI_FLASH_SectorErase(FLASH_SectionAddress_0_15);
 	
 	
-	SPI_FLASH_BufferWrite((u8 *)gImage_pic1, FLASH_SectionAddress_0_0, countof(gImage_pic1));		
-//	SPI_FLASH_BufferRead((u8 *)buf_gImage_pic2, FLASH_SectionAddress_0_0, countof(buf_gImage_pic2));
+	SPI_FLASH_BufferWrite((u8 *)gImage_pic1, FLASH_SectionAddress_0_0, 12800);		
+	SPI_FLASH_BufferWrite((u8 *)(gImage_pic1 + 12800), FLASH_SectionAddress_0_4, 12800);
 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_0);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_1);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_2);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_3);	
+	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_4);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_5);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_6);	 	 
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_7);
+
+	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_8);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_9);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_10);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_11);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_12);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_13);	
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_14);
+	SPI_FLASH_SectorErase(FLASH_SectionAddress_1_15);
+	
+	
+	SPI_FLASH_BufferWrite((u8 *)gImage_pic2, FLASH_SectionAddress_1_0, 12800);		
+	SPI_FLASH_BufferWrite((u8 *)(gImage_pic2 + 12800), FLASH_SectionAddress_1_4, 12800);
 	
 			
 }
 
-static void _flash_read(){
-	SPI_FLASH_BufferRead((u8 *)buf_gImage_pic2, FLASH_SectionAddress_0_0, countof(buf_gImage_pic2));
+static void _flash_read(u32 address){
+	SPI_FLASH_BufferRead((u8 *)buf_gImage_pic2, address, countof(buf_gImage_pic2));
 }
 
+static void _show_picfromflash(u16 x,u16 y,u16 length,u16 width){
+	LCD_ShowPicture(x,y,length, width,buf_gImage_pic2);
+}
+
+
+static void _test_pic(u8 index){
+	
+	if(index == 0){
+		_flash_write();
+	}else if(index == 1){
+		_flash_read(FLASH_SectionAddress_0_0);
+		_show_picfromflash(0, 0, 160, 40);
+		_flash_read(FLASH_SectionAddress_0_4);
+		_show_picfromflash(0, 40, 160, 40);
+	}else if(index == 2){
+		_flash_read(FLASH_SectionAddress_1_0);
+		_show_picfromflash(0, 0, 160, 40);
+		_flash_read(FLASH_SectionAddress_1_4);
+		_show_picfromflash(0, 40, 160, 40);	
+	}
+	
+
+}
 
 int main(void)
 {
@@ -140,8 +188,7 @@ int main(void)
 	GUI_DrawBitmap(&bm111,0,0);
 */	
 
-//		_flash_write();
-	_flash_read();
+
 
 //		/* 检验 SPI Flash ID */
 //		if (FlashID == W25Q16ID || W25Q32ID || W25Q64ID || W25Q80ID)
@@ -207,14 +254,14 @@ int main(void)
 //				printf("\r\n 获取不到 W25Q64 ID!\n\r");
 //		}
 
+	_test_pic(0);
+	
+
 	while(1)
 	{
-		LED=0; //PC13点亮
-
-		LCD_ShowPicture(0,0,20,20,buf_gImage_pic2);
-		delay_ms(1000);
-		LED=1;//PC13熄灭	
-//		LCD_ShowPicture(0,0,160,80,gImage_pic2);
+		_test_pic(1);
+		delay_ms(1000);	
+		_test_pic(2);
 		delay_ms(1000);
 		
 		
