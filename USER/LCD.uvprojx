@@ -592,6 +592,11 @@
           <GroupName>gui_core</GroupName>
           <Files>
             <File>
+              <FileName>GUI_SetColorIndex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_SetColorIndex.c</FilePath>
+            </File>
+            <File>
               <FileName>GUICore.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\GUICore.c</FilePath>
@@ -695,6 +700,36 @@
               <FileName>LCD_GetColorIndex.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\LCD_GetColorIndex.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_DrawBitmap_565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCD_DrawBitmap_565.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_GetEx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCD_GetEx.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DrawBitmap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_DrawBitmap.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_SetDrawMode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_SetDrawMode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>source</GroupName>
+          <Files>
+            <File>
+              <FileName>111.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\source\111.c</FilePath>
             </File>
           </Files>
         </Group>

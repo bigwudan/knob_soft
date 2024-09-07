@@ -70,7 +70,7 @@ __IO TestStatus TransferStatus1 = FAILED;
 
 // 函数原型声明
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
-
+extern const GUI_BITMAP bm111;
 int main(void)
 {
 	float t=0;
@@ -98,6 +98,8 @@ int main(void)
 	GUI_DrawHLine(10,10,40);
 	GUI_SetFont(&GUI_Font8_ASCII);
 	GUI_DispStringAt("Line ",0,1);
+	
+	GUI_DrawBitmap(&bm111,0,0);
 
 	while(1)
 	{
