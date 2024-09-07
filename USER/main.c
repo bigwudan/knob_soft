@@ -96,8 +96,8 @@ int main(void)
 //	
 //	
 	GUI_DrawHLine(10,10,40);
-
-//	GUI_DispStringAt("Line ",0,1);
+	GUI_SetFont(&GUI_Font8_ASCII);
+	GUI_DispStringAt("Line ",0,1);
 
 	while(1)
 	{

@@ -671,6 +671,31 @@
               <FileType>1</FileType>
               <FilePath>..\ucgui\GUI\Core\GUI_RectsIntersect.c</FilePath>
             </File>
+            <File>
+              <FileName>F08_ASCII.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Font\F08_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_SetFont.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_SetFont.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUICharP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUICharP.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_GetColor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\GUI_GetColor.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_GetColorIndex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\GUI\Core\LCD_GetColorIndex.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
