@@ -71,44 +71,49 @@ __IO TestStatus TransferStatus1 = FAILED;
 // 函数原型声明
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
 extern const GUI_BITMAP bm111;
+extern const unsigned char gImage_pic1[25600];
+extern const unsigned char gImage_pic2[25600];
+extern const unsigned char gImage_pic3[25600];
 int main(void)
 {
 	float t=0;
 	__IO uint32_t Flash_Size = 0;
 	delay_init();
+	
 	LED_Init();//LED初始化
 	Usart1_Init(115200);
 	SPI_FLASH_Init();	
 
 	LCD_HW_Init();//LCD初始化
+	
+/*	
 	GUI_Init();
 	GUI_SetBkColor(WHITE); 
 	GUI_Clear();	
 	
-	//LCD_Fill(10, 10, 40-1, 10+1, RED);
-	
-//	GUI_SetBkColor(RED); 
-//	GUI_Clear();
-//	LED=0;
 
-//	
+
 	GUI_SetColor(RED);
-//	
-//	
+
 	GUI_DrawHLine(10,10,40);
 	GUI_SetFont(&GUI_Font8_ASCII);
 	GUI_DispStringAt("Line ",0,1);
 	
 	GUI_DrawBitmap(&bm111,0,0);
-
+*/	
+	
 	while(1)
 	{
 		LED=0; //PC13点亮
 
-
-		delay_ms(500);
+		LCD_ShowPicture(0,0,160,80,gImage_pic1);
+		delay_ms(1000);
 		LED=1;//PC13熄灭	
-		delay_ms(500);
+		LCD_ShowPicture(0,0,160,80,gImage_pic2);
+		delay_ms(1000);
+		
+		
+		
 		printf("SPI_FLASH_PageWrite too large!\n\r");
 	}
 	

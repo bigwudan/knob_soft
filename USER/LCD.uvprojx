@@ -731,6 +731,21 @@
               <FileType>1</FileType>
               <FilePath>..\ucgui\source\111.c</FilePath>
             </File>
+            <File>
+              <FileName>pic1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\source\pic1.c</FilePath>
+            </File>
+            <File>
+              <FileName>pic2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\source\pic2.c</FilePath>
+            </File>
+            <File>
+              <FileName>pic3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ucgui\source\pic3.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
