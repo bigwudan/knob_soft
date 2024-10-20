@@ -1,0 +1,141 @@
+
+=================================================== keil-build-viewer v1.5b ==================================================
+ 
+[Search keil project] 1 item(s)
+	D:\document\swm221\ugui\app\ugui_app.uvprojx
+
+[User input] 
+[Current folder] D:\document\swm221\ugui\app
+[Encoding] 936
+[Keil project path] D:\document\swm221\ugui\app\ugui_app.uvprojx
+[Keil project name] ugui_app.uvprojx
+[Is keil v4] 0
+[target name] SWM221-Debug
+[final target name] SWM221-Debug
+
+[Device] SWM221xB
+[Target name] 
+[Output name] ugui_app
+[Output path] .\out\Debug\
+[Listing path] .\out\
+[Is has pack] 1
+[Is enbale LTO] 1
+[Is has user library] 1
+[Is custom scatter file] 1
+
+[ugui_app.uvprojx]  [SWM221-Debug]  [SWM221xB]
+ 
+[memory info]
+[name] IRAM [base addr] 0x20000000 [size] 0x00002000 [type] 1 [off-chip] 0 [is pack] 1 [ID] 2 
+[name] IROM [base addr] 0x00000000 [size] 0x00020000 [type] 2 [off-chip] 0 [is pack] 1 [ID] 3 
+
+
+[map file path] D:\document\swm221\ugui\app\out\ugui_app.map
+
+[region info]
+[load region] LR_IROM1
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00001B88 [memory type] 2 [memory ID] 3
+
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001820 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000008, size: 0x00001818 (6168)
+
+
+[object name max length] 18
+[object path max length] 58
+
+[object in map file]
+[object name] lto-llvm-cc1f44.o   [path] (null)
+[object name] startup_swm221.o    [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
+[object name] ugui_framework.lib  [path] .\libs\ugui_framework.lib
+
+[file path in keil project]
+[old name] main.c              [type] 1   [path] .\src\apps\main.c
+[old name] semihosting.c       [type] 1   [path] .\src\apps\semihosting.c
+[old name] test_case.c         [type] 1   [path] .\src\apps\test_case.c
+[old name] board.c             [type] 1   [path] .\src\board\board.c
+[old name] dev_systick.c       [type] 1   [path] .\src\board\dev_systick.c
+[old name] dev_uart.c          [type] 1   [path] .\src\board\dev_uart.c
+[old name] dev_misc.c          [type] 1   [path] .\src\board\dev_misc.c
+[old name] dev_key.c           [type] 1   [path] .\src\board\dev_key.c
+[old name] dev_sleep_stop.c    [type] 1   [path] .\src\board\dev_sleep_stop.c
+[old name] dev_tp.c            [type] 1   [path] .\src\board\dev_tp.c
+[old name] dev_tp_i2c.c        [type] 1   [path] .\src\board\dev_tp_i2c.c
+[old name] dev_tp_port.c       [type] 1   [path] .\src\board\dev_tp_port.c
+[old name] dev_lcd_mpu.c       [type] 1   [path] .\src\board\dev_lcd_mpu.c
+[old name] dev_lcd_mpu_i80.c   [type] 1   [path] .\src\board\dev_lcd_mpu_i80.c
+[old name] dev_lcd_mpu_spi.c   [type] 1   [path] .\src\board\dev_lcd_mpu_spi.c
+[old name] dev_lcd_mpu_qspi.c  [type] 1   [path] .\src\board\dev_lcd_mpu_qspi.c
+[old name] dev_lcd_mpu_port.c  [type] 1   [path] .\src\board\dev_lcd_mpu_port.c
+[old name] dev_sw_i2c.c        [type] 1   [path] .\src\board\dev_sw_i2c.c
+[old name] dev_sw_spi.c        [type] 1   [path] .\src\board\dev_sw_spi.c
+[old name] dev_qspi_flash.c    [type] 1   [path] .\src\board\dev_qspi_flash.c
+[old name] tp_cst3xx.c         [type] 1   [path] .\src\board\ic_driver\tp_cst3xx.c
+[old name] tp_cst8xx.c         [type] 1   [path] .\src\board\ic_driver\tp_cst8xx.c
+[old name] tp_ftxx.c           [type] 1   [path] .\src\board\ic_driver\tp_ftxx.c
+[old name] tp_gt9xx.c          [type] 1   [path] .\src\board\ic_driver\tp_gt9xx.c
+[old name] tp_ili2117a.c       [type] 1   [path] .\src\board\ic_driver\tp_ili2117a.c
+[old name] tp_tango_c32.c      [type] 1   [path] .\src\board\ic_driver\tp_tango_c32.c
+[old name] tp_chsc6413.c       [type] 1   [path] .\src\board\ic_driver\tp_chsc6413.c
+[old name] tp_chsc6540.c       [type] 1   [path] .\src\board\ic_driver\tp_chsc6540.c
+[old name] lcd_st7789.c        [type] 1   [path] .\src\board\ic_driver\lcd_st7789.c
+[old name] lcd_ili9488.c       [type] 1   [path] .\src\board\ic_driver\lcd_ili9488.c
+[old name] lcd_gx9307.c        [type] 1   [path] .\src\board\ic_driver\lcd_gx9307.c
+[old name] lcd_gc9307.c        [type] 1   [path] .\src\board\ic_driver\lcd_gc9307.c
+[old name] lcd_gc9a01.c        [type] 1   [path] .\src\board\ic_driver\lcd_gc9a01.c
+[old name] lcd_st7365.c        [type] 1   [path] .\src\board\ic_driver\lcd_st7365.c
+[old name] lcd_st77916.c       [type] 1   [path] .\src\board\ic_driver\lcd_st77916.c
+[old name] lcd_nv3041.c        [type] 1   [path] .\src\board\ic_driver\lcd_nv3041.c
+[old name] lcd_nv3023.c        [type] 1   [path] .\src\board\ic_driver\lcd_nv3023.c
+[old name] modbus_rtu.c        [type] 1   [path] .\src\modules\modbus_rtu.c
+[old name] sfud.c              [type] 1   [path] .\src\components\SFUD\sfud\src\sfud.c
+[old name] sfud_sfdp.c         [type] 1   [path] .\src\components\SFUD\sfud\src\sfud_sfdp.c
+[old name] sfud_port_swm221.c  [type] 1   [path] .\src\components\SFUD\sfud\port\sfud_port_swm221.c
+[old name] multi_button.c      [type] 1   [path] .\src\components\MultiButton\multi_button.c
+[old name] chry_ringbuffer.c   [type] 1   [path] .\src\components\CherryRB\chry_ringbuffer.c
+[old name] system_SWM221.c     [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\system_SWM221.c
+[old name] startup_SWM221.s    [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
+[old name] SWM221_adc.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_adc.c
+[old name] SWM221_can.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_can.c
+[old name] SWM221_crc.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_crc.c
+[old name] SWM221_div.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_div.c
+[old name] SWM221_dma.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_dma.c
+[old name] SWM221_exti.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_exti.c
+[old name] SWM221_flash.c      [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_flash.c
+[old name] SWM221_gpio.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_gpio.c
+[old name] SWM221_i2c.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_i2c.c
+[old name] SWM221_iofilt.c     [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_iofilt.c
+[old name] SWM221_mpu.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_mpu.c
+[old name] SWM221_port.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_port.c
+[old name] SWM221_pwm.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_pwm.c
+[old name] SWM221_qei.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qei.c
+[old name] SWM221_qspi.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qspi.c
+[old name] SWM221_sleep.c      [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_sleep.c
+[old name] SWM221_spi.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_spi.c
+[old name] SWM221_timr.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_timr.c
+[old name] SWM221_uart.c       [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_uart.c
+[old name] SWM221_usart.c      [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_usart.c
+[old name] SWM221_wdt.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_wdt.c
+[old name] ugui_framework.lib  [type] 3   [path] .\libs\ugui_framework.lib
+[old name] app.c               [type] 1   [path] .\src\apps\ui_src\appkit\app.c
+
+[record region info]
+[load region] LR_IROM1
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00001B88 [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001820 [type] 1 [ID] 2
+[WARNING] Because LTO is enabled, information for each file cannot be displayed
+ 
+[memory print mode]: 0
+LR_IROM1
+        RAM 1             [0x20000000 | 0x00002000 (8192)]
+                [zi start] 1   [zi end] 37
+                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_____________| (   6.0 KB /   8.0 KB )  75.4%  
+ 
+        FLASH 1           [0x00000000 | 0x00020000 (131072)]
+                ER_IROM1  [0x00000000]|¡ö¡ö________________________________________________| (   6.8 KB / 128.0 KB )   5.4%  
+ 
+[htm file path] D:\document\swm221\ugui\app\out\Debug\ugui_app.htm
+Maximum Stack Usage =        632 bytes + Unknown(Cycles, Untraceable Function Pointers)
+ 
+=============================================================================================================================
+
+run time: 0.036 s
