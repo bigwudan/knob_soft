@@ -34,7 +34,7 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00002C60 [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00002FAC [memory type] 2 [memory ID] 3
 
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001820 [memory type] 1 [memory ID] 2
 		[ZI block] addr: 0x20000008, size: 0x00001818 (6168)
@@ -44,7 +44,7 @@
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-f10e86.o   [path] (null)
+[object name] lto-llvm-77365d.o   [path] (null)
 [object name] startup_swm221.o    [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 [object name] ugui_framework.lib  [path] .\libs\ugui_framework.lib
 
@@ -120,7 +120,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00002C60 [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00002FAC [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001820 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
@@ -131,11 +131,11 @@ LR_IROM1
                 RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_____________| (   6.0 KB /   8.0 KB )  75.4%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö______________________________________________| (  11.0 KB / 128.0 KB )   8.7%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö______________________________________________| (  11.9 KB / 128.0 KB )   9.3%  
  
 [htm file path] D:\knob_soft\out\Debug\ugui_app.htm
-Maximum Stack Usage =        208 bytes + Unknown(Cycles, Untraceable Function Pointers)
+Maximum Stack Usage =        224 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.033 s
+run time: 0.029 s

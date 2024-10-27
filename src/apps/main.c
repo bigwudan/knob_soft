@@ -13,6 +13,7 @@
 #define LCD_QSPI_X             QSPI0
 
 #define INSTR_VAL 0xDE
+#define INSTR_RD_VAL 0xDD
 /* QSPI extra expand */
 #define ST77903_WR_CMD_SEQ(cmd, seq, bytes)          do {                                             \
                                                         ST77903_QSPI_SEQ_SET_WR_L11(seq, cmd, bytes); \
@@ -23,9 +24,25 @@
                                                         uint8_t temp[] = {__VA_ARGS__};     \
                                                         _wr_data(temp, sizeof(temp)); \
                                                     } while (0)																										
+
+#define ST77903_RD_CMD_SEQ(cmd, seq, bytes)          do {                                             \
+                                                        ST77903_QSPI_SEQ_SET_RD(seq, cmd, bytes); \
+                                                        _cmd_qspi(cmd, seq);                     \
+                                                    } while (0)
 																										
 																										
-#define ST77903_QSPI_SEQ_SET_WR_L11(seq, cmd, bytes)          __LCD_QSPI_SEQ_SET_WR(seq, INSTR_VAL, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)																										
+#define ST77903_QSPI_SEQ_SET_WR_L11(seq, cmd, bytes)          __LCD_QSPI_SEQ_SET_WR(seq, INSTR_VAL, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)		
+																										
+
+#define ST77903_QSPI_SEQ_SET_RD(seq, cmd, bytes)              __LCD_QSPI_SEQ_SET_RD(seq, INSTR_RD_VAL, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)
+																										
+
+#define ST77903_WD_DATA(cmd, seq, arr, count) do{                                       \
+																									QSPI_Clr;                             \
+																									ST77903_WR_CMD_SEQ(cmd, seq, count); \
+																									if(count>0) _wr_data(arr, count);	                \
+																									QSPI_Set;                             \
+																								}while(0)
 																										
 /* 使能 TEST_CASE_EN 宏将执行单元测试用例: LED / KEY / TP / UART-Modbus / screen_demo, 
  * 反之若屏蔽该宏, 则仅保留 LCD 驱动显示.
@@ -240,14 +257,18 @@ static void _lcd_init(){
 	_qspi_port_init();
 	_qspi_init();
 	
-	LCD_Reset_Clr;
-	systick_delay_ms(1);
+
 	LCD_Reset_Set;
-	systick_delay_ms(1);
+	systick_delay_us(10);
+	LCD_Reset_Clr;
+	systick_delay_us(10);
+	LCD_Reset_Set;
 	systick_delay_ms(120);
 	
-	QSPI_Set;
+	//QSPI_Set;
 }
+
+
 
 static void qspi_conver_std_peripheral(QSPI_CmdStructure *cmdStruct, lcd_qspi_seq_t *seq)
 {
@@ -339,6 +360,21 @@ static void _wr_data(uint8_t *data, uint32_t count)
     while (QSPI_Busy(LCD_QSPI_X)) __NOP();
 }
 
+static void _rd_data(uint8_t *data, uint32_t count)
+{
+    for (uint32_t i = 0; i < (data ? count : 0); ++i)
+    {
+        while (QSPI_FIFOCount(LCD_QSPI_X) < 1) __NOP();
+
+        data[i] = LCD_QSPI_X->DRB;
+    }
+    while (QSPI_Busy(LCD_QSPI_X)) __NOP();
+    
+    // 单线双向工模式：0 IO0输出，IO1输入    1 IO0负责输入输出
+    LCD_QSPI_X->CR |= QSPI_CR_BIDI_Msk;
+}
+
+
 static void _lcd_st7709_init_bk(){
 	lcd_qspi_seq_t seq;
 	
@@ -348,9 +384,10 @@ static void _lcd_st7709_init_bk(){
 	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0xB0, &seq, 1);
 	ST77903_WR_DATA_VA(0xA5);
-
+	QSPI_Set;
 	
 	
+	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0xCC, &seq, sizeof(t_f));	
 	_wr_data(t_f, sizeof(t_f));
 	QSPI_Set;
@@ -367,113 +404,197 @@ static void _lcd_st7709_init_bk(){
 	
 }
 
+static void _lcd_set_disp(uint8_t idx){
+	lcd_qspi_seq_t seq;
+	if(idx == 0){
+		ST77903_WD_DATA(0x28, &seq,0,0);
+	}else{
+		ST77903_WD_DATA(0x29, &seq,0,0);
+	}
+}
+
+
 static void _lcd_st7709_init(){
 	lcd_qspi_seq_t seq;
+
 	
+	
+#if 0	
 	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0xc3}, 1);
+	QSPI_Set;
 	
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0x96}, 1);	
+	QSPI_Set;
 	
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0xa5}, 1);	
+	QSPI_Set;
 	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xb6, &seq, 2);
 	_wr_data((uint8_t []){0xc7,0x31}, 2);	
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xb5, &seq,4);
 	_wr_data((uint8_t []){0x00 ,0x08 ,0x00 ,0x08}, 4);	
+	QSPI_Set;
 	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0x36, &seq, 1);
 	_wr_data((uint8_t []){0x0C}, 1);	
+	QSPI_Set;
 	
-	ST77903_WR_CMD_SEQ(0x3a, &seq, 1);
-	_wr_data((uint8_t []){0x07}, 1);		
-
-		
+//	QSPI_Clr;
+//	ST77903_WR_CMD_SEQ(0x3a, &seq, 1);
+//	_wr_data((uint8_t []){0x07}, 1);		
+//	QSPI_Set;
+	ST77903_WD_DATA(0x3a, &seq,(uint8_t []){0x05},1);
+	
+	
+	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0xc3}, 1);				
-		
+	QSPI_Set;
+	
+	
+	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0x96}, 1);				
-		
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xf0, &seq, 1);
 	_wr_data((uint8_t []){0xa5}, 1);		
-			
+	QSPI_Set;
+	
+
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe9, &seq, 1);
 	_wr_data((uint8_t []){0x20}, 1);	
-		
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe7, &seq, 4);
 	_wr_data((uint8_t []){0x80, 0x77, 0x1f, 0xcc}, 4);		
-				 
+	QSPI_Set;				 
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xc1, &seq, 4);
 	_wr_data((uint8_t []){0x77, 0x07, 0xcf, 0x16}, 4);		
-   
+  QSPI_Set; 
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xc2, &seq, 4);
 	_wr_data((uint8_t []){0x77, 0x07, 0xcf, 0x16}, 4);		
+	QSPI_Set;
 	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xc3, &seq, 4);
 	_wr_data((uint8_t []){0x22, 0x02, 0x22, 0x04}, 4);		
-		
+	QSPI_Set;	
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xc4, &seq, 4);
 	_wr_data((uint8_t []){0x22, 0x02, 0x22, 0x04}, 4);		
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xc5, &seq, 1);
 	_wr_data((uint8_t []){0xed}, 1);		
-  
+  QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe0, &seq, 14);
 	_wr_data((uint8_t []){0x87, 0x09, 0x0c, 0x06, 0x05, 0x03, 0x29, 0x32, 0x49, 0x0f, 0x1b, 0x17, 0x2a, 0x2f}, 14);		
-	 
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe1, &seq, 14);
 	_wr_data((uint8_t []){0x87, 0x09, 0x0c, 0x06, 0x05, 0x03, 0x29, 0x32, 0x49, 0x0f, 0x1b, 0x17, 0x2a, 0x2f}, 14);		
-    
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe5, &seq, 14);
 	_wr_data((uint8_t []){0xbe, 0xf5, 0xb1, 0x22, 0x22, 0x25, 0x10, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22}, 14);		
+	QSPI_Set;
 	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xe6, &seq, 14);
 	_wr_data((uint8_t []){0xbe, 0xf5, 0xb1, 0x22, 0x22, 0x25, 0x10, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22}, 14);		
-  
+  QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xec, &seq, 2);
 	_wr_data((uint8_t []){0x40, 0x03}, 2);				
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xb2, &seq, 1);
 	_wr_data((uint8_t []){0x00}, 1);				
-    
+	QSPI_Set;  
+  
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xb3, &seq, 1);
 	_wr_data((uint8_t []){0x01}, 1);				
-		
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xb4, &seq, 1);
 	_wr_data((uint8_t []){0x00}, 1);	
- 
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xa5, &seq, 9);
 	_wr_data((uint8_t []){0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x2a, 0x8a, 0x02}, 9);	
-   
+  QSPI_Set; 
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xa6, &seq, 9);
 	_wr_data((uint8_t []){0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x2a, 0x8a, 0x02}, 9);	
-  
+  QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xba, &seq, 7);
 	_wr_data((uint8_t []){0x0a, 0x5a, 0x23, 0x10, 0x25, 0x02, 0x00}, 7);	
-  
+  QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xbb, &seq, 8);
 	_wr_data((uint8_t []){0x00, 0x30, 0x00, 0x2c, 0x82, 0x87, 0x18, 0x00}, 8);	
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xbc, &seq, 8);
 	_wr_data((uint8_t []){0x00, 0x30, 0x00, 0x2c, 0x82, 0x87, 0x18, 0x00}, 8);	
-  
+  QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0xbd, &seq, 11);
 	_wr_data((uint8_t []){0xa1, 0xb2, 0x2b, 0x1a, 0x56, 0x43, 0x34, 0x65, 0xff, 0xff, 0x0f}, 11);	
- 
-		
+	QSPI_Set;
+	
+	QSPI_Clr;	
 	ST77903_WR_CMD_SEQ(0x35, &seq, 1);
 	_wr_data((uint8_t []){0x00}, 1);		
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0x21, &seq, 1);
 	_wr_data((uint8_t []){0x00}, 1);		
-
+	QSPI_Set;
+	
+	QSPI_Clr;
 	ST77903_WR_CMD_SEQ(0x1, &seq, 1);
 	_wr_data((uint8_t []){0x00}, 1);		
+	QSPI_Set;
 	
 	systick_delay_ms(120);
 		
@@ -483,15 +604,109 @@ static void _lcd_st7709_init(){
 	
 	
 	QSPI_Set;	
+#endif	
+
+
+	
+	
+	
+
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0xc3}),1);
+	
+
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0x96}),1);
+
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0xa5}),1);
+
+	ST77903_WD_DATA(0xb6, &seq,((uint8_t []){0xc7,0x31}),2);
+	
+	ST77903_WD_DATA(0xb5, &seq,((uint8_t []){0x00 ,0x08 ,0x00 ,0x08}),4);
+	
+	ST77903_WD_DATA(0x36, &seq,((uint8_t []){0x0C}),1);
+	
+	ST77903_WD_DATA(0x3a, &seq,((uint8_t []){0x05}),1);
+	
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0xc3}),1);
+
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0x96}),1);
+
+	ST77903_WD_DATA(0xf0, &seq,((uint8_t []){0xa5}),1);
+
+	ST77903_WD_DATA(0xe9, &seq,((uint8_t []){0x20}),1);
+
+	ST77903_WD_DATA(0xe7, &seq,((uint8_t []){0x80, 0x77, 0x1f, 0xcc}),4);
+
+	ST77903_WD_DATA(0xc1, &seq,((uint8_t []){0x77, 0x07, 0xcf, 0x16}),4);
+	
+
+	ST77903_WD_DATA(0xc2, &seq,((uint8_t []){0x77, 0x07, 0xcf, 0x16}),4);
+	
+
+	ST77903_WD_DATA(0xc3, &seq,((uint8_t []){0x22, 0x02, 0x22, 0x04}),4);
+
+	ST77903_WD_DATA(0xc4, &seq,((uint8_t []){0x22, 0x02, 0x22, 0x04}),4);
+	
+
+	ST77903_WD_DATA(0xc5, &seq,((uint8_t []){0xed}),1);
+ 
+	ST77903_WD_DATA(0xe0, &seq,((uint8_t []){0x87, 0x09, 0x0c, 0x06, 0x05, 0x03, 0x29, 0x32, 0x49, 0x0f, 0x1b, 0x17, 0x2a, 0x2f}),14);
+
+	ST77903_WD_DATA(0xe1, &seq,((uint8_t []){0x87, 0x09, 0x0c, 0x06, 0x05, 0x03, 0x29, 0x32, 0x49, 0x0f, 0x1b, 0x17, 0x2a, 0x2f}),14);
+
+	ST77903_WD_DATA(0xe5, &seq,((uint8_t []){0xbe, 0xf5, 0xb1, 0x22, 0x22, 0x25, 0x10, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22}),14);
+
+	ST77903_WD_DATA(0xe6, &seq,((uint8_t []){0xbe, 0xf5, 0xb1, 0x22, 0x22, 0x25, 0x10, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22}),14);
+
+	ST77903_WD_DATA(0xec, &seq,((uint8_t []){0x40, 0x03}),2);	
+
+	ST77903_WD_DATA(0xb2, &seq,((uint8_t []){0x00}),1);		
+
+	ST77903_WD_DATA(0xb3, &seq,((uint8_t []){0x01}),1);		
+	
+	ST77903_WD_DATA(0xb4, &seq,((uint8_t []){0x00}),1);		
+
+	ST77903_WD_DATA(0xa5, &seq,((uint8_t []){0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x2a, 0x8a, 0x02}),9);		
+
+	ST77903_WD_DATA(0xa6, &seq,((uint8_t []){0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x2a, 0x8a, 0x02}),9);	
+
+	ST77903_WD_DATA(0xba, &seq,((uint8_t []){0x0a, 0x5a, 0x23, 0x10, 0x25, 0x02, 0x00}),7);	
+
+	ST77903_WD_DATA(0xbb, &seq,((uint8_t []){0x0a, 0x5a, 0x23, 0x10, 0x25, 0x02, 0x00}),7);	
+
+	ST77903_WD_DATA(0xbc, &seq,((uint8_t []){0x00, 0x30, 0x00, 0x2c, 0x82, 0x87, 0x18, 0x00}),8);	
+
+	ST77903_WD_DATA(0xbd, &seq,((uint8_t []){0xa1, 0xb2, 0x2b, 0x1a, 0x56, 0x43, 0x34, 0x65, 0xff, 0xff, 0x0f}),11);	
+
+	ST77903_WD_DATA(0x35, &seq,((uint8_t []){0x00}),1);		
+
+	ST77903_WD_DATA(0x21, &seq,((uint8_t []){0x00}),0);	
+
+	ST77903_WD_DATA(0x11, &seq,((uint8_t []){0x00}),0);	
+	
+	systick_delay_ms(120);
+
+}
+static uint8_t test_rd[8] = {0};
+static void _test_qspi_read(){
+	lcd_qspi_seq_t seq;
+	
+	QSPI_Clr;	
+	
+	ST77903_RD_CMD_SEQ(0x09, &seq, 4);
+	
+	_rd_data(test_rd, 4);
+	
+	QSPI_Set;	
+
+	printf("date[%02X][%02X][%02X][%02X]\r\n",test_rd[0],test_rd[1],test_rd[2],test_rd[3] );
 	
 }
-
 
 int main(void)
 {
     /* 在调测阶段(版本 Release 时可注释), 预防程序跑飞后, 上电瞬间锁死内核导致无法通过 SWD 访问, 也可用作等待个别硬件模块上电稳定 */
     for (uint32_t i = 0; i < 666666 * 8; ++i) __NOP();
-
+		lcd_qspi_seq_t seq;
 #if 0
     board_init();
     printf("Hi, World! SystemCoreClock: %d Hz\r\n", SystemCoreClock);
@@ -511,23 +726,23 @@ int main(void)
 #endif
 		_board_init();
 		
-		
+		    printf("@Copyright by Synwit Technology");
+    printf("\r\n-------------------------------------\r\n");
 		
 		
 #if 1
 		_lcd_init();
-		lcd_qspi_seq_t seq;
-
-		_lcd_st7709_init();
 		
-		
+		_lcd_set_disp(1);
+		_lcd_st7709_init();		
 		_lcd_st7709_init_bk();
     /* Should not reach here as the scheduler is already started. */
     for (;;)
     {
-			systick_delay_ms(10);
+			systick_delay_ms(50);
+		
         __NOP();
-
+			_test_qspi_read();
 			
 //			QSPI_Clr;
 //			ST77903_WR_CMD_SEQ(0x55, &seq, 1);
