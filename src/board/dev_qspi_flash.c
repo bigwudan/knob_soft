@@ -5,6 +5,7 @@
  * @since       Change Logs:
  * Date         Author       Notes
  * 2024-08-18   lzh          the first version
+ * 2024-10-10   lzh          fix QSPI_line-4 DMA read
  *******************************************************************************************************************************************
  * @attention   THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS WITH CODING INFORMATION
  * REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME. AS A RESULT, SYNWIT SHALL NOT BE HELD LIABLE
@@ -83,6 +84,10 @@ void qspi_dma_read(uint32_t addr, void *data, uint32_t cnt, uint8_t addr_width, 
     }
     while (QSPI_Busy(QSPI0)) __NOP();
     
+    if (cnt < 16) {
+        QSPI_Read_(QSPI0, addr, data, cnt, addr_width, data_width, 1);
+        return ;
+    }
     QSPI_DMAEnable(QSPI0, QSPI_Mode_IndirectRead);
     
     DMA_InitStructure DMA_initStruct;
@@ -108,21 +113,18 @@ void qspi_dma_read(uint32_t addr, void *data, uint32_t cnt, uint8_t addr_width, 
         DMA_initStruct.Count = cnt >> 1;
         DMA_initStruct.PeripheralAddr = (uint32_t)&QSPI0->DRH;
     }
-
     DMA_CH_Init(DMA_CH1, &DMA_initStruct);
     DMA_CH_Open(DMA_CH1);
     
-//    QSPI_DMAEnable(QSPI0, QSPI_Mode_IndirectRead);
-//    DMA_CH_Open(DMA_CH1);
-    
     QSPI_Read_(QSPI0, addr, data, cnt, addr_width, data_width, 0);
-
-//    DMA_CH_Open(DMA_CH1);
 
     while (0 == DMA_CH_INTStat(DMA_CH1, DMA_IT_DONE)) __NOP();
     DMA_CH_INTClr(DMA_CH1, DMA_IT_DONE);
-
-//    while (QSPI_Busy(QSPI0)) __NOP();
-
+    
+    QSPI_Abort(QSPI0);
+    
+    //在 QSPI busy 时，写 QSPI->CR 寄存器无效
+    while (QSPI_Busy(QSPI0)) __NOP();
+    
     QSPI_DMADisable(QSPI0);
 }

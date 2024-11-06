@@ -38,9 +38,9 @@
 #define NV3041_RD_DATA(data, bytes)                 lcd_mpu_driver_rd_data(self, data, bytes)
 
 /* QSPI 读写指令及时序须查看 COG 规格书设定以下宏 */
-#include "dev_lcd_mpu_qspi_private.h"
-//__LCD_QSPI_SEQ_SET_WR(seq, ins, ins_line, addrs, addrline, addrbits, alt, alt_line, alt_bits, dummycycles, dataline, datacount)
-//__LCD_QSPI_SEQ_SET_RD(seq, ins, ins_line, addrs, addrline, addrbits, alt, alt_line, alt_bits, dummycycles, dataline, datacount)
+#include "dev_lcd_mpu_qspi.h"
+//LCD_QSPI_SEQ_SET_WR(seq, ins, ins_line, addrs, addrline, addrbits, alt, alt_line, alt_bits, dummycycles, dataline, datacount)
+//LCD_QSPI_SEQ_SET_RD(seq, ins, ins_line, addrs, addrline, addrbits, alt, alt_line, alt_bits, dummycycles, dataline, datacount)
 
 //Command write mode: 
 // Write Cycle Sequence: 
@@ -48,13 +48,13 @@
 // Write GRAM(0x2C/3C): 
 //PP4O: Command - 32h(1_line)    24-bit address [0x00 cmd 00](1_line)    data(4_line)
 //PP4O: Command - 12h(1_line)    24-bit address [0x00 cmd 00](4_line)    data(4_line)
-#define NV3041_QSPI_SEQ_SET_WR_L11(seq, cmd, bytes)          __LCD_QSPI_SEQ_SET_WR(seq, 0x02, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)
-#define NV3041_QSPI_SEQ_SET_WR_L14(seq, cmd, bytes)          __LCD_QSPI_SEQ_SET_WR(seq, 0x32, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 4, bytes)
-#define NV3041_QSPI_SEQ_SET_WR_L44(seq, cmd, bytes)          __LCD_QSPI_SEQ_SET_WR(seq, 0x12, 1, (cmd << 8) & 0xFF00, 4, 24, 0, 0, 0, 0, 4, bytes)
+#define NV3041_QSPI_SEQ_SET_WR_L11(seq, cmd, bytes)          LCD_QSPI_SEQ_SET_WR(seq, 0x02, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)
+#define NV3041_QSPI_SEQ_SET_WR_L14(seq, cmd, bytes)          LCD_QSPI_SEQ_SET_WR(seq, 0x32, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 4, bytes)
+#define NV3041_QSPI_SEQ_SET_WR_L44(seq, cmd, bytes)          LCD_QSPI_SEQ_SET_WR(seq, 0x12, 1, (cmd << 8) & 0xFF00, 4, 24, 0, 0, 0, 0, 4, bytes)
 
 //Read command mode: (IO0 输出, IO1 输入)
 //READ : Command - 03h(1_line)    24-bit address [0x00 cmd 00](1_line)        data(1_line)
-#define NV3041_QSPI_SEQ_SET_RD(seq, cmd, bytes)              __LCD_QSPI_SEQ_SET_RD(seq, 0x03, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)
+#define NV3041_QSPI_SEQ_SET_RD(seq, cmd, bytes)              LCD_QSPI_SEQ_SET_RD(seq, 0x03, 1, (cmd << 8) & 0xFF00, 1, 24, 0, 0, 0, 0, 1, bytes)
 
 //选择写入 GRAM 的时序(1 / 2 / 4 line)
 #define NV3041_QSPI_SEQ_SET_WR_GRAM(seq, cmd, bytes)         NV3041_QSPI_SEQ_SET_WR_L44(seq, cmd, bytes)

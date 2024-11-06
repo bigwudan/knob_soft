@@ -188,7 +188,7 @@ static uint8_t lcd_mpu_board_init(lcd_mpu_desc_t *self)
 {
     switch (self->cfg.interface)
     {
-#if CFG_LCD == CFG_LCD_IF_QSPI
+#if CFG_LCD_IF == CFG_LCD_IF_QSPI
     case (CFG_LCD_IF_QSPI):
     {
         LINK_LCD_DRIVER(self, qspi);
@@ -198,7 +198,7 @@ static uint8_t lcd_mpu_board_init(lcd_mpu_desc_t *self)
         */
         break;
     }
-#elif CFG_LCD == CFG_LCD_IF_I8080_8
+#elif CFG_LCD_IF == CFG_LCD_IF_I8080_8
     case (CFG_LCD_IF_I8080_8):
     {
         LINK_LCD_DRIVER(self, i80_8);
@@ -207,7 +207,7 @@ static uint8_t lcd_mpu_board_init(lcd_mpu_desc_t *self)
         LINK_LCD_HW_ASYNC(self, i80_8);
         break;
     }
-#elif CFG_LCD == CFG_LCD_IF_SPI_8
+#elif CFG_LCD_IF == CFG_LCD_IF_SPI_8
     case (CFG_LCD_IF_SPI_8):
     {
         LINK_LCD_DRIVER(self, spi_8);
@@ -216,7 +216,7 @@ static uint8_t lcd_mpu_board_init(lcd_mpu_desc_t *self)
         LINK_LCD_HW_ASYNC(self, spi_8);
         break;
     }
-#elif CFG_LCD == CFG_LCD_IF_SPI_9
+#elif CFG_LCD_IF == CFG_LCD_IF_SPI_9
     case (CFG_LCD_IF_SPI_9):
     {
         LINK_LCD_DRIVER(self, spi_9);

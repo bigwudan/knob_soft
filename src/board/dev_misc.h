@@ -20,9 +20,9 @@
 #include <stdint.h>
 #include <cmsis_compiler.h>
 
-/* BOD 具体阈值请以最新数据手册描述为准 */
+/* 低压具体阈值请以最新数据手册描述为准 */
 
-/** BOD 中断触发电平: 0 2.0v   1 2.3v   2 2.7v   3 3.0v   4 3.7v   5 4.0v   6 4.3v */
+/** 低压中断触发电平: 0 2.0v   1 2.3v   2 2.7v   3 3.0v   4 3.7v   5 4.0v   6 4.3v */
 enum {
     BOD_INT_2000_MV = 0,
     BOD_INT_2300_MV,
@@ -33,7 +33,7 @@ enum {
     BOD_INT_4300_MV,
 };
 
-/** BOD 复位电平: 0 1.8v   1 2.0v   2 2.5v   3 3.5v */
+/** 低压复位电平: 0 1.8v   1 2.0v   2 2.5v   3 3.5v */
 enum {
     BOD_RST_1800_MV = 0,
     BOD_RST_2000_MV,
@@ -66,7 +66,8 @@ void swd_port_config(uint8_t fun_mux);
  */
 void xtal_stop_check_init(void);
 
-__NO_RETURN void jump_to_app(void);
+__NO_RETURN void jump_to_app(uint32_t addr);
+void Flash_remap(uint32_t addr);
 
 #endif //__DEV_MISC_H__
 

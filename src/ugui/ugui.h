@@ -59,6 +59,9 @@ EXPORT_VAR extern __UG_FONT_DATA UG_FONT UG_FONT_MONTSERRAT_10;
    #define NULL ((void*) 0)
 #endif
 
+#define UG_TRUE     1
+#define UG_FALSE    0
+
 #define UG_MIN(a, b)    ((a) < (b) ? (a) : (b))
 #define UG_MAX(a, b)    ((a) < (b) ? (b) : (a))
 #define UG_DIM(x)   (sizeof(x) / sizeof((x)[0]))
@@ -110,6 +113,33 @@ typedef struct
 
 #define TOUCH_STATE_PRESSED                           1
 #define TOUCH_STATE_RELEASED                          0
+
+/* Focus pattern */
+enum {
+    UG_FOCUS_EFFECT_FRAME = 0,
+    UG_FOCUS_EFFECT_SOLID,
+};
+typedef struct {
+    // 焦点控件的标记样式:
+    //      UG_FOCUS_EFFECT_FRAME   标记样式为边框
+    //      UG_FOCUS_EFFECT_SOLID   标记样式为填充色
+    UG_U8 effect;
+
+    /* 颜色 */
+    UG_COLOR color;
+
+    /* 透明度， 0~255*/
+    UG_U8 opa;
+
+    /* 采用边框样式时的线条宽度 */
+    UG_S16 line_width;
+
+    /* 标记效果的上/下/左/右缩进像素数 */
+    UG_U8 padding_top;
+    UG_U8 padding_bottom;
+    UG_U8 padding_left;
+    UG_U8 padding_right;
+}UG_FOCUS_EFFECT;
 
 /* -------------------------------------------------------------------------------- */
 /* -- OBJECTS                                                                    -- */
@@ -236,6 +266,8 @@ typedef struct
    UG_COLOR desktop_color;
    UG_U8 state;
    UG_DRIVER driver[NUMBER_OF_DRIVERS];
+
+   UG_FOCUS_EFFECT focus_effect;
 } UG_GUI;
 
 #define UG_SATUS_WAIT_FOR_UPDATE                      (1<<0)
@@ -275,7 +307,23 @@ EXPORT_API void UG_DriverRegister( UG_U8 type, void* driver );
 EXPORT_API void UG_DriverEnable( UG_U8 type );
 EXPORT_API void UG_DriverDisable( UG_U8 type );
 
-
+/*----------------------焦点类APIs----------------------*/
+/* 设置/取消焦点对象 */
+EXPORT_API UG_RESULT UG_SetFocus(UG_OBJECT* obj, UG_BOOL focus);
+/* 获取当前窗体焦点对象 */
+EXPORT_API UG_OBJECT* UG_GetFocusedObject();
+/* 判断某个对象是否焦点对象 */
+EXPORT_API UG_BOOL UG_IsFocusedObject(UG_OBJECT* obj);
+/* 设定聚焦时的标记样式 */
+EXPORT_API void UG_SetFocusEffect(UG_OBJECT* obj, const UG_FOCUS_EFFECT *effect);
+/* 移动焦点到下一个/上一个对象 */
+EXPORT_API UG_OBJECT* UG_FocusFoward();
+EXPORT_API UG_OBJECT* UG_FocusBackward();
+/* 移动焦点到上方/下方/左侧/右侧对象 */
+EXPORT_API UG_OBJECT* UG_FocusMoveToUp();
+EXPORT_API UG_OBJECT* UG_FocusMoveToDown();
+EXPORT_API UG_OBJECT* UG_FocusMoveToLeft();
+EXPORT_API UG_OBJECT* UG_FocusMoveToRight();
 #ifdef __cplusplus
 }
 #endif

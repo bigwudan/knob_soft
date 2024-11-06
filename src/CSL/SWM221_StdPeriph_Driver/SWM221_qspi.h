@@ -129,11 +129,11 @@ void QSPI_Write_(QSPI_TypeDef * QSPIx, uint32_t addr, uint8_t buff[], uint32_t c
 #define QSPI_Write(QSPIx, addr, buff, count)	   QSPI_Write_(QSPIx, (addr), (buff), (count), 1, 1)
 #define QSPI_Write_4bit(QSPIx, addr, buff, count)  QSPI_Write_(QSPIx, (addr), (buff), (count), 4, 1)
 void QSPI_Read_(QSPI_TypeDef * QSPIx, uint32_t addr, uint8_t buff[], uint32_t count, uint8_t addr_width, uint8_t data_width, uint8_t data_phase);
-#define QSPI_Read(QSPIx, addr, buff, count)			QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 1, 1);
-#define QSPI_Read_2bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 2, 1);
-#define QSPI_Read_4bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 4, 1);
-#define QSPI_Read_IO2bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 2, 2, 1);
-#define QSPI_Read_IO4bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 4, 4, 1);
+#define QSPI_Read(QSPIx, addr, buff, count)			QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 1, 1)
+#define QSPI_Read_2bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 2, 1)
+#define QSPI_Read_4bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 1, 4, 1)
+#define QSPI_Read_IO2bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 2, 2, 1)
+#define QSPI_Read_IO4bit(QSPIx, addr, buff, count)	QSPI_Read_(QSPIx, (addr), (buff), (count), 4, 4, 1)
 
 
 bool QSPI_FlashBusy(QSPI_TypeDef * QSPIx);
@@ -155,6 +155,11 @@ static inline bool QSPI_Busy(QSPI_TypeDef * QSPIx)
 	return QSPIx->SR & QSPI_SR_BUSY_Msk;
 }
 
+static inline void QSPI_Abort(QSPI_TypeDef * QSPIx)
+{
+	QSPIx->CR |= QSPI_CR_ABORT_Msk;
+}
+
 static inline uint32_t QSPI_FIFOCount(QSPI_TypeDef * QSPIx)
 {
 	return (QSPIx->SR & QSPI_SR_FFLVL_Msk) >> QSPI_SR_FFLVL_Pos;
@@ -170,10 +175,10 @@ static inline bool QSPI_FIFOEmpty(QSPI_TypeDef * QSPIx)
 	return QSPI_FIFOCount(QSPIx) == 0;
 }
 
-static inline void QSPI_DMAEnable(QSPI_TypeDef * QSPIx, uint8_t mode)
+static inline void QSPI_DMAEnable(QSPI_TypeDef * QSPIx, uint32_t mode)
 {
 	/* 必须先设置正确的读写模式，然后再置位 QSPI->CR.DMAEN；且在设置 CCR.MODE 时不能写 CCR.CODE 域 */
-	*((volatile uint8_t *)((uint32_t)&QSPIx->CCR + 3)) = (mode << (QSPI_CCR_MODE_Pos - 24));
+	*((uint8_t *)((uint32_t)&QSPIx->CCR + 3)) = (mode << (QSPI_CCR_MODE_Pos - 24));
 	
 	QSPIx->CR |=  QSPI_CR_DMAEN_Msk;
 }

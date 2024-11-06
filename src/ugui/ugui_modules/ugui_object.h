@@ -10,6 +10,7 @@ extern "C" {
 typedef struct S_OBJECT
 {
     UG_U8 state;                              /* object state                               */
+    UG_U8 cap;                                /* Capabilities */
     UG_U8 touch_state;                        /* object touch state                         */
     int (*require)(struct S_OBJECT* obj, UG_U8 req, void* req_data);
 
@@ -50,7 +51,7 @@ typedef struct S_OBJECT
 /* Object states */
 #define OBJ_STATE_FREE                                (1<<0)
 #define OBJ_STATE_VALID                               (1<<1)
-#define OBJ_STATE_BUSY                                (1<<2)
+#define OBJ_STATE_FOCUSED                             (1<<2)
 #define OBJ_STATE_VISIBLE                             (1<<3)
 #define OBJ_STATE_ENABLE                              (1<<4)
 #define OBJ_STATE_UPDATE                              (1<<5)
@@ -58,12 +59,20 @@ typedef struct S_OBJECT
 #define OBJ_STATE_TOUCH_ENABLE                        (1<<7)
 #define OBJ_STATE_INIT                                (OBJ_STATE_FREE | OBJ_STATE_VALID)
 
+/* Object capabilities */
+#define OBJ_CAP_FOCUSABLE       (1<<0)
 
 /* 将控件对象设置为不可见 */
 EXPORT_API UG_RESULT UG_ObjectHide(UG_OBJECT* obj);
 
-/* 将控件对象设置为可见*/
+/* 将控件对象设置为可见 */
 EXPORT_API UG_RESULT UG_ObjectShow(UG_OBJECT* obj);
+
+/* 重绘对象 */
+EXPORT_API void UG_ObjectInvalidate(UG_OBJECT* obj);
+
+/* 设置对象是否可以聚焦 */
+EXPORT_API void UG_ObjectSetFocusable(UG_OBJECT* obj, UG_BOOL focusable);
 
 /* 获取控件的可见情况，返回0表示不可见，1表示可见 */
 EXPORT_API UG_U8 UG_ObjectIsVisible(UG_OBJECT* obj);

@@ -15,6 +15,8 @@ typedef struct S_WINDOW
     UG_U8 objmax;
     UG_U8 objcnt;
     struct S_OBJECT** objlst;
+    struct S_OBJECT* focused_obj;
+
     UG_AREA inv[10];
     UG_U8 invcnt;
     UG_U8 invmerged;

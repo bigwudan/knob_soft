@@ -33,7 +33,7 @@
 
 static void sleep_io_all(void);
 
-__attribute__((section(".SRAM")))
+__attribute__((used, section(".SRAM")))
 static void enter_sleep_mode(void)
 {
     __NOP();__NOP();__NOP();

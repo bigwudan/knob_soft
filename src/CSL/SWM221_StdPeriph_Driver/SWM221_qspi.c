@@ -55,9 +55,8 @@ void QSPI_Init(QSPI_TypeDef * QSPIx, QSPI_InitStructure * initStruct)
 	
 	AddressSize = initStruct->Size / 8;
 	
-	QSPIx->SSTRIM = (initStruct->SampleShift & 0x0F) | (4 << 4);
-	
-	QSPIx->CS0TO = 100;
+	QSPIx->SSHIFT = ((initStruct->SampleShift & 0x0F) << QSPI_SSHIFT_CYCLE_Pos) |
+					(2								  << QSPI_SSHIFT_SPACE_Pos);
 	
 	QSPIx->FCR = 0x1B;
 	if(initStruct->IntEn)
@@ -142,10 +141,8 @@ void QSPI_Command(QSPI_TypeDef * QSPIx, uint8_t cmdMode, QSPI_CmdStructure * cmd
 	
 	if(cmdStruct->AddressMode != QSPI_PhaseMode_None)
 		QSPIx->AR = cmdStruct->Address;
-
-//	for(int i = 0; i < 3; i++) __NOP();
-//    for(int i = 0; i < 8; i++) __NOP();
-    __ISB();__DSB();
+    
+	for(int i = 0; i < 3; i++) __NOP();
 }
 
 
@@ -402,6 +399,8 @@ void QSPI_Read_(QSPI_TypeDef * QSPIx, uint32_t addr, uint8_t buff[], uint32_t co
 			buff[i] = QSPIx->DRB;
 		}
 	}
+    
+	QSPI_Abort(QSPIx);
 }
 
 

@@ -28,24 +28,24 @@
  */
 void bod_config(uint8_t rst_mv, uint8_t int_mv, uint8_t int_en)
 {
-	SYS->BODCR = (1 << SYS_BODCR_EN_Pos) |
-				 (1 << SYS_BODCR_IE_Pos) |
-				 (int_mv << SYS_BODCR_LVL_Pos);
+	SYS->PVDCR = (1 << SYS_PVDCR_EN_Pos) |
+				 (1 << SYS_PVDCR_IE_Pos) |
+				 (int_mv << SYS_PVDCR_LVL_Pos);
 	
 	SYS->LVRCR = (1 << SYS_LVRCR_EN_Pos)  |
 				 (rst_mv << SYS_LVRCR_LVL_Pos) |
 				 (1 << SYS_LVRCR_WEN_Pos);
     if (int_en)
     {
-        SYS->BODSR |= (1 << SYS_BODSR_IF_Pos);
-        NVIC_EnableIRQ(GPIOA3_GPIOC3_BOD_IRQn);
+        SYS->PVDSR |= (1 << SYS_PVDSR_IF_Pos);
+        NVIC_EnableIRQ(GPIOA3_GPIOC3_PVD_IRQn);
     }
 }
 
 //__WEAK 
-void GPIOA3_GPIOC3_BOD_Handler(void)
+void GPIOA3_GPIOC3_PVD_Handler(void)
 {
-    SYS->BODSR = (1 << SYS_BODSR_IF_Pos); //清除中断标志
+    SYS->PVDSR = (1 << SYS_PVDSR_IF_Pos); //清除中断标志
     
     while (1) __NOP(); //eg: WDT RST
 }
@@ -106,36 +106,40 @@ void XTALSTOP_Handler(void)
 #endif
 }
 
-/* 注意事项：jumpApp.c 需要定位到 Data RAM, 方法如下：(两种方法任取其一)
- * 1、在 jumpApp.c 上右键选 “Options for File 'jumpApp.c'”, 在“Properties”选项页中“Code/Const”后下拉框选“IRAM1 [0x20000000-0x20000FFF]”, 点“OK”确定.
- * 2、修改 scatter file 设定 jump_to_app 至 RAM section 内.
- * ARM cortex-M0 没有 SCB->VTOR 寄存器.
- */
-__attribute__((section(".SRAM")))
-__NO_RETURN void jump_to_app(void)
+__NO_RETURN void jump_to_app(uint32_t addr)
 {
-    //本函数必须在RAM中执行，因为其中会REMAP操作，代码所在Flash可能会被重映射到其他地址
+	/* 跳转到APP前需要将UserBoot使用的外设关掉（复位）*/
+	__disable_irq();
+	
+	SYS->PRSTEN = 0x55;
+	SYS->PRSTR0 = 0xFFFFFFFF & (~SYS_PRSTR0_ANAC_Msk);
+	for(uint32_t i = 0; i < CyclesPerUs; ++i) __NOP();
+	SYS->PRSTR0 = 0;
+	SYS->PRSTEN = 0;
     
-    #define EEPROM_ADDR      (0x800 * 4)
-	/* 将 EEPROM_ADDR 处的 Flash 映射到 0 地址, 后从 0 地址读取数据 */
-	FMC->REMAP = (1 << FMC_REMAP_ON_Pos) | ((EEPROM_ADDR / 0x800) << FMC_REMAP_OFFSET_Pos);
-	FMC->CACHE |= (1 << FMC_CACHE_CCLR_Pos);
+    /* Disable SysTick IRQ and SysTick Timer */
+    SysTick->CTRL = 0;
+    /* pending SysTick exception */
+    if (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk)
+    {
+        SCB->ICSR = SCB_ICSR_PENDSTCLR_Msk; /* clear pending bit */
+    }
+    SysTick->LOAD = 0;
+    SysTick->VAL = 0;
 
-//	for (uint32_t i = 0; i < 20; i++) RdBuff[i] = ((volatile uint32_t *)0x00)[i];
-	FMC->REMAP = (0 << FMC_REMAP_ON_Pos);
-	FMC->CACHE |= FMC_CACHE_CCLR_Msk;
+	NVIC->ICER[0] = 0xFFFFFFFF;
+    
 
-//	for (uint32_t i = 0; i < 20; i++) printf("0x%08X, ", RdBuff[i]);
-
-#if 1
-    NVIC_SystemReset();
-#else
-    __DSB();                                                          /* Ensure all outstanding memory accesses included
-                                                                       buffered write are completed before reset */
-    SCB->AIRCR  = ((0x5FAUL << SCB_AIRCR_VECTKEY_Pos) |
-                 SCB_AIRCR_SYSRESETREQ_Msk);
-    __DSB();                                                          /* Ensure completion of memory access */
-#endif
+	static volatile uint32_t sp;
+	static volatile uint32_t pc;
+    
+    sp = *((volatile uint32_t *)(addr));
+    pc = *((volatile uint32_t *)(addr + 4));
+	
+	__set_MSP(sp);
+	
+    typedef void (*ResetHandler)(void);
+	((ResetHandler)pc)();
 
     for(;;) /* wait until reset, no return */
     {
@@ -143,3 +147,14 @@ __NO_RETURN void jump_to_app(void)
     }
 }
 
+__attribute__((used, section(".SRAM")))
+void Flash_remap(uint32_t addr)
+{
+	/* 只能在APP中REMAP，在UserBoot中REMAP可能会导致访问UserBoot的代码被重定向到APP的代码 */
+	FMC->REMAP = (1 << FMC_REMAP_ON_Pos) | ((addr / 2048) << FMC_REMAP_OFFSET_Pos);
+	FMC->CACHE |= FMC_CACHE_CCLR_Msk;
+	
+	__NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+	
+	__enable_irq();
+}

@@ -15,7 +15,7 @@
  *******************************************************************************************************************************************
  */
 #include "dev_lcd_mpu.h"
-#include "dev_lcd_mpu_qspi_private.h"
+#include "dev_lcd_mpu_qspi.h"
 #include "SWM221.h"
 
 #if 1 /* 调试打印 */
@@ -49,11 +49,7 @@ static uint8_t qspi_dma_xfer(void *data, uint32_t pixels, uint8_t async, uint8_t
     }
     
     uint8_t unit_step = 1; //1: half_word   2: word
-    
-    while (!QSPI_FIFOEmpty(LCD_QSPI_X)) __NOP();
-    //QSPI_DMAEnable(LCD_QSPI_X, QSPI_Mode_IndirectWrite);
-    LCD_QSPI_X->CR |= QSPI_CR_DMAEN_Msk;
-    
+
     DMA_InitStructure DMA_initStruct;
     DMA_initStruct.Mode = DMA_MODE_SINGLE;
     DMA_initStruct.Unit = DMA_UNIT_HALFWORD; /* RGB565 */
@@ -70,7 +66,7 @@ static uint8_t qspi_dma_xfer(void *data, uint32_t pixels, uint8_t async, uint8_t
     if (0 == ((uint32_t)data & (4 - 1)) && 0 == (pixels & (2 - 1))) {
         /* 纯色时特殊处理 */
         if (0 == src_inc) {
-            *(uint32_t *)data |= ((*(uint16_t *)data) << 16);
+            *(uint32_t *)data |= ((*(uint16_t *)data) << 16); //传入参数须为 uint32_t 
         }
         DMA_initStruct.Unit = DMA_UNIT_WORD; /* Word */
         //DMA_initStruct.Count = pixels >> 1;
@@ -82,6 +78,9 @@ static uint8_t qspi_dma_xfer(void *data, uint32_t pixels, uint8_t async, uint8_t
 
     DMA_CH_Init(LCD_QSPI_TX_DMACHN, &DMA_initStruct);
 
+    //QSPI_DMAEnable(LCD_QSPI_X, QSPI_Mode_IndirectWrite);
+    LCD_QSPI_X->CR |= QSPI_CR_DMAEN_Msk;
+    
     /* DMA Sync */
     uint32_t data_addr = (uint32_t)data;
     while (pixels > DMA_SINGLE_CNT_MAX)
@@ -110,6 +109,7 @@ static uint8_t qspi_dma_xfer(void *data, uint32_t pixels, uint8_t async, uint8_t
         while (0 == DMA_CH_INTStat(LCD_QSPI_TX_DMACHN, DMA_IT_DONE)) __NOP();
         DMA_CH_INTClr(LCD_QSPI_TX_DMACHN, DMA_IT_DONE);
         
+        //在 QSPI busy 时，写 QSPI->CR 寄存器无效
         while (QSPI_Busy(LCD_QSPI_X)) __NOP();
         
         QSPI_DMADisable(LCD_QSPI_X);

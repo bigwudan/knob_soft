@@ -26,7 +26,7 @@ void test_case_main_tick(void) // 主循环每跑一次，都会触发一次这�
 {
     void test_case_led(void);
     test_case_led();
-
+    
     void test_case_key(void);
     test_case_key();
 
@@ -62,7 +62,7 @@ void test_case_driver_init(void)
     /* Simple 色块测试自检, 以验证 LCD 显示驱动是否正常 */
     void test_case_draw_rect(void);
     test_case_draw_rect();
-
+    
 #if 0 /* Simple 擦读写, 以验证 SPI Flash 驱动是否正常(注意此测试项会覆盖 SPI Flash 中的原有数据) */
     extern void qspi_multiplex_flash(void);
     qspi_multiplex_flash(); // QSPI 分时复用 Flash 
@@ -88,7 +88,7 @@ void test_case_screen_next(void)
 #if 0
     #include "./ui_src/appkit/screen_id.h"
     UG_ID scr_id_table[] = {
-        SCREEN001, SCREEN002, SCREEN003, SCREEN004, SCREEN005, /*SCREEN006, SCREEN007, SCREEN008, */
+        SCREEN001, SCREEN002, //SCREEN003, SCREEN004, SCREEN005, /*SCREEN006, SCREEN007, SCREEN008, */
     };
     
     UG_ID scr_id;
@@ -343,6 +343,7 @@ void uart_debug_handler_timeout_hook(void)
 #else // UART modbus
 void uart_debug_handler_readbyte_hook(uint8_t chr)
 {
+    if (!rb.pool) return ;
     chry_ringbuffer_write_byte(&rb, chr);
     ISR_Flag_UART_Debug = 1;
 }
@@ -359,6 +360,7 @@ void uart_debug_handler_timeout_hook(void)
 #include "modbus_rtu.h"
 static uint32_t modbus_rx_data(uint8_t *buff, uint32_t len)
 {
+    if (!rb.pool) return 0;
     uint32_t back_len = chry_ringbuffer_read(&rb, buff, len);
     ISR_Flag_UART_Debug = 2;
     return back_len;
@@ -596,7 +598,7 @@ void test_case_qspi_flash(uint32_t addr, uint32_t size)
             //continue;
             while (1) __NOP();
         }
-        printf("\n\nAfter memcmp: \n");
+        //printf("\n\nAfter memcmp: \n");
         addr += single_size;
         i += single_size;
     }

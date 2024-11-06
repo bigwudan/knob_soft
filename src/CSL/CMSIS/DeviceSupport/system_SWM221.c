@@ -46,11 +46,11 @@
 /********************************** PLL 设定 **********************************************
  * PLL输出频率 = PLL输入时钟 / INDIV * FBDIV
  *****************************************************************************************/ 
-#define SYS_PLL_SRC   	SYS_CLK_8MHz	//可取值SYS_CLK_8MHz、SYS_CLK_XTAL
+#define SYS_PLL_SRC   	SYS_CLK_XTAL	//可取值SYS_CLK_8MHz、SYS_CLK_XTAL
 
-#define PLL_IN_DIV		4
+#define PLL_IN_DIV		2
 
-#define PLL_FB_DIV		36
+#define PLL_FB_DIV		12
 
 
 
@@ -149,8 +149,9 @@ void SystemInit(void)
 	
 	Flash_Param_at_xMHz(CyclesPerUs);
 	
-	FMC->CACHE = (1 << FMC_CACHE_CEN_Pos) | FMC_CACHE_CCLR_Msk;	// 清除 Cache
-	__NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+	Cache_Clear();						// Cache Clear
+	
+	FMC->CACHE |= FMC_CACHE_CEN_Msk;	// Cache Enable
 	
 	PORTB->PULLD &= ~((1 << PIN10) | (1 << PIN11));
 	PORTB->PULLU &= ~((1 << PIN12) | (1 << PIN15));

@@ -33,7 +33,7 @@
 
 /* LCD RS/DC: 数据或者命令管脚(1：数据读写, 0：命令读写) */
 #define LCD_GPIO_RS           GPIOB
-#define LCD_PIN_RS            PIN6
+#define LCD_PIN_RS            PIN14
 
 #define LCD_SPI_X             SPI0
 
