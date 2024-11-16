@@ -2,12 +2,12 @@
 =================================================== keil-build-viewer v1.5b ==================================================
  
 [Search keil project] 1 item(s)
-	D:\knob_soft\ugui_app.uvprojx
+	D:\knob_soft\app\ugui_app.uvprojx
 
 [User input] 
-[Current folder] D:\knob_soft
+[Current folder] D:\knob_soft\app
 [Encoding] 936
-[Keil project path] D:\knob_soft\ugui_app.uvprojx
+[Keil project path] D:\knob_soft\app\ugui_app.uvprojx
 [Keil project name] ugui_app.uvprojx
 [Is keil v4] 0
 [target name] SWM221-Debug
@@ -30,21 +30,21 @@
 [name] IROM [base addr] 0x00000000 [size] 0x00020000 [type] 2 [off-chip] 0 [is pack] 1 [ID] 3 
 
 
-[map file path] D:\knob_soft\out\ugui_app.map
+[map file path] D:\knob_soft\app\out\ugui_app.map
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000CB2C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000AA5C [memory type] 2 [memory ID] 3
 
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000019A0 [memory type] 1 [memory ID] 2
-		[ZI block] addr: 0x20000030, size: 0x00001970 (6512)
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001990 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000020, size: 0x00001970 (6512)
 
 
 [object name max length] 18
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-3deb7f.o   [path] (null)
+[object name] lto-llvm-625f38.o   [path] (null)
 [object name] startup_swm221.o    [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 [object name] ugui_framework.lib  [path] .\libs\ugui_framework.lib
 
@@ -117,25 +117,26 @@
 [old name] SWM221_wdt.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_wdt.c
 [old name] ugui_framework.lib  [type] 3   [path] .\libs\ugui_framework.lib
 [old name] app.c               [type] 1   [path] .\src\apps\ui_src\appkit\app.c
+[old name] screen001.c         [type] 1   [path] .\src\apps\ui_src\screen001.c
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000CB2C [type] 2 [ID] 3
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000019A0 [type] 1 [ID] 2
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000AA5C [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001990 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
 [memory print mode]: 0
 LR_IROM1
         RAM 1             [0x20000000 | 0x00002000 (8192)]
-                [zi start] 1   [zi end] 40
-                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ__________| (   6.4 KB /   8.0 KB )  80.1%  
+                [zi start] 1   [zi end] 39
+                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ___________| (   6.3 KB /   8.0 KB )  79.9%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_______________________________| (  50.7 KB / 128.0 KB )  39.7%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö__________________________________| (  42.5 KB / 128.0 KB )  33.3%  
  
-[htm file path] D:\knob_soft\out\Debug\ugui_app.htm
+[htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        556 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.070 s
+run time: 0.057 s

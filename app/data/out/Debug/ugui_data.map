@@ -1,0 +1,109 @@
+Component: ARM Compiler 6.9 Tool: armlink [5ced1b00]
+
+==============================================================================
+
+Section Cross References
+
+
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ui_data.c                                0x00000000   Number         0  ui_data.o ABSOLUTE
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv3M$S$PE$A:L22$X:L11$S22$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$STANDARDLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    ui_data0                                 0x70000000   Data       25727  ui_data.o(.SPIFLASH0)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image entry point : Not specified.
+
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00000000   0x00000000   Code   RO            1    .text               ui_data.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00000000, Size: 0x00000000, Max: 0x00002000, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+
+  Load Region LR_SPIFLASH (Base: 0x70000000, Size: 0x00006480, Max: 0x01000000, ABSOLUTE)
+
+    Execution Region REGION0 (Exec base: 0x70000000, Load base: 0x70000000, Size: 0x00006480, Max: 0x00400000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x70000000   0x70000000   0x0000647f   Data   RO            2    .SPIFLASH0          ui_data.o
+
+
+    Execution Region REGION1 (Exec base: 0x70400000, Load base: 0x70006480, Size: 0x00000000, Max: 0x00400000, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region REGION2 (Exec base: 0x70800000, Load base: 0x70006480, Size: 0x00000000, Max: 0x00400000, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region REGION3 (Exec base: 0x70c00000, Load base: 0x70006480, Size: 0x00000000, Max: 0x00400000, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+         0          0      25727          0          0          0   ui_data.o
+
+    ----------------------------------------------------------------------
+         0          0      25728          0          0          0   Object Totals
+         0          0          0          0          0          0   (incl. Generated)
+         0          0          1          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+         0          0          0          0          0          0   Library Totals
+         0          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+         0          0      25728          0          0          0   Grand Totals
+         0          0      25728          0          0          0   ELF Image Totals
+         0          0      25728          0          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                25728 (  25.13kB)
+    Total RW  Size (RW Data + ZI Data)                 0 (   0.00kB)
+    Total ROM Size (Code + RO Data + RW Data)      25728 (  25.13kB)
+
+==============================================================================
+

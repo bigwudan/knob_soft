@@ -1,0 +1,6 @@
+--cpu Cortex-M0
+".\out\debug\ui_data.o"
+--nodebug --strict --scatter ".\spiflash_data.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\out\Debug\ugui_data.map" -o .\out\Debug\ugui_data.axf
