@@ -847,6 +847,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\apps\ui_src\screen001.c</FilePath>
             </File>
+            <File>
+              <FileName>screen002.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\apps\ui_src\screen002.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1691,6 +1696,11 @@
               <FileName>screen001.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\apps\ui_src\screen001.c</FilePath>
+            </File>
+            <File>
+              <FileName>screen002.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\apps\ui_src\screen002.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -331,10 +331,13 @@ static chry_ringbuffer_t rb;
 static volatile uint8_t ISR_Flag_UART_Debug = 0;
 #define MODBUS_UART       UART1
 
-#if 0 // UART DEBUG 回显
+uint8_t uart_chr = 0;
+
+#if 1 // UART DEBUG 回显
 void uart_debug_handler_readbyte_hook(uint8_t chr)
 {
     printf("%c", chr);
+	uart_chr = chr;
 }
 void uart_debug_handler_timeout_hook(void)
 {

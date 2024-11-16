@@ -6,9 +6,11 @@
  * Register screens
  */
 APP_OBJ_DECLARE(screen001_cb_obj)
+APP_OBJ_DECLARE(screen002_cb_obj)
 
 SCREEN_REG_BEGIN
     SCREEN_BIND(SCREEN001, screen001_cb_obj)
+    SCREEN_BIND(SCREEN002, screen002_cb_obj)
 SCREEN_REG_END
 
 #ifndef WIN32
@@ -16,9 +18,11 @@ SCREEN_REG_END
  * Register widgets
  */
 WIDGET_OBJ_DECLARE(ug_image_reg)
+WIDGET_OBJ_DECLARE(ug_label_reg)
 
 WIDGET_REG_BEGIN(g_ug_widget_reg_map)
     WIDGET_REG_BIND(ug_image_reg)
+    WIDGET_REG_BIND(ug_label_reg)
 WIDGET_REG_END(g_ug_widget_reg_map, void)
 #endif /* WIN32 */
 
