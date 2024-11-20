@@ -34,7 +34,7 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000B51C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000AB5C [memory type] 2 [memory ID] 3
 
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001990 [memory type] 1 [memory ID] 2
 		[ZI block] addr: 0x20000020, size: 0x00001970 (6512)
@@ -44,7 +44,7 @@
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-da6a28.o   [path] (null)
+[object name] lto-llvm-8f48cd.o   [path] (null)
 [object name] startup_swm221.o    [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 [object name] ugui_framework.lib  [path] .\libs\ugui_framework.lib
 
@@ -122,7 +122,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000B51C [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000AB5C [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001990 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
@@ -133,11 +133,11 @@ LR_IROM1
                 RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ___________| (   6.3 KB /   8.0 KB )  79.9%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________________________| (  45.2 KB / 128.0 KB )  35.4%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö__________________________________| (  42.8 KB / 128.0 KB )  33.5%  
  
 [htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        556 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.062 s
+run time: 0.054 s

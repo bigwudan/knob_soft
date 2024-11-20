@@ -18,11 +18,9 @@ SCREEN_REG_END
  * Register widgets
  */
 WIDGET_OBJ_DECLARE(ug_image_reg)
-WIDGET_OBJ_DECLARE(ug_label_reg)
 
 WIDGET_REG_BEGIN(g_ug_widget_reg_map)
     WIDGET_REG_BIND(ug_image_reg)
-    WIDGET_REG_BIND(ug_label_reg)
 WIDGET_REG_END(g_ug_widget_reg_map, void)
 #endif /* WIN32 */
 

@@ -4,6 +4,6 @@
 /*
  * 界面控件ID定义
  */
-#define WIDGET_IMAGE1                        2        /* image1 (TYPE:ug_image) */
+#define WIDGET_IMAGE1                        5        /* image1 (TYPE:ug_image) */
 
 #endif
