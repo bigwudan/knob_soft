@@ -61,6 +61,7 @@ void sf_EraseSector(uint32_t _uiSectorAddr)
 //	sf_SetCS(1);									/* 禁能片选 */
 
 //	sf_WaitForWriteEnd();							/* 等待串行Flash内部写操作完成 */
+		QSPI_Erase(QSPI0, QSPI_CMD_ERASE_SECTOR, _uiSectorAddr, 1);
 }
 
 /*
@@ -95,29 +96,7 @@ void sf_EraseChip(void)
 */
 void sf_PageWrite(uint8_t * _pBuf, uint32_t _uiWriteAddr, uint16_t _usSize)
 {
-//	uint32_t i;
-
-//	sf_WriteEnable();								/* 发送写使能命令 */
-
-//	sf_SetCS(0);									/* 使能片选 */
-//	bsp_spiWrite0(CMD_PAGEWR);						/* 页编程 */
-//	bsp_spiWrite0((_uiWriteAddr & 0xFF0000) >> 16);	/* 发送扇区地址的高8bit */
-//	bsp_spiWrite0((_uiWriteAddr & 0xFF00) >> 8);	/* 发送扇区地址中间8bit */
-//	bsp_spiWrite0(_uiWriteAddr & 0xFF);				/* 发送扇区地址低8bit */
-//	for (i = 0; i < _usSize; i++)
-//	{
-//		bsp_spiWrite0(*_pBuf++);				/* 发送数据 */
-//	}
-//	sf_SetCS(1);								/* 禁止片选 */
-
-//	sf_WaitForWriteEnd();						/* 等待串行Flash内部写操作完成 */
-
-//	/* 进入写保护状态 */
-//	sf_SetCS(0);
-//	bsp_spiWrite0(CMD_DISWR);
-//	sf_SetCS(1);
-
-//	sf_WaitForWriteEnd();							/* 等待串行Flash内部写操作完成 */
+	QSPI_Write_4bit(QSPI0, _uiWriteAddr, _pBuf, _usSize);
 }
 
 /*
@@ -132,18 +111,7 @@ void sf_PageWrite(uint8_t * _pBuf, uint32_t _uiWriteAddr, uint16_t _usSize)
 */
 void sf_ReadBuffer(uint8_t * _pBuf, uint32_t _uiReadAddr, uint32_t _uiSize)
 {
-//	/* 擦除扇区操作 */
-//	sf_SetCS(0);									/* 使能片选 */
-//	bsp_spiWrite0(CMD_READ);							/* 发送读命令 */
-//	bsp_spiWrite0((_uiReadAddr & 0xFF0000) >> 16);	/* 发送扇区地址的高8bit */
-//	bsp_spiWrite0((_uiReadAddr & 0xFF00) >> 8);		/* 发送扇区地址中间8bit */
-//	bsp_spiWrite0(_uiReadAddr & 0xFF);				/* 发送扇区地址低8bit */
-//	while (_uiSize--)
-//	{
-//		*_pBuf++ = bsp_spiRead0();			/* 读一个字节并存储到pBuf，读完后指针自加1 */
-//	}
-//	
-//	sf_SetCS(1);									/* 禁能片选 */
+	qspi_dma_read(_uiReadAddr, _pBuf, _uiSize, 4, 4);
 }
 
 /*

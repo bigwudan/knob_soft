@@ -278,7 +278,7 @@
 
   <Group>
     <GroupName>Device Description</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -342,7 +342,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\bsp\src\bsp_spi_flash.c</PathWithFileName>
@@ -418,7 +418,7 @@
 
   <Group>
     <GroupName>StdPeriph_Driver</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

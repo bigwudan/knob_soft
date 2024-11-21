@@ -21,6 +21,9 @@ Section Cross References
     bsp.o(i.systick_init) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
     bsp.o(i.systick_init) refers to bsp.o(.data) for .data
     bsp.o(i.systick_init) refers to system_swm221.o(.data) for SystemCoreClock
+    bsp_spi_flash.o(i.sf_EraseSector) refers to swm221_qspi.o(i.QSPI_Erase) for QSPI_Erase
+    bsp_spi_flash.o(i.sf_PageWrite) refers to swm221_qspi.o(i.QSPI_Write_) for QSPI_Write_
+    bsp_spi_flash.o(i.sf_ReadBuffer) refers to dev_qspi_flash.o(i.qspi_dma_read) for qspi_dma_read
     system_swm221.o(i.SystemCoreClockUpdate) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
     system_swm221.o(i.SystemCoreClockUpdate) refers to system_swm221.o(.data) for .data
     system_swm221.o(i.SystemInit) refers to swm221_flash.o(i.Flash_Param_at_xMHz) for Flash_Param_at_xMHz
@@ -1022,51 +1025,51 @@ Image Symbol Table
     i.qspi_flash_init                        0x0000379c   Section        0  dev_qspi_flash.o(i.qspi_flash_init)
     i.qspi_multiplex_flash                   0x0000387c   Section        0  bsp.o(i.qspi_multiplex_flash)
     i.sf_EraseChip                           0x00003898   Section        0  bsp_spi_flash.o(i.sf_EraseChip)
-    i.sf_EraseSector                         0x0000389a   Section        0  bsp_spi_flash.o(i.sf_EraseSector)
-    i.sf_PageWrite                           0x0000389c   Section        0  bsp_spi_flash.o(i.sf_PageWrite)
-    i.sf_ReadBuffer                          0x0000389e   Section        0  bsp_spi_flash.o(i.sf_ReadBuffer)
-    i.sf_SetCS                               0x000038a0   Section        0  bsp_spi_flash.o(i.sf_SetCS)
-    i.switchOn32KHz                          0x000038a4   Section        0  system_swm221.o(i.switchOn32KHz)
-    i.switchOnHRC                            0x000038b4   Section        0  system_swm221.o(i.switchOnHRC)
-    i.switchOnPLL                            0x000038c4   Section        0  system_swm221.o(i.switchOnPLL)
-    i.switchOnXTAL                           0x00003904   Section        0  system_swm221.o(i.switchOnXTAL)
-    i.switchToDIV                            0x00003950   Section        0  system_swm221.o(i.switchToDIV)
-    i.switchToHRC                            0x00003990   Section        0  system_swm221.o(i.switchToHRC)
-    i.systick_init                           0x000039c4   Section        0  bsp.o(i.systick_init)
-    i.uart_debug_init                        0x00003a18   Section        0  bsp.o(i.uart_debug_init)
-    .constdata                               0x00003a1a   Section       14  dev_qspi_flash.o(.constdata)
-    __FUNCTION__                             0x00003a1a   Data          14  dev_qspi_flash.o(.constdata)
-    .constdata                               0x00003a28   Section       40  _printf_hex_int_ptr.o(.constdata)
-    uc_hextab                                0x00003a28   Data          20  _printf_hex_int_ptr.o(.constdata)
-    lc_hextab                                0x00003a3c   Data          20  _printf_hex_int_ptr.o(.constdata)
-    .constdata                               0x00003a50   Section       17  __printf_flags_wp.o(.constdata)
-    maptable                                 0x00003a50   Data          17  __printf_flags_wp.o(.constdata)
-    .constdata                               0x00003a61   Section        4  sys_io.o(.constdata)
-    .constdata                               0x00003a65   Section        4  sys_io.o(.constdata)
-    .constdata                               0x00003a69   Section        4  sys_io.o(.constdata)
-    .data                                    0x00003a74   Section       12  bsp.o(.data)
-    QSPI_Multiplex_Flag                      0x00003a74   Data           1  bsp.o(.data)
-    Systick_Tick                             0x00003a78   Data           4  bsp.o(.data)
-    ticks                                    0x00003a7c   Data           4  bsp.o(.data)
-    .data                                    0x00003a80   Section        8  system_swm221.o(.data)
-    .data                                    0x00003a88   Section       12  swm221_flash.o(.data)
-    .data                                    0x00003a94   Section       40  swm221_flash.o(.data)
-    .data                                    0x00003abc   Section        1  swm221_qspi.o(.data)
-    AddressSize                              0x00003abc   Data           1  swm221_qspi.o(.data)
-    .data                                    0x00003ac0   Section        4  stdio_streams.o(.data)
-    .data                                    0x00003ac4   Section        4  stdio_streams.o(.data)
-    .data                                    0x00003ac8   Section        4  stdio_streams.o(.data)
-    .data                                    0x00003acc   Section        4  heapauxa.o(.data)
-    __rt_heap_escrow_base                    0x00003acc   Data           4  heapauxa.o(.data)
-    .bss                                     0x00003ad0   Section     2048  flashprg.o(.bss)
-    .constdata                               0x00003ad0   Section     4256  flashdev.o(.constdata)
-    .bss                                     0x000042d0   Section       84  stdio_streams.o(.bss)
-    .bss                                     0x00004324   Section       84  stdio_streams.o(.bss)
-    .bss                                     0x00004378   Section       84  stdio_streams.o(.bss)
-    .bss                                     0x000043cc   Section        4  rt_heap_descriptor.o(.bss)
-    __rt_heap_descriptor_data                0x000043cc   Data           4  rt_heap_descriptor.o(.bss)
-    .bss                                     0x000043d0   Section        4  rt_errno_addr.o(.bss)
-    __aeabi_errno_addr_data                  0x000043d0   Data           4  rt_errno_addr.o(.bss)
+    i.sf_EraseSector                         0x0000389c   Section        0  bsp_spi_flash.o(i.sf_EraseSector)
+    i.sf_PageWrite                           0x000038b0   Section        0  bsp_spi_flash.o(i.sf_PageWrite)
+    i.sf_ReadBuffer                          0x000038cc   Section        0  bsp_spi_flash.o(i.sf_ReadBuffer)
+    i.sf_SetCS                               0x000038e0   Section        0  bsp_spi_flash.o(i.sf_SetCS)
+    i.switchOn32KHz                          0x000038e4   Section        0  system_swm221.o(i.switchOn32KHz)
+    i.switchOnHRC                            0x000038f4   Section        0  system_swm221.o(i.switchOnHRC)
+    i.switchOnPLL                            0x00003904   Section        0  system_swm221.o(i.switchOnPLL)
+    i.switchOnXTAL                           0x00003944   Section        0  system_swm221.o(i.switchOnXTAL)
+    i.switchToDIV                            0x00003990   Section        0  system_swm221.o(i.switchToDIV)
+    i.switchToHRC                            0x000039d0   Section        0  system_swm221.o(i.switchToHRC)
+    i.systick_init                           0x00003a04   Section        0  bsp.o(i.systick_init)
+    i.uart_debug_init                        0x00003a58   Section        0  bsp.o(i.uart_debug_init)
+    .constdata                               0x00003a5a   Section       14  dev_qspi_flash.o(.constdata)
+    __FUNCTION__                             0x00003a5a   Data          14  dev_qspi_flash.o(.constdata)
+    .constdata                               0x00003a68   Section       40  _printf_hex_int_ptr.o(.constdata)
+    uc_hextab                                0x00003a68   Data          20  _printf_hex_int_ptr.o(.constdata)
+    lc_hextab                                0x00003a7c   Data          20  _printf_hex_int_ptr.o(.constdata)
+    .constdata                               0x00003a90   Section       17  __printf_flags_wp.o(.constdata)
+    maptable                                 0x00003a90   Data          17  __printf_flags_wp.o(.constdata)
+    .constdata                               0x00003aa1   Section        4  sys_io.o(.constdata)
+    .constdata                               0x00003aa5   Section        4  sys_io.o(.constdata)
+    .constdata                               0x00003aa9   Section        4  sys_io.o(.constdata)
+    .data                                    0x00003ab4   Section       12  bsp.o(.data)
+    QSPI_Multiplex_Flag                      0x00003ab4   Data           1  bsp.o(.data)
+    Systick_Tick                             0x00003ab8   Data           4  bsp.o(.data)
+    ticks                                    0x00003abc   Data           4  bsp.o(.data)
+    .data                                    0x00003ac0   Section        8  system_swm221.o(.data)
+    .data                                    0x00003ac8   Section       12  swm221_flash.o(.data)
+    .data                                    0x00003ad4   Section       40  swm221_flash.o(.data)
+    .data                                    0x00003afc   Section        1  swm221_qspi.o(.data)
+    AddressSize                              0x00003afc   Data           1  swm221_qspi.o(.data)
+    .data                                    0x00003b00   Section        4  stdio_streams.o(.data)
+    .data                                    0x00003b04   Section        4  stdio_streams.o(.data)
+    .data                                    0x00003b08   Section        4  stdio_streams.o(.data)
+    .data                                    0x00003b0c   Section        4  heapauxa.o(.data)
+    __rt_heap_escrow_base                    0x00003b0c   Data           4  heapauxa.o(.data)
+    .bss                                     0x00003b10   Section     2048  flashprg.o(.bss)
+    .constdata                               0x00003b10   Section     4256  flashdev.o(.constdata)
+    .bss                                     0x00004310   Section       84  stdio_streams.o(.bss)
+    .bss                                     0x00004364   Section       84  stdio_streams.o(.bss)
+    .bss                                     0x000043b8   Section       84  stdio_streams.o(.bss)
+    .bss                                     0x0000440c   Section        4  rt_heap_descriptor.o(.bss)
+    __rt_heap_descriptor_data                0x0000440c   Data           4  rt_heap_descriptor.o(.bss)
+    .bss                                     0x00004410   Section        4  rt_errno_addr.o(.bss)
+    __aeabi_errno_addr_data                  0x00004410   Data           4  rt_errno_addr.o(.bss)
 
     Global Symbols
 
@@ -1508,35 +1511,35 @@ Image Symbol Table
     qspi_flash_init                          0x0000379d   Thumb Code   124  dev_qspi_flash.o(i.qspi_flash_init)
     qspi_multiplex_flash                     0x0000387d   Thumb Code    22  bsp.o(i.qspi_multiplex_flash)
     sf_EraseChip                             0x00003899   Thumb Code     2  bsp_spi_flash.o(i.sf_EraseChip)
-    sf_EraseSector                           0x0000389b   Thumb Code     2  bsp_spi_flash.o(i.sf_EraseSector)
-    sf_PageWrite                             0x0000389d   Thumb Code     2  bsp_spi_flash.o(i.sf_PageWrite)
-    sf_ReadBuffer                            0x0000389f   Thumb Code     2  bsp_spi_flash.o(i.sf_ReadBuffer)
-    sf_SetCS                                 0x000038a1   Thumb Code     2  bsp_spi_flash.o(i.sf_SetCS)
-    switchOn32KHz                            0x000038a5   Thumb Code    12  system_swm221.o(i.switchOn32KHz)
-    switchOnHRC                              0x000038b5   Thumb Code    12  system_swm221.o(i.switchOnHRC)
-    switchOnPLL                              0x000038c5   Thumb Code    60  system_swm221.o(i.switchOnPLL)
-    switchOnXTAL                             0x00003905   Thumb Code    62  system_swm221.o(i.switchOnXTAL)
-    switchToDIV                              0x00003951   Thumb Code    60  system_swm221.o(i.switchToDIV)
-    switchToHRC                              0x00003991   Thumb Code    44  system_swm221.o(i.switchToHRC)
-    systick_init                             0x000039c5   Thumb Code    62  bsp.o(i.systick_init)
-    uart_debug_init                          0x00003a19   Thumb Code     2  bsp.o(i.uart_debug_init)
-    __stdin_name                             0x00003a61   Data           4  sys_io.o(.constdata)
-    __stdout_name                            0x00003a65   Data           4  sys_io.o(.constdata)
-    __stderr_name                            0x00003a69   Data           4  sys_io.o(.constdata)
-    SystemCoreClock                          0x00003a80   Data           4  system_swm221.o(.data)
-    CyclesPerUs                              0x00003a84   Data           4  system_swm221.o(.data)
-    IAP_Flash_Erase                          0x00003a88   Data           4  swm221_flash.o(.data)
-    IAP_Flash_Write                          0x00003a8c   Data           4  swm221_flash.o(.data)
-    IAP_Flash_Param                          0x00003a90   Data           4  swm221_flash.o(.data)
-    Code_Cache_Clear                         0x00003a94   Data          40  swm221_flash.o(.data)
-    __aeabi_stdin                            0x00003ac0   Data           4  stdio_streams.o(.data)
-    __aeabi_stdout                           0x00003ac4   Data           4  stdio_streams.o(.data)
-    __aeabi_stderr                           0x00003ac8   Data           4  stdio_streams.o(.data)
-    FlashDevice                              0x00003ad0   Data        4256  flashdev.o(.constdata)
-    aux_buf                                  0x00003ad0   Data        2048  flashprg.o(.bss)
-    __stdin                                  0x000042d0   Data          84  stdio_streams.o(.bss)
-    __stdout                                 0x00004324   Data          84  stdio_streams.o(.bss)
-    __stderr                                 0x00004378   Data          84  stdio_streams.o(.bss)
+    sf_EraseSector                           0x0000389d   Thumb Code    16  bsp_spi_flash.o(i.sf_EraseSector)
+    sf_PageWrite                             0x000038b1   Thumb Code    22  bsp_spi_flash.o(i.sf_PageWrite)
+    sf_ReadBuffer                            0x000038cd   Thumb Code    20  bsp_spi_flash.o(i.sf_ReadBuffer)
+    sf_SetCS                                 0x000038e1   Thumb Code     2  bsp_spi_flash.o(i.sf_SetCS)
+    switchOn32KHz                            0x000038e5   Thumb Code    12  system_swm221.o(i.switchOn32KHz)
+    switchOnHRC                              0x000038f5   Thumb Code    12  system_swm221.o(i.switchOnHRC)
+    switchOnPLL                              0x00003905   Thumb Code    60  system_swm221.o(i.switchOnPLL)
+    switchOnXTAL                             0x00003945   Thumb Code    62  system_swm221.o(i.switchOnXTAL)
+    switchToDIV                              0x00003991   Thumb Code    60  system_swm221.o(i.switchToDIV)
+    switchToHRC                              0x000039d1   Thumb Code    44  system_swm221.o(i.switchToHRC)
+    systick_init                             0x00003a05   Thumb Code    62  bsp.o(i.systick_init)
+    uart_debug_init                          0x00003a59   Thumb Code     2  bsp.o(i.uart_debug_init)
+    __stdin_name                             0x00003aa1   Data           4  sys_io.o(.constdata)
+    __stdout_name                            0x00003aa5   Data           4  sys_io.o(.constdata)
+    __stderr_name                            0x00003aa9   Data           4  sys_io.o(.constdata)
+    SystemCoreClock                          0x00003ac0   Data           4  system_swm221.o(.data)
+    CyclesPerUs                              0x00003ac4   Data           4  system_swm221.o(.data)
+    IAP_Flash_Erase                          0x00003ac8   Data           4  swm221_flash.o(.data)
+    IAP_Flash_Write                          0x00003acc   Data           4  swm221_flash.o(.data)
+    IAP_Flash_Param                          0x00003ad0   Data           4  swm221_flash.o(.data)
+    Code_Cache_Clear                         0x00003ad4   Data          40  swm221_flash.o(.data)
+    __aeabi_stdin                            0x00003b00   Data           4  stdio_streams.o(.data)
+    __aeabi_stdout                           0x00003b04   Data           4  stdio_streams.o(.data)
+    __aeabi_stderr                           0x00003b08   Data           4  stdio_streams.o(.data)
+    FlashDevice                              0x00003b10   Data        4256  flashdev.o(.constdata)
+    aux_buf                                  0x00003b10   Data        2048  flashprg.o(.bss)
+    __stdin                                  0x00004310   Data          84  stdio_streams.o(.bss)
+    __stdout                                 0x00004364   Data          84  stdio_streams.o(.bss)
+    __stderr                                 0x000043b8   Data          84  stdio_streams.o(.bss)
 
 
 
@@ -1546,9 +1549,9 @@ Memory Map of the image
 
   Image entry point : Not specified.
 
-  Load Region PRG (Base: 0x00000000, Size: 0x00003ad0, Max: 0xffffffff, PI)
+  Load Region PRG (Base: 0x00000000, Size: 0x00003b10, Max: 0xffffffff, PI)
 
-    Execution Region PrgCode (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00003a70, Max: 0xffffffff, PI)
+    Execution Region PrgCode (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00003ab0, Max: 0xffffffff, PI)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1565,11 +1568,11 @@ Memory Map of the image
     0x00000030   0x00000030   0x00000000   Code   RO          826    .emb_text           swm221_flash.o
     0x00000030   0x00000030   0x00000000   Code   RO         2480    .emb_text           c_pe.l(maybetermalloc1.o)
     0x00000030   0x00000030   0x00000004   Code   RO            1    .rev16_text         flashprg.o
-    0x00000034   0x00000034   0x00000004   Code   RO          185    .rev16_text         bsp.o
-    0x00000038   0x00000038   0x00000004   Code   RO          245    .rev16_text         bsp_spi_bus.o
-    0x0000003c   0x0000003c   0x00000004   Code   RO          283    .rev16_text         bsp_spi_flash.o
-    0x00000040   0x00000040   0x00000004   Code   RO          327    .rev16_text         system_swm221.o
-    0x00000044   0x00000044   0x00000004   Code   RO          394    .rev16_text         dev_qspi_flash.o
+    0x00000034   0x00000034   0x00000004   Code   RO          188    .rev16_text         bsp.o
+    0x00000038   0x00000038   0x00000004   Code   RO          248    .rev16_text         bsp_spi_bus.o
+    0x0000003c   0x0000003c   0x00000004   Code   RO          286    .rev16_text         bsp_spi_flash.o
+    0x00000040   0x00000040   0x00000004   Code   RO          330    .rev16_text         system_swm221.o
+    0x00000044   0x00000044   0x00000004   Code   RO          397    .rev16_text         dev_qspi_flash.o
     0x00000048   0x00000048   0x00000004   Code   RO          439    .rev16_text         swm221_adc.o
     0x0000004c   0x0000004c   0x00000004   Code   RO          549    .rev16_text         swm221_can.o
     0x00000050   0x00000050   0x00000004   Code   RO          674    .rev16_text         swm221_crc.o
@@ -1592,11 +1595,11 @@ Memory Map of the image
     0x00000094   0x00000094   0x00000004   Code   RO         2041    .rev16_text         swm221_usart.o
     0x00000098   0x00000098   0x00000004   Code   RO         2106    .rev16_text         swm221_wdt.o
     0x0000009c   0x0000009c   0x00000004   Code   RO            2    .revsh_text         flashprg.o
-    0x000000a0   0x000000a0   0x00000004   Code   RO          186    .revsh_text         bsp.o
-    0x000000a4   0x000000a4   0x00000004   Code   RO          246    .revsh_text         bsp_spi_bus.o
-    0x000000a8   0x000000a8   0x00000004   Code   RO          284    .revsh_text         bsp_spi_flash.o
-    0x000000ac   0x000000ac   0x00000004   Code   RO          328    .revsh_text         system_swm221.o
-    0x000000b0   0x000000b0   0x00000004   Code   RO          395    .revsh_text         dev_qspi_flash.o
+    0x000000a0   0x000000a0   0x00000004   Code   RO          189    .revsh_text         bsp.o
+    0x000000a4   0x000000a4   0x00000004   Code   RO          249    .revsh_text         bsp_spi_bus.o
+    0x000000a8   0x000000a8   0x00000004   Code   RO          287    .revsh_text         bsp_spi_flash.o
+    0x000000ac   0x000000ac   0x00000004   Code   RO          331    .revsh_text         system_swm221.o
+    0x000000b0   0x000000b0   0x00000004   Code   RO          398    .revsh_text         dev_qspi_flash.o
     0x000000b4   0x000000b4   0x00000004   Code   RO          440    .revsh_text         swm221_adc.o
     0x000000b8   0x000000b8   0x00000004   Code   RO          550    .revsh_text         swm221_can.o
     0x000000bc   0x000000bc   0x00000004   Code   RO          675    .revsh_text         swm221_crc.o
@@ -1741,9 +1744,9 @@ Memory Map of the image
     0x00001ba8   0x00001ba8   0x0000000a   Code   RO          876    i.GPIO_SetBit       swm221_gpio.o
     0x00001bb2   0x00001bb2   0x00000002   PAD
     0x00001bb4   0x00001bb4   0x00000018   Code   RO          877    i.GPIO_SetBits      swm221_gpio.o
-    0x00001bcc   0x00001bcc   0x00000002   Code   RO          187    i.HAL_Delay         bsp.o
+    0x00001bcc   0x00001bcc   0x00000002   Code   RO          190    i.HAL_Delay         bsp.o
     0x00001bce   0x00001bce   0x00000002   PAD
-    0x00001bd0   0x00001bd0   0x00000010   Code   RO          188    i.HAL_GetTick       bsp.o
+    0x00001bd0   0x00001bd0   0x00000010   Code   RO          191    i.HAL_GetTick       bsp.o
     0x00001be0   0x00001be0   0x0000000a   Code   RO          952    i.I2C_Close         swm221_i2c.o
     0x00001bea   0x00001bea   0x00000004   Code   RO          953    i.I2C_INTClr        swm221_i2c.o
     0x00001bee   0x00001bee   0x00000008   Code   RO          954    i.I2C_INTDis        swm221_i2c.o
@@ -1843,9 +1846,9 @@ Memory Map of the image
     0x00002a02   0x00002a02   0x0000000c   Code   RO         1565    i.SPI_ReadWrite     swm221_spi.o
     0x00002a0e   0x00002a0e   0x00000004   Code   RO         1566    i.SPI_Write         swm221_spi.o
     0x00002a12   0x00002a12   0x00000012   Code   RO         1567    i.SPI_WriteWithWait  swm221_spi.o
-    0x00002a24   0x00002a24   0x00000004   Code   RO          189    i.SystemClock_Config  bsp.o
-    0x00002a28   0x00002a28   0x00000088   Code   RO          329    i.SystemCoreClockUpdate  system_swm221.o
-    0x00002ab0   0x00002ab0   0x0000006c   Code   RO          330    i.SystemInit        system_swm221.o
+    0x00002a24   0x00002a24   0x00000004   Code   RO          192    i.SystemClock_Config  bsp.o
+    0x00002a28   0x00002a28   0x00000088   Code   RO          332    i.SystemCoreClockUpdate  system_swm221.o
+    0x00002ab0   0x00002ab0   0x0000006c   Code   RO          333    i.SystemInit        system_swm221.o
     0x00002b1c   0x00002b1c   0x00000004   Code   RO         1652    i.TIMR_GetCurValue  swm221_timr.o
     0x00002b20   0x00002b20   0x00000006   Code   RO         1653    i.TIMR_Halt         swm221_timr.o
     0x00002b26   0x00002b26   0x00000006   Code   RO         1654    i.TIMR_IC_CaptureH_INTClr  swm221_timr.o
@@ -1936,71 +1939,72 @@ Memory Map of the image
     0x00003594   0x00003594   0x00000018   Code   RO         1682    i.__NVIC_EnableIRQ  swm221_timr.o
     0x000035ac   0x000035ac   0x00000018   Code   RO         1880    i.__NVIC_EnableIRQ  swm221_uart.o
     0x000035c4   0x000035c4   0x0000000e   Code   RO         2206    i._is_digit         c_pe.l(__printf_wp.o)
-    0x000035d2   0x000035d2   0x00000010   Code   RO          190    i.board_init        bsp.o
-    0x000035e2   0x000035e2   0x00000002   Code   RO          247    i.bsp_InitSPIBus    bsp_spi_bus.o
-    0x000035e4   0x000035e4   0x00000002   Code   RO          248    i.bsp_spiDelay      bsp_spi_bus.o
-    0x000035e6   0x000035e6   0x00000004   Code   RO          249    i.bsp_spiRead0      bsp_spi_bus.o
-    0x000035ea   0x000035ea   0x00000002   Code   RO          250    i.bsp_spiWrite0     bsp_spi_bus.o
-    0x000035ec   0x000035ec   0x00000024   Code   RO          396    i.flash_qspi_port_deinit  dev_qspi_flash.o
-    0x00003610   0x00003610   0x00000058   Code   RO          397    i.flash_qspi_port_init  dev_qspi_flash.o
+    0x000035d2   0x000035d2   0x00000010   Code   RO          193    i.board_init        bsp.o
+    0x000035e2   0x000035e2   0x00000002   Code   RO          250    i.bsp_InitSPIBus    bsp_spi_bus.o
+    0x000035e4   0x000035e4   0x00000002   Code   RO          251    i.bsp_spiDelay      bsp_spi_bus.o
+    0x000035e6   0x000035e6   0x00000004   Code   RO          252    i.bsp_spiRead0      bsp_spi_bus.o
+    0x000035ea   0x000035ea   0x00000002   Code   RO          253    i.bsp_spiWrite0     bsp_spi_bus.o
+    0x000035ec   0x000035ec   0x00000024   Code   RO          399    i.flash_qspi_port_deinit  dev_qspi_flash.o
+    0x00003610   0x00003610   0x00000058   Code   RO          400    i.flash_qspi_port_init  dev_qspi_flash.o
     0x00003668   0x00003668   0x0000001e   Code   RO         2253    i.fputc             c_pe.l(fputc.o)
     0x00003686   0x00003686   0x00000002   PAD
-    0x00003688   0x00003688   0x00000114   Code   RO          398    i.qspi_dma_read     dev_qspi_flash.o
-    0x0000379c   0x0000379c   0x000000e0   Code   RO          399    i.qspi_flash_init   dev_qspi_flash.o
-    0x0000387c   0x0000387c   0x0000001c   Code   RO          191    i.qspi_multiplex_flash  bsp.o
-    0x00003898   0x00003898   0x00000002   Code   RO          285    i.sf_EraseChip      bsp_spi_flash.o
-    0x0000389a   0x0000389a   0x00000002   Code   RO          286    i.sf_EraseSector    bsp_spi_flash.o
-    0x0000389c   0x0000389c   0x00000002   Code   RO          287    i.sf_PageWrite      bsp_spi_flash.o
-    0x0000389e   0x0000389e   0x00000002   Code   RO          288    i.sf_ReadBuffer     bsp_spi_flash.o
-    0x000038a0   0x000038a0   0x00000002   Code   RO          289    i.sf_SetCS          bsp_spi_flash.o
-    0x000038a2   0x000038a2   0x00000002   PAD
-    0x000038a4   0x000038a4   0x00000010   Code   RO          331    i.switchOn32KHz     system_swm221.o
-    0x000038b4   0x000038b4   0x00000010   Code   RO          332    i.switchOnHRC       system_swm221.o
-    0x000038c4   0x000038c4   0x00000040   Code   RO          333    i.switchOnPLL       system_swm221.o
-    0x00003904   0x00003904   0x0000004c   Code   RO          334    i.switchOnXTAL      system_swm221.o
-    0x00003950   0x00003950   0x00000040   Code   RO          335    i.switchToDIV       system_swm221.o
-    0x00003990   0x00003990   0x00000034   Code   RO          336    i.switchToHRC       system_swm221.o
-    0x000039c4   0x000039c4   0x00000054   Code   RO          192    i.systick_init      bsp.o
-    0x00003a18   0x00003a18   0x00000002   Code   RO          193    i.uart_debug_init   bsp.o
-    0x00003a1a   0x00003a1a   0x0000000e   Data   RO          400    .constdata          dev_qspi_flash.o
-    0x00003a28   0x00003a28   0x00000028   Data   RO         2188    .constdata          c_pe.l(_printf_hex_int_ptr.o)
-    0x00003a50   0x00003a50   0x00000011   Data   RO         2209    .constdata          c_pe.l(__printf_flags_wp.o)
-    0x00003a61   0x00003a61   0x00000004   Data   RO         2265    .constdata          c_pe.l(sys_io.o)
-    0x00003a65   0x00003a65   0x00000004   Data   RO         2266    .constdata          c_pe.l(sys_io.o)
-    0x00003a69   0x00003a69   0x00000004   Data   RO         2267    .constdata          c_pe.l(sys_io.o)
+    0x00003688   0x00003688   0x00000114   Code   RO          401    i.qspi_dma_read     dev_qspi_flash.o
+    0x0000379c   0x0000379c   0x000000e0   Code   RO          402    i.qspi_flash_init   dev_qspi_flash.o
+    0x0000387c   0x0000387c   0x0000001c   Code   RO          194    i.qspi_multiplex_flash  bsp.o
+    0x00003898   0x00003898   0x00000002   Code   RO          288    i.sf_EraseChip      bsp_spi_flash.o
+    0x0000389a   0x0000389a   0x00000002   PAD
+    0x0000389c   0x0000389c   0x00000014   Code   RO          289    i.sf_EraseSector    bsp_spi_flash.o
+    0x000038b0   0x000038b0   0x0000001c   Code   RO          290    i.sf_PageWrite      bsp_spi_flash.o
+    0x000038cc   0x000038cc   0x00000014   Code   RO          291    i.sf_ReadBuffer     bsp_spi_flash.o
+    0x000038e0   0x000038e0   0x00000002   Code   RO          292    i.sf_SetCS          bsp_spi_flash.o
+    0x000038e2   0x000038e2   0x00000002   PAD
+    0x000038e4   0x000038e4   0x00000010   Code   RO          334    i.switchOn32KHz     system_swm221.o
+    0x000038f4   0x000038f4   0x00000010   Code   RO          335    i.switchOnHRC       system_swm221.o
+    0x00003904   0x00003904   0x00000040   Code   RO          336    i.switchOnPLL       system_swm221.o
+    0x00003944   0x00003944   0x0000004c   Code   RO          337    i.switchOnXTAL      system_swm221.o
+    0x00003990   0x00003990   0x00000040   Code   RO          338    i.switchToDIV       system_swm221.o
+    0x000039d0   0x000039d0   0x00000034   Code   RO          339    i.switchToHRC       system_swm221.o
+    0x00003a04   0x00003a04   0x00000054   Code   RO          195    i.systick_init      bsp.o
+    0x00003a58   0x00003a58   0x00000002   Code   RO          196    i.uart_debug_init   bsp.o
+    0x00003a5a   0x00003a5a   0x0000000e   Data   RO          403    .constdata          dev_qspi_flash.o
+    0x00003a68   0x00003a68   0x00000028   Data   RO         2188    .constdata          c_pe.l(_printf_hex_int_ptr.o)
+    0x00003a90   0x00003a90   0x00000011   Data   RO         2209    .constdata          c_pe.l(__printf_flags_wp.o)
+    0x00003aa1   0x00003aa1   0x00000004   Data   RO         2265    .constdata          c_pe.l(sys_io.o)
+    0x00003aa5   0x00003aa5   0x00000004   Data   RO         2266    .constdata          c_pe.l(sys_io.o)
+    0x00003aa9   0x00003aa9   0x00000004   Data   RO         2267    .constdata          c_pe.l(sys_io.o)
 
 
-    Execution Region PrgData (Exec base: 0x00003a70, Load base: 0x00003a70, Size: 0x00000964, Max: 0xffffffff, PI)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00003a70   0x00003a70   0x00000004   Data   RW         2552    PDT$$ptr            anon$$obj.o
-    0x00003a74   0x00003a74   0x0000000c   Data   RW          194    .data               bsp.o
-    0x00003a80   0x00003a80   0x00000008   Data   RW          337    .data               system_swm221.o
-    0x00003a88   0x00003a88   0x0000000c   Data   RW          830    .data               swm221_flash.o
-    0x00003a94   0x00003a94   0x00000028   Data   RW          831    .data               swm221_flash.o
-    0x00003abc   0x00003abc   0x00000001   Data   RW         1422    .data               swm221_qspi.o
-    0x00003abd   0x00003abd   0x00000003   PAD
-    0x00003ac0   0x00003ac0   0x00000004   Data   RW         2241    .data               c_pe.l(stdio_streams.o)
-    0x00003ac4   0x00003ac4   0x00000004   Data   RW         2242    .data               c_pe.l(stdio_streams.o)
-    0x00003ac8   0x00003ac8   0x00000004   Data   RW         2243    .data               c_pe.l(stdio_streams.o)
-    0x00003acc   0x00003acc   0x00000004   Data   RW         2509    .data               c_pe.l(heapauxa.o)
-    0x00003ad0        -       0x00000800   Zero   RW           10    .bss                flashprg.o
-    0x000042d0        -       0x00000054   Zero   RW         2238    .bss                c_pe.l(stdio_streams.o)
-    0x00004324        -       0x00000054   Zero   RW         2239    .bss                c_pe.l(stdio_streams.o)
-    0x00004378        -       0x00000054   Zero   RW         2240    .bss                c_pe.l(stdio_streams.o)
-    0x000043cc        -       0x00000004   Zero   RW         2421    .bss                c_pe.l(rt_heap_descriptor.o)
-    0x000043d0        -       0x00000004   Zero   RW         2524    .bss                c_pe.l(rt_errno_addr.o)
-
-
-
-  Load Region DSCR (Base: 0x00003ad0, Size: 0x000010a0, Max: 0xffffffff, PI)
-
-    Execution Region DevDscr (Exec base: 0x00003ad0, Load base: 0x00003ad0, Size: 0x000010a0, Max: 0xffffffff, PI)
+    Execution Region PrgData (Exec base: 0x00003ab0, Load base: 0x00003ab0, Size: 0x00000964, Max: 0xffffffff, PI)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00003ad0   0x00003ad0   0x000010a0   Data   RO          173    .constdata          flashdev.o
+    0x00003ab0   0x00003ab0   0x00000004   Data   RW         2552    PDT$$ptr            anon$$obj.o
+    0x00003ab4   0x00003ab4   0x0000000c   Data   RW          197    .data               bsp.o
+    0x00003ac0   0x00003ac0   0x00000008   Data   RW          340    .data               system_swm221.o
+    0x00003ac8   0x00003ac8   0x0000000c   Data   RW          830    .data               swm221_flash.o
+    0x00003ad4   0x00003ad4   0x00000028   Data   RW          831    .data               swm221_flash.o
+    0x00003afc   0x00003afc   0x00000001   Data   RW         1422    .data               swm221_qspi.o
+    0x00003afd   0x00003afd   0x00000003   PAD
+    0x00003b00   0x00003b00   0x00000004   Data   RW         2241    .data               c_pe.l(stdio_streams.o)
+    0x00003b04   0x00003b04   0x00000004   Data   RW         2242    .data               c_pe.l(stdio_streams.o)
+    0x00003b08   0x00003b08   0x00000004   Data   RW         2243    .data               c_pe.l(stdio_streams.o)
+    0x00003b0c   0x00003b0c   0x00000004   Data   RW         2509    .data               c_pe.l(heapauxa.o)
+    0x00003b10        -       0x00000800   Zero   RW           10    .bss                flashprg.o
+    0x00004310        -       0x00000054   Zero   RW         2238    .bss                c_pe.l(stdio_streams.o)
+    0x00004364        -       0x00000054   Zero   RW         2239    .bss                c_pe.l(stdio_streams.o)
+    0x000043b8        -       0x00000054   Zero   RW         2240    .bss                c_pe.l(stdio_streams.o)
+    0x0000440c        -       0x00000004   Zero   RW         2421    .bss                c_pe.l(rt_heap_descriptor.o)
+    0x00004410        -       0x00000004   Zero   RW         2524    .bss                c_pe.l(rt_errno_addr.o)
+
+
+
+  Load Region DSCR (Base: 0x00003b10, Size: 0x000010a0, Max: 0xffffffff, PI)
+
+    Execution Region DevDscr (Exec base: 0x00003b10, Load base: 0x00003b10, Size: 0x000010a0, Max: 0xffffffff, PI)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00003b10   0x00003b10   0x000010a0   Data   RO          176    .constdata          flashdev.o
 
 
 ==============================================================================
@@ -2012,10 +2016,10 @@ Image component sizes
 
        160         32          0         12          0      12226   bsp.o
         18          0          0          0          0       2551   bsp_spi_bus.o
-        18          0          0          0          0       3394   bsp_spi_flash.o
+        80         10          0          0          0       3670   bsp_spi_flash.o
        632        144         14          0          0       8110   dev_qspi_flash.o
          0          0       4256          0          0       1210   flashdev.o
-       450          8          0          0       2048      90528   flashprg.o
+       450          8          0          0       2048      90524   flashprg.o
        648         46          0          0          0      19019   swm221_adc.o
        716         18          0          0          0      20248   swm221_can.o
         88          6          0          0          0       2440   swm221_crc.o
@@ -2040,9 +2044,9 @@ Image component sizes
        540         76          0          8          0       6360   system_swm221.o
 
     ----------------------------------------------------------------------
-     10536        792       4270         80       2048     317019   Object Totals
+     10600        802       4270         80       2048     317291   Object Totals
          0          0          0          4          0          0   (incl. Generated)
-        42          0          0          3          0          0   (incl. Padding)
+        44          0          0          3          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2125,15 +2129,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     14874       1042       4342         96       2308     304567   Grand Totals
-     14874       1042       4342         96       2308     304567   ELF Image Totals
-     14874       1042       4342         96          0          0   ROM Totals
+     14938       1052       4342         96       2308     304839   Grand Totals
+     14938       1052       4342         96       2308     304839   ELF Image Totals
+     14938       1052       4342         96          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                19216 (  18.77kB)
+    Total RO  Size (Code + RO Data)                19280 (  18.83kB)
     Total RW  Size (RW Data + ZI Data)              2404 (   2.35kB)
-    Total ROM Size (Code + RO Data + RW Data)      19312 (  18.86kB)
+    Total ROM Size (Code + RO Data + RW Data)      19376 (  18.92kB)
 
 ==============================================================================
 

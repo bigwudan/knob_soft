@@ -30,22 +30,6 @@
 */
 int Init (unsigned long adr, unsigned long clk, unsigned long fnc) 
 {
-#if 0	
-    volatile int result = 0;
- 
-    /* 系统初始化 */
-    SystemInit(); 
-
-    /* 时钟初始化 */
-    result = SystemClock_Config();
-    if (result  != 0)
-    {
-        return 1;        
-    }
-
-    bsp_InitSPIBus();
-#endif
-	
 		board_init();
     return 0;
 }
