@@ -175,7 +175,7 @@ int main(void)
     printf("Hi, World! SystemCoreClock: %d Hz\r\n", SystemCoreClock);
     
     char ver[48];
-    synwit_ug_get_platform_version_name(ver, sizeof(ver));
+    //synwit_ug_get_platform_version_name(ver, sizeof(ver));
     
     driver_init();
     printf("\r\n-------------------------------------\r\n");
@@ -185,9 +185,13 @@ int main(void)
     printf("\r\n-------------------------------------\r\n");
 
     /* Start scheduler. */
-    synwit_ug_start(&sys_ops, &sys_conf);
+    //synwit_ug_start(&sys_ops, &sys_conf);
 
     /* Should not reach here as the scheduler is already started. */
+	
+		extern void test_case_task();
+		test_case_task();
+	
     for (;;)
     {
         __NOP();
@@ -221,7 +225,7 @@ static void driver_init(void)
     /* SPI_Flash */
     qspi_flash_init();
     
-    qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
+    //qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
 
     __IMPORT_TEST_CASE(driver_init);
 }

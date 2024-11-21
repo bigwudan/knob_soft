@@ -607,3 +607,20 @@ void test_case_qspi_flash(uint32_t addr, uint32_t size)
     }
     printf("\r\n[%s]: exit!\r\n", __FUNCTION__);
 }
+
+void test_case_task(){
+	printf("\r\n[%s]: entry!\r\n", __FUNCTION__);
+	#define QSPI_X       QSPI0
+	#define RWLEN        (256)	
+
+	uint8_t RdBuff[RWLEN];
+	uint32_t single_size = RWLEN;	
+	uint32_t addr = 0;
+	qspi_dma_read(addr, RdBuff, single_size, 4, 4);
+	
+	for (uint32_t i = 0; i < single_size; ++i) {
+			printf("[%d]: rd = 0x%02X,  \r\n", i, RdBuff[i]);
+	}	
+	
+	return ;
+}
