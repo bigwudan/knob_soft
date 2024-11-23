@@ -166,6 +166,40 @@ void systick_handler_hook(void)
     __IMPORT_TEST_CASE(systick_handler);
 }
 
+#define READ_NUM 0x167
+typedef struct {
+	uint32_t idx;
+	uint32_t addr;
+	uint8_t RdBuff[READ_NUM*2];
+
+
+}pic_flash_struct;	
+
+pic_flash_struct pic_flash;
+
+
+
+void test_case_show_pic_from_flash(uint32_t pic_idx){
+	//read data from flash
+	pic_flash.addr = pic_idx*360*360*2;
+	for(int i = 0; i<READ_NUM+1; i++){
+		
+		memset(pic_flash.RdBuff, 0, READ_NUM*2);
+		qspi_multiplex_flash(); // QSPI 分时复用 Flash 
+		qspi_dma_read(pic_flash.addr + i*READ_NUM*2, pic_flash.RdBuff, READ_NUM*2, 4, 4);
+		
+		qspi_multiplex_lcd();
+		lcd_mpu_set_disp_area(This_LCD, 0, 0 + DISP_WIDTH - 1, i, i);
+		lcd_mpu_flush_bitmap(This_LCD, pic_flash.RdBuff, DISP_WIDTH);		
+		
+	}
+	
+	
+
+	
+
+}
+
 int main(void)
 {
     /* 在调测阶段(版本 Release 时可注释), 预防程序跑飞后, 上电瞬间锁死内核导致无法通过 SWD 访问, 也可用作等待个别硬件模块上电稳定 */
@@ -185,16 +219,30 @@ int main(void)
     printf("\r\n-------------------------------------\r\n");
 
     /* Start scheduler. */
-    //synwit_ug_start(&sys_ops, &sys_conf);
+//    synwit_ug_start(&sys_ops, &sys_conf);
 
     /* Should not reach here as the scheduler is already started. */
 	
-		extern void test_case_task();
-		test_case_task();
+//		extern void test_case_task();
+//		test_case_task();
 	
+		app_ready();
+
+		
+
+		
+		
+		
+		
+		
+//		void test_case_draw_rect(void);
+//		test_case_draw_rect();
     for (;;)
     {
-        __NOP();
+			test_case_show_pic_from_flash(0);
+      systick_delay_ms(1000); //等待 1s 观察
+			test_case_show_pic_from_flash(1);
+			systick_delay_ms(1000); //等待 1s 观察
     }
     return 0;
 }
@@ -225,7 +273,7 @@ static void driver_init(void)
     /* SPI_Flash */
     qspi_flash_init();
     
-    //qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
+    qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
 
     __IMPORT_TEST_CASE(driver_init);
 }

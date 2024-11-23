@@ -118,8 +118,9 @@ void lcd_mpu_set_disp_area(lcd_mpu_desc_t *self, uint16_t xs, uint16_t xe, uint1
         xe += self->adapter.offset_x;
         ys += self->adapter.offset_y;
         ye += self->adapter.offset_y;
-
-        self->adapter.set_disp_area(&self->board.driver, xs, xe, ys, ye);
+extern void st77916_set_disp_area(lcd_mpu_driver_t *self, uint16_t xs, uint16_t xe, uint16_t ys, uint16_t ye);
+				st77916_set_disp_area(&self->board.driver, xs, xe, ys, ye);
+//        self->adapter.set_disp_area(&self->board.driver, xs, xe, ys, ye);
     }
 }
 

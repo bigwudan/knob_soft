@@ -267,6 +267,10 @@ static void UserPixelSetFunction( UG_S16 x , UG_S16 y , UG_COLOR c )
     lcd_mpu_set_disp_area(This_LCD, x, x, y, y);
     lcd_mpu_draw_point(This_LCD, c);
 }
+
+
+
+
 void test_case_draw_rect(void)
 {
     printf("\r\n[%s]: entry!\r\n", __FUNCTION__);
@@ -291,7 +295,7 @@ void test_case_draw_rect(void)
         if (++color_i >= sizeof(color_test) / sizeof(color_test[0])) color_i = 0;
         //systick_delay_ms(1000);
         
-#if 1 /* 四边线测试 */
+#if 0 /* 四边线测试 */
         uint16_t stride = 10; //边界线的宽度(四边等宽) / pixels
         for (uint16_t s = 0; s < stride; ++s) {
             for (x = 0; x < DISP_WIDTH; ++x) {
