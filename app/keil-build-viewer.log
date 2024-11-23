@@ -44,7 +44,7 @@
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-29fb1e.o   [path] (null)
+[object name] lto-llvm-011c78.o   [path] (null)
 [object name] startup_swm221.o    [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 [object name] ugui_framework.lib  [path] .\libs\ugui_framework.lib
 
@@ -140,4 +140,4 @@ Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Po
  
 =============================================================================================================================
 
-run time: 0.046 s
+run time: 0.051 s

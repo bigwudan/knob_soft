@@ -166,7 +166,7 @@ void systick_handler_hook(void)
     __IMPORT_TEST_CASE(systick_handler);
 }
 
-#define READ_NUM 0x167
+#define READ_NUM 360
 typedef struct {
 	uint32_t idx;
 	uint32_t addr;
@@ -182,7 +182,7 @@ pic_flash_struct pic_flash;
 void test_case_show_pic_from_flash(uint32_t pic_idx){
 	//read data from flash
 	pic_flash.addr = pic_idx*360*360*2;
-	for(int i = 0; i<READ_NUM+1; i++){
+	for(int i = 0; i<READ_NUM; i++){
 		
 		memset(pic_flash.RdBuff, 0, READ_NUM*2);
 		qspi_multiplex_flash(); // QSPI 分时复用 Flash 
