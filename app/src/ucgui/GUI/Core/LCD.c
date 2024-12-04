@@ -59,7 +59,7 @@ Purpose     : Link between GUI and LCD_L0
 *       _GetColorIndex
 */
 static int _GetColorIndex(int i)  /* i is 0 or 1 */ {
-
+  return  (GUI_Context.DrawMode & LCD_DRAWMODE_REV) ? i-1 : i;
 }
 
 /*********************************************************************
@@ -205,7 +205,7 @@ int LCD_Init(void) {
 *       LCD_Color2Index
 */
 int LCD_Color2Index(LCD_COLOR Color) {
-	return Color;
+  return LCDDEV_L0_Color2Index(Color);
 }
 
 /*********************************************************************

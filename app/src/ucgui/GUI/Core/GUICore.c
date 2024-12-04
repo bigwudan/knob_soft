@@ -152,6 +152,7 @@ int GUI_Init(void) {
   }
   GUI_Clear();
   #endif
+  return r;	
 }
 
 /*************************** End of file ****************************/

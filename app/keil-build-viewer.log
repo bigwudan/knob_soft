@@ -34,133 +34,132 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007C8C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007D8C [memory type] 2 [memory ID] 3
 
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C58 [memory type] 1 [memory ID] 2
-		[ZI block] addr: 0x20000018, size: 0x00001C40 (7232)
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C90 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000018, size: 0x00001C78 (7288)
 
 
-[object name max length] 21
+[object name max length] 22
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-9f8d28.o      [path] (null)
-[object name] startup_swm221.o       [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
-[object name] ugui_framework.lib     [path] .\libs\ugui_framework.lib
+[object name] lto-llvm-4e470d.o       [path] (null)
+[object name] startup_swm221.o        [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
+[object name] ugui_framework.lib      [path] .\libs\ugui_framework.lib
 
 [file path in keil project]
-[old name] main.c                 [type] 1   [path] .\src\apps\main.c
-[old name] semihosting.c          [type] 1   [path] .\src\apps\semihosting.c
-[old name] test_case.c            [type] 1   [path] .\src\apps\test_case.c
-[old name] board.c                [type] 1   [path] .\src\board\board.c
-[old name] dev_systick.c          [type] 1   [path] .\src\board\dev_systick.c
-[old name] dev_uart.c             [type] 1   [path] .\src\board\dev_uart.c
-[old name] dev_misc.c             [type] 1   [path] .\src\board\dev_misc.c
-[old name] dev_key.c              [type] 1   [path] .\src\board\dev_key.c
-[old name] dev_sleep_stop.c       [type] 1   [path] .\src\board\dev_sleep_stop.c
-[old name] dev_tp.c               [type] 1   [path] .\src\board\dev_tp.c
-[old name] dev_tp_i2c.c           [type] 1   [path] .\src\board\dev_tp_i2c.c
-[old name] dev_tp_port.c          [type] 1   [path] .\src\board\dev_tp_port.c
-[old name] dev_lcd_mpu.c          [type] 1   [path] .\src\board\dev_lcd_mpu.c
-[old name] dev_lcd_mpu_i80.c      [type] 1   [path] .\src\board\dev_lcd_mpu_i80.c
-[old name] dev_lcd_mpu_spi.c      [type] 1   [path] .\src\board\dev_lcd_mpu_spi.c
-[old name] dev_lcd_mpu_qspi.c     [type] 1   [path] .\src\board\dev_lcd_mpu_qspi.c
-[old name] dev_lcd_mpu_port.c     [type] 1   [path] .\src\board\dev_lcd_mpu_port.c
-[old name] dev_sw_i2c.c           [type] 1   [path] .\src\board\dev_sw_i2c.c
-[old name] dev_sw_spi.c           [type] 1   [path] .\src\board\dev_sw_spi.c
-[old name] dev_qspi_flash.c       [type] 1   [path] .\src\board\dev_qspi_flash.c
-[old name] tp_cst3xx.c            [type] 1   [path] .\src\board\ic_driver\tp_cst3xx.c
-[old name] tp_cst8xx.c            [type] 1   [path] .\src\board\ic_driver\tp_cst8xx.c
-[old name] tp_ftxx.c              [type] 1   [path] .\src\board\ic_driver\tp_ftxx.c
-[old name] tp_gt9xx.c             [type] 1   [path] .\src\board\ic_driver\tp_gt9xx.c
-[old name] tp_ili2117a.c          [type] 1   [path] .\src\board\ic_driver\tp_ili2117a.c
-[old name] tp_tango_c32.c         [type] 1   [path] .\src\board\ic_driver\tp_tango_c32.c
-[old name] tp_chsc6413.c          [type] 1   [path] .\src\board\ic_driver\tp_chsc6413.c
-[old name] tp_chsc6540.c          [type] 1   [path] .\src\board\ic_driver\tp_chsc6540.c
-[old name] lcd_st7789.c           [type] 1   [path] .\src\board\ic_driver\lcd_st7789.c
-[old name] lcd_ili9488.c          [type] 1   [path] .\src\board\ic_driver\lcd_ili9488.c
-[old name] lcd_gx9307.c           [type] 1   [path] .\src\board\ic_driver\lcd_gx9307.c
-[old name] lcd_gc9307.c           [type] 1   [path] .\src\board\ic_driver\lcd_gc9307.c
-[old name] lcd_gc9a01.c           [type] 1   [path] .\src\board\ic_driver\lcd_gc9a01.c
-[old name] lcd_st7365.c           [type] 1   [path] .\src\board\ic_driver\lcd_st7365.c
-[old name] lcd_st77916.c          [type] 1   [path] .\src\board\ic_driver\lcd_st77916.c
-[old name] lcd_nv3041.c           [type] 1   [path] .\src\board\ic_driver\lcd_nv3041.c
-[old name] lcd_nv3023.c           [type] 1   [path] .\src\board\ic_driver\lcd_nv3023.c
-[old name] modbus_rtu.c           [type] 1   [path] .\src\modules\modbus_rtu.c
-[old name] sfud.c                 [type] 1   [path] .\src\components\SFUD\sfud\src\sfud.c
-[old name] sfud_sfdp.c            [type] 1   [path] .\src\components\SFUD\sfud\src\sfud_sfdp.c
-[old name] sfud_port_swm221.c     [type] 1   [path] .\src\components\SFUD\sfud\port\sfud_port_swm221.c
-[old name] multi_button.c         [type] 1   [path] .\src\components\MultiButton\multi_button.c
-[old name] chry_ringbuffer.c      [type] 1   [path] .\src\components\CherryRB\chry_ringbuffer.c
-[old name] system_SWM221.c        [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\system_SWM221.c
-[old name] startup_SWM221.s       [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
-[old name] SWM221_adc.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_adc.c
-[old name] SWM221_can.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_can.c
-[old name] SWM221_crc.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_crc.c
-[old name] SWM221_div.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_div.c
-[old name] SWM221_dma.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_dma.c
-[old name] SWM221_exti.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_exti.c
-[old name] SWM221_flash.c         [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_flash.c
-[old name] SWM221_gpio.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_gpio.c
-[old name] SWM221_i2c.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_i2c.c
-[old name] SWM221_iofilt.c        [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_iofilt.c
-[old name] SWM221_mpu.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_mpu.c
-[old name] SWM221_port.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_port.c
-[old name] SWM221_pwm.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_pwm.c
-[old name] SWM221_qei.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qei.c
-[old name] SWM221_qspi.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qspi.c
-[old name] SWM221_sleep.c         [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_sleep.c
-[old name] SWM221_spi.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_spi.c
-[old name] SWM221_timr.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_timr.c
-[old name] SWM221_uart.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_uart.c
-[old name] SWM221_usart.c         [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_usart.c
-[old name] SWM221_wdt.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_wdt.c
-[old name] ugui_framework.lib     [type] 3   [path] .\libs\ugui_framework.lib
-[old name] app.c                  [type] 1   [path] .\src\apps\ui_src\appkit\app.c
-[old name] screen001.c            [type] 1   [path] .\src\apps\ui_src\screen001.c
-[old name] screen002.c            [type] 1   [path] .\src\apps\ui_src\screen002.c
-[old name] LCDDummy.c             [type] 1   [path] .\src\ucgui\GUI\LCDDriver\LCDDummy.c
-[old name] GUI_SetColorIndex.c    [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetColorIndex.c
-[old name] GUICore.c              [type] 1   [path] .\src\ucgui\GUI\Core\GUICore.c
-[old name] GUI_DrawHLine.c        [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DrawHLine.c
-[old name] LCD.c                  [type] 1   [path] .\src\ucgui\GUI\Core\LCD.c
-[old name] GUI_UC_EncodeNone.c    [type] 1   [path] .\src\ucgui\GUI\Core\GUI_UC_EncodeNone.c
-[old name] LCD_L0_Generic.c       [type] 1   [path] .\src\ucgui\GUI\Core\LCD_L0_Generic.c
-[old name] LCDColor.c             [type] 1   [path] .\src\ucgui\GUI\Core\LCDColor.c
-[old name] GUI_SetColor.c         [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetColor.c
-[old name] GUI_Goto.c             [type] 1   [path] .\src\ucgui\GUI\Core\GUI_Goto.c
-[old name] LCDP565_Index2Color.c  [type] 1   [path] .\src\ucgui\GUI\Core\LCDP565_Index2Color.c
-[old name] GUI_DispStringAt.c     [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DispStringAt.c
-[old name] GUI_DispString.c       [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DispString.c
-[old name] GUIChar.c              [type] 1   [path] .\src\ucgui\GUI\Core\GUIChar.c
-[old name] GUI_UC.c               [type] 1   [path] .\src\ucgui\GUI\Core\GUI_UC.c
-[old name] GUICharLine.c          [type] 1   [path] .\src\ucgui\GUI\Core\GUICharLine.c
-[old name] GUI_RectsIntersect.c   [type] 1   [path] .\src\ucgui\GUI\Core\GUI_RectsIntersect.c
-[old name] GUI_SetFont.c          [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetFont.c
-[old name] GUICharP.c             [type] 1   [path] .\src\ucgui\GUI\Core\GUICharP.c
-[old name] GUI_GetColor.c         [type] 1   [path] .\src\ucgui\GUI\Core\GUI_GetColor.c
-[old name] LCD_GetColorIndex.c    [type] 1   [path] .\src\ucgui\GUI\Core\LCD_GetColorIndex.c
-[old name] LCD_DrawBitmap_565.c   [type] 1   [path] .\src\ucgui\GUI\Core\LCD_DrawBitmap_565.c
-[old name] LCD_GetEx.c            [type] 1   [path] .\src\ucgui\GUI\Core\LCD_GetEx.c
-[old name] GUI_DrawBitmap.c       [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DrawBitmap.c
-[old name] GUI_SetDrawMode.c      [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetDrawMode.c
-[old name] LCDP565.c              [type] 1   [path] .\src\ucgui\GUI\ConvertColor\LCDP565.c
-[old name] F08_ASCII.c            [type] 1   [path] .\src\ucgui\GUI\Font\F08_ASCII.c
+[old name] main.c                  [type] 1   [path] .\src\apps\main.c
+[old name] semihosting.c           [type] 1   [path] .\src\apps\semihosting.c
+[old name] test_case.c             [type] 1   [path] .\src\apps\test_case.c
+[old name] board.c                 [type] 1   [path] .\src\board\board.c
+[old name] dev_systick.c           [type] 1   [path] .\src\board\dev_systick.c
+[old name] dev_uart.c              [type] 1   [path] .\src\board\dev_uart.c
+[old name] dev_misc.c              [type] 1   [path] .\src\board\dev_misc.c
+[old name] dev_key.c               [type] 1   [path] .\src\board\dev_key.c
+[old name] dev_sleep_stop.c        [type] 1   [path] .\src\board\dev_sleep_stop.c
+[old name] dev_tp.c                [type] 1   [path] .\src\board\dev_tp.c
+[old name] dev_tp_i2c.c            [type] 1   [path] .\src\board\dev_tp_i2c.c
+[old name] dev_tp_port.c           [type] 1   [path] .\src\board\dev_tp_port.c
+[old name] dev_lcd_mpu.c           [type] 1   [path] .\src\board\dev_lcd_mpu.c
+[old name] dev_lcd_mpu_i80.c       [type] 1   [path] .\src\board\dev_lcd_mpu_i80.c
+[old name] dev_lcd_mpu_spi.c       [type] 1   [path] .\src\board\dev_lcd_mpu_spi.c
+[old name] dev_lcd_mpu_qspi.c      [type] 1   [path] .\src\board\dev_lcd_mpu_qspi.c
+[old name] dev_lcd_mpu_port.c      [type] 1   [path] .\src\board\dev_lcd_mpu_port.c
+[old name] dev_sw_i2c.c            [type] 1   [path] .\src\board\dev_sw_i2c.c
+[old name] dev_sw_spi.c            [type] 1   [path] .\src\board\dev_sw_spi.c
+[old name] dev_qspi_flash.c        [type] 1   [path] .\src\board\dev_qspi_flash.c
+[old name] tp_cst3xx.c             [type] 1   [path] .\src\board\ic_driver\tp_cst3xx.c
+[old name] tp_cst8xx.c             [type] 1   [path] .\src\board\ic_driver\tp_cst8xx.c
+[old name] tp_ftxx.c               [type] 1   [path] .\src\board\ic_driver\tp_ftxx.c
+[old name] tp_gt9xx.c              [type] 1   [path] .\src\board\ic_driver\tp_gt9xx.c
+[old name] tp_ili2117a.c           [type] 1   [path] .\src\board\ic_driver\tp_ili2117a.c
+[old name] tp_tango_c32.c          [type] 1   [path] .\src\board\ic_driver\tp_tango_c32.c
+[old name] tp_chsc6413.c           [type] 1   [path] .\src\board\ic_driver\tp_chsc6413.c
+[old name] tp_chsc6540.c           [type] 1   [path] .\src\board\ic_driver\tp_chsc6540.c
+[old name] lcd_st7789.c            [type] 1   [path] .\src\board\ic_driver\lcd_st7789.c
+[old name] lcd_ili9488.c           [type] 1   [path] .\src\board\ic_driver\lcd_ili9488.c
+[old name] lcd_gx9307.c            [type] 1   [path] .\src\board\ic_driver\lcd_gx9307.c
+[old name] lcd_gc9307.c            [type] 1   [path] .\src\board\ic_driver\lcd_gc9307.c
+[old name] lcd_gc9a01.c            [type] 1   [path] .\src\board\ic_driver\lcd_gc9a01.c
+[old name] lcd_st7365.c            [type] 1   [path] .\src\board\ic_driver\lcd_st7365.c
+[old name] lcd_st77916.c           [type] 1   [path] .\src\board\ic_driver\lcd_st77916.c
+[old name] lcd_nv3041.c            [type] 1   [path] .\src\board\ic_driver\lcd_nv3041.c
+[old name] lcd_nv3023.c            [type] 1   [path] .\src\board\ic_driver\lcd_nv3023.c
+[old name] modbus_rtu.c            [type] 1   [path] .\src\modules\modbus_rtu.c
+[old name] sfud.c                  [type] 1   [path] .\src\components\SFUD\sfud\src\sfud.c
+[old name] sfud_sfdp.c             [type] 1   [path] .\src\components\SFUD\sfud\src\sfud_sfdp.c
+[old name] sfud_port_swm221.c      [type] 1   [path] .\src\components\SFUD\sfud\port\sfud_port_swm221.c
+[old name] multi_button.c          [type] 1   [path] .\src\components\MultiButton\multi_button.c
+[old name] chry_ringbuffer.c       [type] 1   [path] .\src\components\CherryRB\chry_ringbuffer.c
+[old name] system_SWM221.c         [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\system_SWM221.c
+[old name] startup_SWM221.s        [type] 1   [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
+[old name] SWM221_adc.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_adc.c
+[old name] SWM221_can.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_can.c
+[old name] SWM221_crc.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_crc.c
+[old name] SWM221_div.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_div.c
+[old name] SWM221_dma.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_dma.c
+[old name] SWM221_exti.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_exti.c
+[old name] SWM221_flash.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_flash.c
+[old name] SWM221_gpio.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_gpio.c
+[old name] SWM221_i2c.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_i2c.c
+[old name] SWM221_iofilt.c         [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_iofilt.c
+[old name] SWM221_mpu.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_mpu.c
+[old name] SWM221_port.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_port.c
+[old name] SWM221_pwm.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_pwm.c
+[old name] SWM221_qei.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qei.c
+[old name] SWM221_qspi.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_qspi.c
+[old name] SWM221_sleep.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_sleep.c
+[old name] SWM221_spi.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_spi.c
+[old name] SWM221_timr.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_timr.c
+[old name] SWM221_uart.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_uart.c
+[old name] SWM221_usart.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_usart.c
+[old name] SWM221_wdt.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_wdt.c
+[old name] ugui_framework.lib      [type] 3   [path] .\libs\ugui_framework.lib
+[old name] app.c                   [type] 1   [path] .\src\apps\ui_src\appkit\app.c
+[old name] screen001.c             [type] 1   [path] .\src\apps\ui_src\screen001.c
+[old name] screen002.c             [type] 1   [path] .\src\apps\ui_src\screen002.c
+[old name] LCDDummy.c              [type] 1   [path] .\src\ucgui\GUI\LCDDriver\LCDDummy.c
+[old name] GUI_SetColorIndex.c     [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetColorIndex.c
+[old name] GUICore.c               [type] 1   [path] .\src\ucgui\GUI\Core\GUICore.c
+[old name] GUI_DrawHLine.c         [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DrawHLine.c
+[old name] LCD.c                   [type] 1   [path] .\src\ucgui\GUI\Core\LCD.c
+[old name] GUI_UC_EncodeNone.c     [type] 1   [path] .\src\ucgui\GUI\Core\GUI_UC_EncodeNone.c
+[old name] LCD_L0_Generic.c        [type] 1   [path] .\src\ucgui\GUI\Core\LCD_L0_Generic.c
+[old name] LCDColor.c              [type] 1   [path] .\src\ucgui\GUI\Core\LCDColor.c
+[old name] GUI_SetColor.c          [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetColor.c
+[old name] GUI_Goto.c              [type] 1   [path] .\src\ucgui\GUI\Core\GUI_Goto.c
+[old name] GUI_DispStringAt.c      [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DispStringAt.c
+[old name] GUI_DispString.c        [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DispString.c
+[old name] GUIChar.c               [type] 1   [path] .\src\ucgui\GUI\Core\GUIChar.c
+[old name] GUI_UC.c                [type] 1   [path] .\src\ucgui\GUI\Core\GUI_UC.c
+[old name] GUICharLine.c           [type] 1   [path] .\src\ucgui\GUI\Core\GUICharLine.c
+[old name] GUI_RectsIntersect.c    [type] 1   [path] .\src\ucgui\GUI\Core\GUI_RectsIntersect.c
+[old name] GUI_SetFont.c           [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetFont.c
+[old name] GUICharP.c              [type] 1   [path] .\src\ucgui\GUI\Core\GUICharP.c
+[old name] GUI_GetColor.c          [type] 1   [path] .\src\ucgui\GUI\Core\GUI_GetColor.c
+[old name] LCD_GetColorIndex.c     [type] 1   [path] .\src\ucgui\GUI\Core\LCD_GetColorIndex.c
+[old name] LCD_GetEx.c             [type] 1   [path] .\src\ucgui\GUI\Core\LCD_GetEx.c
+[old name] GUI_DrawBitmap.c        [type] 1   [path] .\src\ucgui\GUI\Core\GUI_DrawBitmap.c
+[old name] GUI_SetDrawMode.c       [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetDrawMode.c
+[old name] F08_ASCII.c             [type] 1   [path] .\src\ucgui\GUI\Font\F08_ASCII.c
+[old name] LCDPM565.c              [type] 1   [path] .\src\ucgui\GUI\ConvertColor\LCDPM565.c
+[old name] LCDPM565_Index2Color.c  [type] 1   [path] .\src\ucgui\GUI\Core\LCDPM565_Index2Color.c
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007C8C [type] 2 [ID] 3
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C58 [type] 1 [ID] 2
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007D5C [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C90 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
 [memory print mode]: 0
 LR_IROM1
         RAM 1             [0x20000000 | 0x00002000 (8192)]
                 [zi start] 1   [zi end] 44
-                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ______| (   7.0 KB /   8.0 KB )  88.6%  
+                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ______| (   7.1 KB /   8.0 KB )  89.3%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö______________________________________| (  31.1 KB / 128.0 KB )  24.3%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö______________________________________| (  31.3 KB / 128.0 KB )  24.5%  [+48]
  
 [htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)

@@ -913,11 +913,6 @@
               <FilePath>.\src\ucgui\GUI\Core\GUI_Goto.c</FilePath>
             </File>
             <File>
-              <FileName>LCDP565_Index2Color.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\Core\LCDP565_Index2Color.c</FilePath>
-            </File>
-            <File>
               <FileName>GUI_DispStringAt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUI_DispStringAt.c</FilePath>
@@ -968,11 +963,6 @@
               <FilePath>.\src\ucgui\GUI\Core\LCD_GetColorIndex.c</FilePath>
             </File>
             <File>
-              <FileName>LCD_DrawBitmap_565.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_565.c</FilePath>
-            </File>
-            <File>
               <FileName>LCD_GetEx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCD_GetEx.c</FilePath>
@@ -988,14 +978,19 @@
               <FilePath>.\src\ucgui\GUI\Core\GUI_SetDrawMode.c</FilePath>
             </File>
             <File>
-              <FileName>LCDP565.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\ConvertColor\LCDP565.c</FilePath>
-            </File>
-            <File>
               <FileName>F08_ASCII.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Font\F08_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDPM565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\ConvertColor\LCDPM565.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDPM565_Index2Color.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCDPM565_Index2Color.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1908,11 +1903,6 @@
               <FilePath>.\src\ucgui\GUI\Core\GUI_Goto.c</FilePath>
             </File>
             <File>
-              <FileName>LCDP565_Index2Color.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\Core\LCDP565_Index2Color.c</FilePath>
-            </File>
-            <File>
               <FileName>GUI_DispStringAt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUI_DispStringAt.c</FilePath>
@@ -1963,11 +1953,6 @@
               <FilePath>.\src\ucgui\GUI\Core\LCD_GetColorIndex.c</FilePath>
             </File>
             <File>
-              <FileName>LCD_DrawBitmap_565.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_565.c</FilePath>
-            </File>
-            <File>
               <FileName>LCD_GetEx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCD_GetEx.c</FilePath>
@@ -1983,14 +1968,19 @@
               <FilePath>.\src\ucgui\GUI\Core\GUI_SetDrawMode.c</FilePath>
             </File>
             <File>
-              <FileName>LCDP565.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ucgui\GUI\ConvertColor\LCDP565.c</FilePath>
-            </File>
-            <File>
               <FileName>F08_ASCII.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Font\F08_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDPM565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\ConvertColor\LCDPM565.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDPM565_Index2Color.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCDPM565_Index2Color.c</FilePath>
             </File>
           </Files>
         </Group>

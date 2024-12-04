@@ -7,6 +7,8 @@
 #include "board.h"
 #include "app_cfg.h"
 
+#include "GUI.h"
+
 /* 使能 TEST_CASE_EN 宏将执行单元测试用例: LED / KEY / TP / UART-Modbus / screen_demo, 
  * 反之若屏蔽该宏, 则仅保留 LCD 驱动显示.
  */
@@ -200,6 +202,21 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 
 }
 
+
+
+static void _ucgui(){
+extern GUI_CONTEXT        GUI_Context;
+  GUI_Init();
+  //GUI_SetBkColor(GUI_RED); 
+	GUI_Clear();
+	
+	GUI_SetBkColor( GUI_RED);
+	printf( "bk color:%x,%x\n", GUI_Context.LCD.aColorIndex16[0], LCD_Color2Index ( GUI_RED) );
+	GUI_SetColor( GUI_GREEN);
+	printf( "color:%X,%X\n", GUI_Context.LCD.aColorIndex16[1], LCD_Color2Index ( GUI_GREEN) );
+
+}
+
 int main(void)
 {
     /* 在调测阶段(版本 Release 时可注释), 预防程序跑飞后, 上电瞬间锁死内核导致无法通过 SWD 访问, 也可用作等待个别硬件模块上电稳定 */
@@ -218,6 +235,8 @@ int main(void)
     printf("@Copyright by Synwit Technology");
     printf("\r\n-------------------------------------\r\n");
 
+		_ucgui();
+	
     /* Start scheduler. */
 //    synwit_ug_start(&sys_ops, &sys_conf);
 
