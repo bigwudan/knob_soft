@@ -206,7 +206,7 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 
 
 static void _ucgui(){
-	return ;
+
 extern GUI_CONTEXT        GUI_Context;
   GUI_Init();
   //GUI_SetBkColor(GUI_RED); 

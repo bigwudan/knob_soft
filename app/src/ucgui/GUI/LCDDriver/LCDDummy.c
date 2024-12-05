@@ -106,6 +106,27 @@ Version-Date---Author-Explanation
 *
 **********************************************************************
 */
+/* driver */
+
+
+
+
+
+#include "board.h"
+
+
+
+
+
+extern lcd_mpu_desc_t LCD_Obj;
+#define This_LCD     (&LCD_Obj)
+
+static void UserPixelSetFunction( int x , int y , int c )
+{
+    lcd_mpu_set_disp_area(This_LCD, x, x, y, y);
+    lcd_mpu_draw_point(This_LCD, c);
+}
+
 
 /*********************************************************************
 *
@@ -396,6 +417,7 @@ void LCD_L0_SetPixelIndex(int x, int y, int PixelIndex) {
   {
     /* ... */
 //		LCD_DrawPoint(x, y, PixelIndex);
+		UserPixelSetFunction(x,y,PixelIndex);
   }
 }
 

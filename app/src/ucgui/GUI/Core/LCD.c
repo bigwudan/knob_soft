@@ -104,7 +104,13 @@ LCD_DRAWMODE LCD_SetDrawMode(LCD_DRAWMODE dm) {
 *       LCD_DrawPixel
 */
 void LCD_DrawPixel(int x, int y) {
- 
+  RETURN_IF_Y_OUT();
+  RETURN_IF_X_OUT();
+  if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
+    LCDDEV_L0_XorPixel(x, y);
+  } else {
+    LCDDEV_L0_SetPixelIndex(x, y, LCD_COLORINDEX);
+  } 
 }
 
 /*********************************************************************

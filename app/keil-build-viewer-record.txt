@@ -2,8 +2,8 @@ Memory Map of the image
 
 	Load Region LR_IROM1 
 
-		Execution Region ER_IROM1 (Exec base: 0x00000000, Size: 0x0000621C, Max: 0x00020000, END)
+		Execution Region ER_IROM1 (Exec base: 0x00000000, Size: 0x0000647C, Max: 0x00020000, END)
 
-		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00001B58, Max: 0x00002000, END)
+		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00001B90, Max: 0x00002000, END)
 
 Image component sizes
