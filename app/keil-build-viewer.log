@@ -20,7 +20,7 @@
 [Listing path] .\out\
 [Is has pack] 1
 [Is enbale LTO] 1
-[Is has user library] 1
+[Is has user library] 0
 [Is custom scatter file] 1
 
 [ugui_app.uvprojx]  [SWM221-Debug]  [SWM221xB]
@@ -34,19 +34,18 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007D8C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000621C [memory type] 2 [memory ID] 3
 
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C90 [memory type] 1 [memory ID] 2
-		[ZI block] addr: 0x20000018, size: 0x00001C78 (7288)
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001B58 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000010, size: 0x00001B48 (6984)
 
 
 [object name max length] 22
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-e1b394.o       [path] (null)
+[object name] lto-llvm-581b7b.o       [path] (null)
 [object name] startup_swm221.o        [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
-[object name] ugui_framework.lib      [path] .\libs\ugui_framework.lib
 
 [file path in keil project]
 [old name] main.c                  [type] 1   [path] .\src\apps\main.c
@@ -115,10 +114,6 @@
 [old name] SWM221_uart.c           [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_uart.c
 [old name] SWM221_usart.c          [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_usart.c
 [old name] SWM221_wdt.c            [type] 1   [path] .\src\CSL\SWM221_StdPeriph_Driver\SWM221_wdt.c
-[old name] ugui_framework.lib      [type] 3   [path] .\libs\ugui_framework.lib
-[old name] app.c                   [type] 1   [path] .\src\apps\ui_src\appkit\app.c
-[old name] screen001.c             [type] 1   [path] .\src\apps\ui_src\screen001.c
-[old name] screen002.c             [type] 1   [path] .\src\apps\ui_src\screen002.c
 [old name] LCDDummy.c              [type] 1   [path] .\src\ucgui\GUI\LCDDriver\LCDDummy.c
 [old name] GUI_SetColorIndex.c     [type] 1   [path] .\src\ucgui\GUI\Core\GUI_SetColorIndex.c
 [old name] GUICore.c               [type] 1   [path] .\src\ucgui\GUI\Core\GUICore.c
@@ -155,22 +150,22 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00007D8C [type] 2 [ID] 3
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001C90 [type] 1 [ID] 2
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000621C [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001B58 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
 [memory print mode]: 0
 LR_IROM1
         RAM 1             [0x20000000 | 0x00002000 (8192)]
-                [zi start] 1   [zi end] 44
-                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ______| (   7.1 KB /   8.0 KB )  89.3%  
+                [zi start] 1   [zi end] 42
+                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ________| (   6.8 KB /   8.0 KB )  85.4%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö______________________________________| (  31.3 KB / 128.0 KB )  24.5%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________________________________| (  24.5 KB / 128.0 KB )  19.2%  
  
 [htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.052 s
+run time: 0.027 s

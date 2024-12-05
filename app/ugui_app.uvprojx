@@ -821,38 +821,12 @@
         </Group>
         <Group>
           <GroupName>libs</GroupName>
-          <Files>
-            <File>
-              <FileName>ugui_framework.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\libs\ugui_framework.lib</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>appkit</GroupName>
-          <Files>
-            <File>
-              <FileName>app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\appkit\app.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>ui_src</GroupName>
-          <Files>
-            <File>
-              <FileName>screen001.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\screen001.c</FilePath>
-            </File>
-            <File>
-              <FileName>screen002.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\screen002.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>ucgui</GroupName>
@@ -1846,38 +1820,12 @@
         </Group>
         <Group>
           <GroupName>libs</GroupName>
-          <Files>
-            <File>
-              <FileName>ugui_framework.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\libs\ugui_framework.lib</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>appkit</GroupName>
-          <Files>
-            <File>
-              <FileName>app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\appkit\app.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>ui_src</GroupName>
-          <Files>
-            <File>
-              <FileName>screen001.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\screen001.c</FilePath>
-            </File>
-            <File>
-              <FileName>screen002.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\apps\ui_src\screen002.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>ucgui</GroupName>

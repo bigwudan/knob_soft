@@ -1,8 +1,7 @@
 
 #include <string.h>
 #include "ugui/ugui.h"
-#include "synwit_ui_framework/synwit_ui.h"
-#include "synwit_ui_framework/synwit_ui_internal.h"
+
 
 #include "board.h"
 #include "app_cfg.h"
@@ -160,9 +159,11 @@ static const SYS_CONFIG sys_conf = {
     .flush_area_alignment = 0,
 };
 
+
+
 void systick_handler_hook(void)
 {
-    UG_TickInc(1);
+    //UG_TickInc(1);
     // insert user code(note: It is Systick ISR)
 
     __IMPORT_TEST_CASE(systick_handler);
@@ -205,6 +206,7 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 
 
 static void _ucgui(){
+	return ;
 extern GUI_CONTEXT        GUI_Context;
   GUI_Init();
   //GUI_SetBkColor(GUI_RED); 
