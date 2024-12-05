@@ -214,6 +214,9 @@ extern GUI_CONTEXT        GUI_Context;
 	printf( "bk color:%x,%x\n", GUI_Context.LCD.aColorIndex16[0], LCD_Color2Index ( GUI_RED) );
 	GUI_SetColor( GUI_GREEN);
 	printf( "color:%X,%X\n", GUI_Context.LCD.aColorIndex16[1], LCD_Color2Index ( GUI_GREEN) );
+	
+	 GUI_SetPenSize(1);//画笔粗细设置
+	GUI_DrawLine(80, 10, 80, 10);
 
 }
 

@@ -992,6 +992,41 @@
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCDPM565_Index2Color.c</FilePath>
             </File>
+            <File>
+              <FileName>GUI_Pen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_Pen.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DrawLine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DrawLine.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_FillPolygon.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_FillPolygon.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DrawPoint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DrawPoint.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI2DLib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI2DLib.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_DrawVLine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawVLine.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUICirc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUICirc.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1981,6 +2016,41 @@
               <FileName>LCDPM565_Index2Color.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCDPM565_Index2Color.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_Pen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_Pen.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DrawLine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DrawLine.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_FillPolygon.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_FillPolygon.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DrawPoint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DrawPoint.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI2DLib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI2DLib.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_DrawVLine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawVLine.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUICirc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUICirc.c</FilePath>
             </File>
           </Files>
         </Group>
