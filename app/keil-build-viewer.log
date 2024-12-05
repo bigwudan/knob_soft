@@ -44,7 +44,7 @@
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-fe06d7.o       [path] (null)
+[object name] lto-llvm-f12c5e.o       [path] (null)
 [object name] startup_swm221.o        [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 
 [file path in keil project]
@@ -150,7 +150,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000631C [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000647C [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001B90 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
@@ -161,11 +161,11 @@ LR_IROM1
                 RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_______| (   6.8 KB /   8.0 KB )  86.1%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________________________________| (  25.1 KB / 128.0 KB )  19.6%  [+352]
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________________________________| (  25.1 KB / 128.0 KB )  19.6%  
  
 [htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.029 s
+run time: 0.030 s
