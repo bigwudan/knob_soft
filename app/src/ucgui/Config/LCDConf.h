@@ -36,6 +36,8 @@ Purpose     : Sample configuration file
 
 #define LCD_SWAP_RB (1)
 
+#define GUI_DEFAULT_BKCOLOR             0xFFFFFFF
+
 /*********************************************************************
 *
 *                   Full bus configuration

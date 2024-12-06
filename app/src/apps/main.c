@@ -206,19 +206,12 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 
 
 static void _ucgui(){
-
-extern GUI_CONTEXT        GUI_Context;
   GUI_Init();
-  //GUI_SetBkColor(GUI_RED); 
-	GUI_Clear();
-	
 	GUI_SetBkColor( GUI_RED);
-	printf( "bk color:%x,%x\n", GUI_Context.LCD.aColorIndex16[0], LCD_Color2Index ( GUI_RED) );
 	GUI_SetColor( GUI_GREEN);
-	printf( "color:%X,%X\n", GUI_Context.LCD.aColorIndex16[1], LCD_Color2Index ( GUI_GREEN) );
-	
-	 GUI_SetPenSize(1);//画笔粗细设置
-	GUI_DrawLine(80, 10, 80, 10);
+	GUI_Clear();	
+	GUI_SetPenSize(10);//画笔粗细设置
+	GUI_DrawLine(0, 10, 360, 10);
 
 }
 
@@ -263,10 +256,12 @@ int main(void)
 //		test_case_draw_rect();
     for (;;)
     {
+#if 0			
 			test_case_show_pic_from_flash(0);
       systick_delay_ms(1000); //等待 1s 观察
 			test_case_show_pic_from_flash(1);
 			systick_delay_ms(1000); //等待 1s 观察
+#endif
     }
     return 0;
 }

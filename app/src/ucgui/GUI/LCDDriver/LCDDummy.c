@@ -495,11 +495,12 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
 *       LCD_L0_FillRect
 */
 void LCD_L0_FillRect(int x0, int y0, int x1, int y1) {
-  for (; y0 <= y1; y0++) {
-    LCD_L0_DrawHLine(x0, y0, x1);
-  }
-//	LCD_Fill(x0,y0,x1,y1,LCD_COLORINDEX);	
-	
+//  for (; y0 <= y1; y0++) {
+//    LCD_L0_DrawHLine(x0, y0, x1);
+//  }
+//	LCD_Fill(x0,y0,x1,y1,LCD_COLORINDEX);
+	lcd_mpu_set_disp_area(This_LCD, x0, x1, y0, y1);
+	lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1+1-x0) * (y1+1-y0));	
 }
 
 /*********************************************************************
