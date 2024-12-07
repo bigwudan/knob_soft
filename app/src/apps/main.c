@@ -212,22 +212,20 @@ static void _ucgui(){
 	GUI_SetBkColor( GUI_RED);
 	GUI_SetColor( GUI_GREEN);
 	GUI_Clear();	
-	GUI_SetPenSize(10);//画笔粗细设置
-	//GUI_DrawLine(0, 10, 360, 10);
+	GUI_SetPenSize(80);//画笔粗细设置
+
 	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 	
-//	for(int i=40; i<180; i++){
-//		GUI_DrawCircle(180,180,i);
-//	}
-	
-	
-	GUI_DrawBitmap(&bmucgui_1, 80,80);
+//	GUI_DrawBitmap(&bmucgui_1, 80,80);
 	
 	GUI_SetFont(&GUI_Font32_ASCII);
 	
 	
-	GUI_DispCharAt('w', 160,160);
-	GUI_DispStringAt("abcdqwertyuiopasdf", 0, 160);
+
+	
+	//GUI_DrawArc(180, 180, 180, 0, 0, 0);
+	
+
 
 }
 
@@ -294,6 +292,8 @@ int main(void)
 			
 				systick_delay_ms(1000); //等待 1s 观察
 #endif
+
+#if 0
 				GUI_Clear();	
 				GUI_SetColor( GUI_GREEN);
 				GUI_DispStringAt("abcdqwertyuiopasdf", 0, 160);
@@ -303,6 +303,13 @@ int main(void)
 				GUI_SetColor( GUI_YELLOW);
 				GUI_DispStringAt("123456789012345678", 0, 160);
 				systick_delay_ms(1000); //等待 1s 观察
+#endif
+			GUI_Clear();	
+			for(int i=0; i<=360;i++){
+			
+				GUI_DrawArc(180, 180, 180, 0, 0, i);
+			}
+			systick_delay_ms(1000);
 
     }
     return 0;

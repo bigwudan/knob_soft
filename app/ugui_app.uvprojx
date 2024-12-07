@@ -1012,6 +1012,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUI_DispChar.c</FilePath>
             </File>
+            <File>
+              <FileName>GUIArc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUIArc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2041,6 +2046,11 @@
               <FileName>GUI_DispChar.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUI_DispChar.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUIArc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUIArc.c</FilePath>
             </File>
           </Files>
         </Group>
