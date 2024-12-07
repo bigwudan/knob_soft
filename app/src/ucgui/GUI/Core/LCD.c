@@ -6,7 +6,7 @@
 *                       (c) Copyright 2002, Micrium Inc., Weston, FL
 *                       (c) Copyright 2002, SEGGER Microcontroller Systeme GmbH
 *
-*              µC/GUI is protected by international copyright laws. Knowledge of the
+*              ï¿½C/GUI is protected by international copyright laws. Knowledge of the
 *              source code may not be used to write a similar product. This file may
 *              only be used in accordance with a license and should not be redistributed
 *              in any way. We appreciate your understanding and fairness.
@@ -151,7 +151,110 @@ void LCD_DrawBitmap(int x0, int y0, int xsize, int ysize, int xMul, int yMul,
                        int BitsPerPixel, int BytesPerLine,
                        const U8 GUI_UNI_PTR * pPixel, const LCD_PIXELINDEX* pTrans)
 {
-
+  U8  Data = 0;
+  int x1, y1;
+  /* Handle rotation if necessary */
+  #if GUI_SUPPORT_ROTATION
+  if (GUI_pLCD_APIList) {
+    GUI_pLCD_APIList->pfDrawBitmap(x0, y0, xsize, ysize, xMul, yMul, BitsPerPixel, BytesPerLine, pPixel, pTrans);
+    return;
+  }
+  #endif
+  /* Handle the optional Y-magnification */
+  y1 = y0 + ysize - 1;
+  x1 = x0 + xsize - 1;
+/*  Handle BITMAP without magnification */
+  if ((xMul | yMul) == 1) {
+    int Diff;
+    /*  Clip y0 (top) */
+    Diff = GUI_Context.ClipRect.y0 - y0;
+    if (Diff > 0) {
+      ysize -= Diff;
+      if (ysize <= 0) {
+		    return;
+      }
+      y0     = GUI_Context.ClipRect.y0;
+      #if GUI_SUPPORT_LARGE_BITMAPS                       /* Required only for 16 bit CPUs if some bitmaps are >64kByte */
+        pPixel += (U32)     Diff * (U32)     BytesPerLine;
+      #else
+        pPixel += (unsigned)Diff * (unsigned)BytesPerLine;
+      #endif
+    }
+    /*  Clip y1 (bottom) */
+    Diff = y1 - GUI_Context.ClipRect.y1;
+    if (Diff > 0) {
+      ysize -= Diff;
+      if (ysize <= 0) {
+		    return;
+      }
+    }
+    /*        Clip right side    */
+    Diff = x1 - GUI_Context.ClipRect.x1;
+    if (Diff > 0) {
+      xsize -= Diff;
+    }
+    /*        Clip left side ... (The difficult side ...)    */
+    Diff = 0;
+    if (x0 < GUI_Context.ClipRect.x0) {
+      Diff = GUI_Context.ClipRect.x0 - x0;
+			xsize -= Diff;
+			switch (BitsPerPixel) {
+			case 1:
+  			pPixel+= (Diff>>3); x0 += (Diff>>3)<<3; Diff &=7;
+				break;
+			case 2:
+	  		pPixel+= (Diff>>2); x0 += (Diff>>2)<<2; Diff &=3;
+				break;
+			case 4:
+				pPixel+= (Diff>>1); x0 += (Diff>>1)<<1; Diff &=1;
+				break;
+			case 8:
+				pPixel+= Diff;      x0 += Diff; Diff=0;
+				break;
+			case 16:
+				pPixel+= (Diff<<1); x0 += Diff; Diff=0;
+				break;
+			}
+    }
+    if (xsize <=0) {
+		  return;
+    }
+    LCDDEV_L0_DrawBitmap   (x0,y0, xsize, ysize, BitsPerPixel, BytesPerLine, pPixel, Diff, pTrans);
+  } else {
+    /**** Handle BITMAP with magnification ***/
+    int x,y;
+    int yi;
+    int Shift = 8-BitsPerPixel;
+    for (y=y0, yi=0; yi<ysize; yi++, y+= yMul, pPixel+=BytesPerLine) {
+      int yMax = y+yMul-1;
+      /* Draw if within clip area (Optimization ... "if" is not required !) */
+      if ((yMax >= GUI_Context.ClipRect.y0) && (y <= GUI_Context.ClipRect.y1)) {
+        int BitsLeft =0;
+        int xi;
+        const U8 GUI_UNI_PTR * pDataLine = pPixel;
+        for (x=x0, xi=0; xi<xsize; xi++, x+=xMul) {
+          U8  Index;
+          if (!BitsLeft) {
+            Data = *pDataLine++;
+            BitsLeft =8;
+          }
+          Index = Data>>Shift;
+          Data    <<= BitsPerPixel;
+          BitsLeft -= BitsPerPixel;
+          if (Index || ((GUI_Context.DrawMode & LCD_DRAWMODE_TRANS) ==0)) {
+            LCD_PIXELINDEX  OldColor = LCD_COLORINDEX;
+            if (pTrans) {
+              LCD_COLORINDEX = *(pTrans+Index);
+            } else {
+              LCD_COLORINDEX = Index;
+            }
+            LCD_FillRect(x,y, x+xMul-1, yMax);
+            LCD_COLORINDEX = OldColor;
+          }
+        }
+      }
+    }
+  }
 
 }
 

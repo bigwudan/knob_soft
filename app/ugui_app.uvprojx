@@ -820,13 +820,14 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>libs</GroupName>
-        </Group>
-        <Group>
-          <GroupName>appkit</GroupName>
-        </Group>
-        <Group>
           <GroupName>ui_src</GroupName>
+          <Files>
+            <File>
+              <FileName>ucgui_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\static_source\ucgui_1.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>ucgui</GroupName>
@@ -1000,6 +1001,11 @@
               <FileName>GUICirc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUICirc.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_DrawBitmap_M565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_M565.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1819,13 +1825,14 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>libs</GroupName>
-        </Group>
-        <Group>
-          <GroupName>appkit</GroupName>
-        </Group>
-        <Group>
           <GroupName>ui_src</GroupName>
+          <Files>
+            <File>
+              <FileName>ucgui_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\static_source\ucgui_1.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>ucgui</GroupName>
@@ -1999,6 +2006,11 @@
               <FileName>GUICirc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUICirc.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_DrawBitmap_M565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_M565.c</FilePath>
             </File>
           </Files>
         </Group>

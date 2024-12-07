@@ -204,14 +204,22 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 }
 
 
-
+extern GUI_CONST_STORAGE GUI_BITMAP bmucgui_1;
 static void _ucgui(){
   GUI_Init();
 	GUI_SetBkColor( GUI_RED);
 	GUI_SetColor( GUI_GREEN);
 	GUI_Clear();	
-	GUI_SetPenSize(10);//画笔粗细设置
-	GUI_DrawLine(0, 10, 360, 10);
+	GUI_SetPenSize(1);//画笔粗细设置
+	//GUI_DrawLine(0, 10, 360, 10);
+	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+	
+//	for(int i=40; i<180; i++){
+//		GUI_DrawCircle(180,180,i);
+//	}
+	
+	
+	GUI_DrawBitmap(&bmucgui_1, 80,80);
 
 }
 
@@ -262,6 +270,22 @@ int main(void)
 			test_case_show_pic_from_flash(1);
 			systick_delay_ms(1000); //等待 1s 观察
 #endif
+			
+#if 0			
+				GUI_SetColor( GUI_GREEN);
+				GUI_FillCircle(180,180,180);
+				GUI_SetColor( GUI_RED);
+				GUI_FillCircle(180,180,60);
+					
+				systick_delay_ms(1000); //等待 1s 观察
+				GUI_SetColor( GUI_YELLOW);
+				GUI_FillCircle(180,180,180);
+				GUI_SetColor( GUI_RED);
+				GUI_FillCircle(180,180,60);
+			
+			
+				systick_delay_ms(1000); //等待 1s 观察
+#endif				
     }
     return 0;
 }

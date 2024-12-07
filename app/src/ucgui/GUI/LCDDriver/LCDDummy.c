@@ -465,12 +465,9 @@ void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
     for (; x0 <= x1; x0++) {
       LCD_L0_XorPixel(x0, y);
     }
-//		LCD_Fill(x0, y, x1, y + 1, LCD_COLORINDEX);
   } else {
-    for (; x0 <= x1; x0++) {
-      LCD_L0_SetPixelIndex(x0, y, LCD_COLORINDEX);
-    }
-//		LCD_Fill(x0, y, x1, y + 1, LCD_COLORINDEX);
+		lcd_mpu_set_disp_area(This_LCD, x0, x1, y, y);
+		lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1+1-x0) * (y+1-y));		
   }
 }
 
@@ -484,9 +481,8 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
       LCD_L0_XorPixel(x, y0);
     }
   } else {
-    for (; y0 <= y1; y0++) {
-      LCD_L0_SetPixelIndex(x, y0, LCD_COLORINDEX);
-    }
+		lcd_mpu_set_disp_area(This_LCD, x, x, y0, y1);
+		lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x+1-x) * (y1+1-y0));	
   }
 }
 
