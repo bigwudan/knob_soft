@@ -1007,6 +1007,31 @@
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_M565.c</FilePath>
             </File>
+            <File>
+              <FileName>GUI_DispChar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DispChar.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ui_font</GroupName>
+          <Files>
+            <File>
+              <FileName>F13_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F13_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>F13_ASCII.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F13_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>F32_ASCII.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F32_ASCII.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -2011,6 +2036,31 @@
               <FileName>LCD_DrawBitmap_M565.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\LCD_DrawBitmap_M565.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_DispChar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUI_DispChar.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ui_font</GroupName>
+          <Files>
+            <File>
+              <FileName>F13_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F13_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>F13_ASCII.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F13_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>F32_ASCII.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\F32_ASCII.c</FilePath>
             </File>
           </Files>
         </Group>

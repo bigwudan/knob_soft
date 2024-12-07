@@ -205,12 +205,14 @@ void test_case_show_pic_from_flash(uint32_t pic_idx){
 
 
 extern GUI_CONST_STORAGE GUI_BITMAP bmucgui_1;
+extern const GUI_FONT GUI_Font13_1;
+extern const GUI_FONT GUI_Font32_ASCII;
 static void _ucgui(){
   GUI_Init();
 	GUI_SetBkColor( GUI_RED);
 	GUI_SetColor( GUI_GREEN);
 	GUI_Clear();	
-	GUI_SetPenSize(1);//画笔粗细设置
+	GUI_SetPenSize(10);//画笔粗细设置
 	//GUI_DrawLine(0, 10, 360, 10);
 	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 	
@@ -220,6 +222,12 @@ static void _ucgui(){
 	
 	
 	GUI_DrawBitmap(&bmucgui_1, 80,80);
+	
+	GUI_SetFont(&GUI_Font32_ASCII);
+	
+	
+	GUI_DispCharAt('w', 160,160);
+	GUI_DispStringAt("abcdqwertyuiopasdf", 0, 160);
 
 }
 
@@ -285,7 +293,17 @@ int main(void)
 			
 			
 				systick_delay_ms(1000); //等待 1s 观察
-#endif				
+#endif
+				GUI_Clear();	
+				GUI_SetColor( GUI_GREEN);
+				GUI_DispStringAt("abcdqwertyuiopasdf", 0, 160);
+				systick_delay_ms(1000); //等待 1s 观察
+				
+				GUI_Clear();	
+				GUI_SetColor( GUI_YELLOW);
+				GUI_DispStringAt("123456789012345678", 0, 160);
+				systick_delay_ms(1000); //等待 1s 观察
+
     }
     return 0;
 }
