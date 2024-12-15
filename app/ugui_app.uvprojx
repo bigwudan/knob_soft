@@ -1017,6 +1017,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUIArc.c</FilePath>
             </File>
+            <File>
+              <FileName>GUIEncJS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUIEncJS.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1036,6 +1041,11 @@
               <FileName>F32_ASCII.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Font\F32_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>FTest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\FTest.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2052,6 +2062,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Core\GUIArc.c</FilePath>
             </File>
+            <File>
+              <FileName>GUIEncJS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Core\GUIEncJS.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2071,6 +2086,11 @@
               <FileName>F32_ASCII.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\ucgui\GUI\Font\F32_ASCII.c</FilePath>
+            </File>
+            <File>
+              <FileName>FTest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ucgui\GUI\Font\FTest.c</FilePath>
             </File>
           </Files>
         </Group>
