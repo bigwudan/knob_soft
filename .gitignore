@@ -1,3 +1,4 @@
 app/out/*
 data/out/*
 common_flash/Project/MDK-ARM(AC5)/Objects
+OBJ/*
