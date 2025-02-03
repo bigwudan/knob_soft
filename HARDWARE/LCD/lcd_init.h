@@ -7,12 +7,12 @@
 
 
 #if USE_HORIZONTAL==0||USE_HORIZONTAL==1
-#define LCD_W 80
-#define LCD_H 160
+#define LCD_W_OP 80
+#define LCD_H_OP 160
 
 #else
-#define LCD_W 160
-#define LCD_H 80
+#define LCD_W_OP 160
+#define LCD_H_OP 80
 #endif
 
 

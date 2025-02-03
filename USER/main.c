@@ -41,10 +41,12 @@
 #include "sys.h"
 #include "led.h"
 #include "lcd_init.h"
-#include "lcd.h"
+#include "lcd_op.h"
 #include "pic.h"
 #include "usart_1.h"
 #include "W25QXX.h"
+
+#include "GUI.h"
 
 typedef enum { FAILED = 0, PASSED = !FAILED} TestStatus;
 
@@ -70,6 +72,13 @@ __IO TestStatus TransferStatus1 = FAILED;
 // 函数原型声明
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
 
+static void _ucgui(){
+  GUI_Init();
+	GUI_SetBkColor( GUI_RED);
+//	GUI_SetColor( GUI_RED);
+	GUI_Clear();		
+}
+
 int main(void)
 {
 	float t=0;
@@ -80,96 +89,12 @@ int main(void)
 	SPI_FLASH_Init();	
 	
 	LCD_Init_Op();//LCD初始化
-	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-	LED=0;
 
-		
-		/* 获取 Flash Device ID */
-		DeviceID = SPI_FLASH_ReadDeviceID();	
-		
-		/* 获取 SPI Flash ID */
-		FlashID = SPI_FLASH_ReadID();	
-		printf("\r\n FlashID is 0x%X \r\n Device ID is 0x%X\r\n", FlashID, DeviceID);
-	
-
-		/* 检验 SPI Flash ID */
-		if (FlashID == W25Q16ID || W25Q32ID || W25Q64ID || W25Q80ID)
-		{	
-			
-				printf("\r\n 检测到串行flash芯片!\r\n");
-			  switch(FlashID)
-					{
-					case W25Q16ID :
-						printf("\r\n flash芯片型号为W25Q16ID!\r\n");
-						Flash_Size = 2;
-						break;
-					case W25Q32ID :
-						printf("\r\n flash芯片型号为W25Q32!\r\n");
-						Flash_Size = 4;
-						break;
-					case W25Q64ID :
-						printf("\r\n flash芯片型号为W25Q64!\r\n");
-						Flash_Size = 8;
-						break;
-					case W25Q80ID :
-						printf("\r\n flash芯片型号为W25Q80!\r\n");
-						Flash_Size = 1;
-						break;
-					default :
-						printf("\r\n flash芯片型号为其他!\r\n");
-						Flash_Size = 0;
-						break;
-					}
-
-				/* 擦除将要写入的 SPI FLASH 扇区，FLASH写入前要先擦除 */
-				// 这里擦除4K，即一个扇区，擦除的最小单位是扇区
-				SPI_FLASH_SectorErase(FLASH_SectorToErase);	 	 
-
-				/* 将发送缓冲区的数据写到flash中 */
-				// 这里写一页，一页的大小为256个字节
-				SPI_FLASH_BufferWrite(Tx_Buffer, FLASH_WriteAddress, BufferSize);		
-				printf("\r\n 写入的数据为：%s \r\t", Tx_Buffer);
-
-			
-				/* 将刚刚写入的数据读出来放到接收缓冲区中 */
-				SPI_FLASH_BufferRead(Rx_Buffer, FLASH_ReadAddress, BufferSize);
-				printf("\r\n 读出的数据为：%s \r\n", Rx_Buffer);
-			
-
-				/* 检查写入的数据与读出的数据是否相等 */
-				TransferStatus1 = Buffercmp(Tx_Buffer, Rx_Buffer, BufferSize);
-
-				if( PASSED == TransferStatus1 )
-				{ 
-
-						printf("\r\n 串行flash测试成功!\n\r");
-				}
-				else
-				{        
-
-						printf("\r\n 串行flash测试失败!\n\r");
-				}
-		}// if (FlashID == sFLASH_ID)
-		else// if (FlashID == sFLASH_ID)
-		{ 
-
-				printf("\r\n 获取不到 W25Q64 ID!\n\r");
-		}
-		
+	_ucgui();
 		while(1)
 		{
 		LED=0; //PC13点亮
-		//屏幕内容显示	
-		LCD_ShowString(40,0,"ABROBOT",RED,WHITE,16,0);
-		LCD_ShowChinese(100,0,"电子",RED,WHITE,16,0);
-		LCD_ShowString(10,20,"LCD_W:",RED,WHITE,16,0);
-		LCD_ShowIntNum(58,20,LCD_W,3,RED,WHITE,16);
-		LCD_ShowString(10,40,"LCD_H:",RED,WHITE,16,0);
-		LCD_ShowIntNum(58,40,LCD_H,3,RED,WHITE,16);
-		LCD_ShowString(10,60,"Flash:",RED,WHITE,16,0);
-		LCD_ShowIntNum(55,60,Flash_Size,3,RED,WHITE,16);
-		LCD_ShowString(79,60,"M!",RED,WHITE,16,0);
-		LCD_ShowPicture(100,20,40,40,gImage_1);
+
 		
 		delay_ms(500);
 		LED=1;//PC13熄灭	
