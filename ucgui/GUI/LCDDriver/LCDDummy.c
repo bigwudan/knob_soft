@@ -468,7 +468,7 @@ void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
   } else {
 //		lcd_mpu_set_disp_area(This_LCD, x0, x1, y, y);
 //		lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1+1-x0) * (y+1-y));		
-		LCD_DrawLine(x0, y, x1, y, LCD_COLORINDEX);//在指定位置画一条线
+		LCD_DrawLine(x0, y, x1+1, y+1, LCD_COLORINDEX);//在指定位置画一条线
   }
 }
 
@@ -484,7 +484,7 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
   } else {
 //		lcd_mpu_set_disp_area(This_LCD, x, x, y0, y1);
 //		lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x+1-x) * (y1+1-y0));	
-		LCD_DrawLine(x, y0, x, y1, LCD_COLORINDEX);//在指定位置画一条线
+		LCD_DrawLine(x, y0, x+1, y1+1, LCD_COLORINDEX);//在指定位置画一条线
   }
 }
 
@@ -499,7 +499,7 @@ void LCD_L0_FillRect(int x0, int y0, int x1, int y1) {
 //	LCD_Fill(x0,y0,x1,y1,LCD_COLORINDEX);
 //	lcd_mpu_set_disp_area(This_LCD, x0, x1, y0, y1);
 //	lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1+1-x0) * (y1+1-y0));	
-	LCD_Fill(x0, y0, x1, y1,LCD_COLORINDEX);//指定区域填充颜色
+	LCD_Fill(x0, y0, x1+1, y1+1,LCD_COLORINDEX);//指定区域填充颜色
 }
 
 /*********************************************************************
