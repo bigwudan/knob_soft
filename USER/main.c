@@ -72,11 +72,24 @@ __IO TestStatus TransferStatus1 = FAILED;
 // 函数原型声明
 TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength);
 
+extern GUI_CONST_STORAGE GUI_FONT GUI_FontHZ12x12;
 static void _ucgui(){
   GUI_Init();
 	GUI_SetBkColor( GUI_RED);
-//	GUI_SetColor( GUI_RED);
-	GUI_Clear();		
+	GUI_SetColor( GUI_GREEN);
+	GUI_Clear();	
+
+	GUI_SetPenSize(80);//鐢荤瑪绮楃粏璁剧疆
+
+	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+	
+//	GUI_DrawBitmap(&bmucgui_1, 80,80);
+	
+	GUI_SetFont(&GUI_FontHZ12x12);
+	
+	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
+	GUI_DispStringAt(test, 0, 0);
+	
 }
 
 int main(void)
@@ -89,13 +102,14 @@ int main(void)
 	SPI_FLASH_Init();	
 	
 	LCD_Init_Op();//LCD初始化
-
+	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
 	_ucgui();
 		while(1)
 		{
 		LED=0; //PC13点亮
-
+		GUI_Clear();	
 		
+		GUI_DispStringAt(test, 0, 0);
 		delay_ms(500);
 		LED=1;//PC13熄灭	
 		delay_ms(500);
