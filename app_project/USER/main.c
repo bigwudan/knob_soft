@@ -106,6 +106,7 @@ int main(void)
 	_ucgui();
 		while(1)
 		{
+#if 0			
 		LED=0; //PC13µãÁÁ
 		GUI_Clear();	
 		
@@ -113,6 +114,14 @@ int main(void)
 		delay_ms(500);
 		LED=1;//PC13Ï¨Ãð	
 		delay_ms(500);
+#endif 
+
+		GUI_SetBkColor( GUI_RED);			
+		GUI_Clear();
+		GUI_SetBkColor( GUI_YELLOW);			
+		GUI_Clear();			
+		GUI_SetBkColor( GUI_BLACK);			
+		GUI_Clear();				
 	}
 	
 }

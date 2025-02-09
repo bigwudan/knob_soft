@@ -1,4 +1,4 @@
-app/out/*
-data/out/*
-common_flash/Project/MDK-ARM(AC5)/Objects
-OBJ/*
+app_project/OBJ/*
+flash_algorithm/project/MDK-ARM(AC5)/Objects/*
+flash_algorithm/project/MDK-ARM(AC5)/Listings/*
+flash_algorithm/project/MDK-ARM(AC5)/DebugConfig/*
