@@ -92,6 +92,75 @@ static void _ucgui(){
 	
 }
 
+static void _flash(){
+	
+		__IO uint32_t Flash_Size = 0;
+		/* 获取 Flash Device ID */
+		DeviceID = SPI_FLASH_ReadDeviceID();	
+		
+		/* 获取 SPI Flash ID */
+		FlashID = SPI_FLASH_ReadID();	
+		printf("\r\n FlashID is 0x%X \r\n Device ID is 0x%X\r\n", FlashID, DeviceID);
+	
+
+		/* 检验 SPI Flash ID */
+		if (FlashID == W25Q16ID || W25Q32ID || W25Q64ID || W25Q80ID)
+		{	
+			
+				printf("\r\n 检测到串行flash芯片!\r\n");
+			  switch(FlashID)
+					{
+					case W25Q16ID :
+						printf("\r\n flash芯片型号为W25Q16ID!\r\n");
+						Flash_Size = 2;
+						break;
+					case W25Q32ID :
+						printf("\r\n flash芯片型号为W25Q32!\r\n");
+						Flash_Size = 4;
+						break;
+					case W25Q64ID :
+						printf("\r\n flash芯片型号为W25Q64!\r\n");
+						Flash_Size = 8;
+						break;
+					case W25Q80ID :
+						printf("\r\n flash芯片型号为W25Q80!\r\n");
+						Flash_Size = 1;
+						break;
+					default :
+						printf("\r\n flash芯片型号为其他!\r\n");
+						Flash_Size = 0;
+						break;
+					}
+
+#if 0					
+				/* 擦除将要写入的 SPI FLASH 扇区，FLASH写入前要先擦除 */
+				// 这里擦除4K，即一个扇区，擦除的最小单位是扇区
+				SPI_FLASH_SectorErase(FLASH_SectorToErase);	 	 
+
+				/* 将发送缓冲区的数据写到flash中 */
+				// 这里写一页，一页的大小为256个字节
+				SPI_FLASH_BufferWrite(Tx_Buffer, FLASH_WriteAddress, BufferSize);		
+				printf("\r\n 写入的数据为：%s \r\t", Tx_Buffer);
+#endif
+			
+				/* 将刚刚写入的数据读出来放到接收缓冲区中 */
+				SPI_FLASH_BufferRead(Rx_Buffer, FLASH_ReadAddress, BufferSize);
+				printf("\r\n 读出的数据为：%s \r\n", Rx_Buffer);
+			
+
+
+		}// if (FlashID == sFLASH_ID)
+		else// if (FlashID == sFLASH_ID)
+		{ 
+
+				printf("\r\n 获取不到 W25Q64 ID!\n\r");
+		}
+
+}
+
+
+
+
 int main(void)
 {
 	float t=0;
@@ -99,11 +168,17 @@ int main(void)
 	delay_init();
 	LED_Init();//LED初始化
 	Usart1_Init(115200);
+	
 	SPI_FLASH_Init();	
+	_flash();
 	
 	LCD_Init_Op();//LCD初始化
 	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
 	_ucgui();
+	
+
+
+
 		while(1)
 		{
 #if 0			

@@ -2,3 +2,6 @@ app_project/OBJ/*
 flash_algorithm/project/MDK-ARM(AC5)/Objects/*
 flash_algorithm/project/MDK-ARM(AC5)/Listings/*
 flash_algorithm/project/MDK-ARM(AC5)/DebugConfig/*
+main_flash_algorithm/project/MDK-ARM(AC5)/Objects/*
+main_flash_algorithm/project/MDK-ARM(AC5)/Listings/*
+main_flash_algorithm/project/MDK-ARM(AC5)/DebugConfig/*

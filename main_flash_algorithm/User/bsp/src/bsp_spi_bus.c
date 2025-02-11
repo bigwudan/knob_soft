@@ -69,7 +69,7 @@ void bsp_InitSPIBus(void)
 */
 void bsp_spiDelay(void)
 {
-#if 0
+#if 1
 	uint32_t i;
 
 	/*
