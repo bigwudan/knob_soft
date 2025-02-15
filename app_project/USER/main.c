@@ -159,44 +159,77 @@ static void _flash(){
 }
 
 
-
-
 int main(void)
 {
 	float t=0;
 	__IO uint32_t Flash_Size = 0;
+	
+	u8 tx_buf[8] = {0};
+	u8 rx_buf[8] = {0};
+	
+	u8 rx1_buf[8] = {0};
+	
 	delay_init();
 	LED_Init();//LED初始化
 	Usart1_Init(115200);
 	
 	SPI_FLASH_Init();	
-	_flash();
 	
-	LCD_Init_Op();//LCD初始化
-	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
-	_ucgui();
+	
+	
+
+#if 1
+
+extern void W25QXX_RX_DMA_Init(void);	
+extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);	
+	
+	
+	W25QXX_RX_DMA_Init();
+	
+
+	tx_buf[0] = 0xAB;
+	tx_buf[1] = 0xFF;
+	tx_buf[2] = 0xFF;
+	tx_buf[3] = 0xFF;
+	tx_buf[4] = 0xFF;
+	
+	W25QXX_read_data(5,rx_buf, tx_buf);
+	
+	tx_buf[0] = 0x9F;
+	tx_buf[1] = 0xFF;
+	tx_buf[2] = 0xFF;
+	tx_buf[3] = 0xFF;
+	W25QXX_read_data(4,rx1_buf, tx_buf);
+	
+	
+#if 0	
+	DeviceID = _ReadDeviceID();	
+	FlashID = _SPI_FLASH_ReadID();	
+	printf("\r\n FlashID is 0x%X \r\n Device ID is 0x%X\r\n", FlashID, DeviceID);	
+#endif
+	
+#else	
+	_flash();	
+#endif	
+	
+
+	
+
 	
 
 
 
 		while(1)
 		{
-#if 0			
+
 		LED=0; //PC13点亮
-		GUI_Clear();	
-		
-		GUI_DispStringAt(test, 0, 0);
+
 		delay_ms(500);
 		LED=1;//PC13熄灭	
 		delay_ms(500);
-#endif 
 
-		GUI_SetBkColor( GUI_RED);			
-		GUI_Clear();
-		GUI_SetBkColor( GUI_YELLOW);			
-		GUI_Clear();			
-		GUI_SetBkColor( GUI_BLACK);			
-		GUI_Clear();				
+
+				
 	}
 	
 }
