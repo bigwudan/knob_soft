@@ -75,20 +75,20 @@ TestStatus Buffercmp(uint8_t* pBuffer1,uint8_t* pBuffer2, uint16_t BufferLength)
 extern GUI_CONST_STORAGE GUI_FONT GUI_FontHZ12x12;
 static void _ucgui(){
   GUI_Init();
-	GUI_SetBkColor( GUI_RED);
-	GUI_SetColor( GUI_GREEN);
-	GUI_Clear();	
+//	GUI_SetBkColor( GUI_RED);
+//	GUI_SetColor( GUI_GREEN);
+//	GUI_Clear();	
 
-	GUI_SetPenSize(80);//ç”»ç¬”ç²—ç»†è®¾ç½®
+//	GUI_SetPenSize(80);//ç”»ç¬”ç²—ç»†è®¾ç½®
 
-	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-	
-//	GUI_DrawBitmap(&bmucgui_1, 80,80);
-	
-	GUI_SetFont(&GUI_FontHZ12x12);
-	
-	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
-	GUI_DispStringAt(test, 0, 0);
+//	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+//	
+////	GUI_DrawBitmap(&bmucgui_1, 80,80);
+//	
+//	GUI_SetFont(&GUI_FontHZ12x12);
+//	
+//	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
+//	GUI_DispStringAt(test, 0, 0);
 	
 }
 
@@ -173,10 +173,9 @@ int main(void)
 	LED_Init();//LED³õÊ¼»¯
 	Usart1_Init(115200);
 	
+	
+	
 	SPI_FLASH_Init();	
-	
-	
-	
 
 #if 1
 
@@ -211,17 +210,26 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 #else	
 	_flash();	
 #endif	
-	
+		
 
 	
+	LCD_Init_Op();//LCD³õÊ¼»¯
+	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
+	_ucgui();
+
+
+
+
+
 
 	
 
 
 
-		while(1)
-		{
+	while(1)
+	{
 
+#if 0		
 		LED=0; //PC13µãÁÁ
 
 		delay_ms(500);
@@ -229,7 +237,25 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 		delay_ms(500);
 
 
-				
+		GUI_Clear();	
+
+		GUI_DispStringAt(test, 0, 0);
+#else
+
+		GUI_SetBkColor( GUI_RED);			
+		GUI_Clear();
+		delay_ms(1000);
+		GUI_SetBkColor( GUI_YELLOW);			
+		GUI_Clear();	
+		delay_ms(1000);		
+		GUI_SetBkColor( GUI_BLACK);			
+		GUI_Clear();			
+		
+		delay_ms(1000);
+
+
+#endif		
+
 	}
 	
 }

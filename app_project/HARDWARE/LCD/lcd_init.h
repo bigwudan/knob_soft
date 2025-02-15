@@ -13,11 +13,11 @@
 
 //-----------------LCD¶Ë¿Ú¶¨Òå---------------- 
 
-#define LCD_SCLK_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_0)//SCL=SCLK
-#define LCD_SCLK_Set() GPIO_SetBits(GPIOA,GPIO_Pin_0)
+#define LCD_SCLK_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_5)//SCL=SCLK
+#define LCD_SCLK_Set() GPIO_SetBits(GPIOA,GPIO_Pin_5)
 
-#define LCD_MOSI_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_1)//SDA=MOSI
-#define LCD_MOSI_Set() GPIO_SetBits(GPIOA,GPIO_Pin_1)
+#define LCD_MOSI_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_7)//SDA=MOSI
+#define LCD_MOSI_Set() GPIO_SetBits(GPIOA,GPIO_Pin_7)
 
 #define LCD_RES_Clr()  GPIO_ResetBits(GPIOA,GPIO_Pin_2)//RES
 #define LCD_RES_Set()  GPIO_SetBits(GPIOA,GPIO_Pin_2)

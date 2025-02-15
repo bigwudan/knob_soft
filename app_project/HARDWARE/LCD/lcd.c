@@ -15,13 +15,29 @@ void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
 {          
 	u16 i,j; 
 	LCD_Address_Set(xsta,ysta,xend-1,yend-1);//ÉèÖÃÏÔÊ¾·¶Î§
+	u8 t_buf[240*2] = {0};
+	
+	
+	int idx = 0;
+	do{
+	
+		t_buf[idx] = (u8)(color >> 8);
+		t_buf[idx+1] = (u8)(color);
+		idx=idx+2;
+	}while(idx < 240*2);
+	
 	for(i=ysta;i<yend;i++)
 	{													   	 	
-		for(j=xsta;j<xend;j++)
-		{
-			LCD_WR_DATA(color);
-		}
-	} 					  	    
+//		for(j=xsta;j<xend;j++)
+//		{
+//			LCD_WR_DATA(0xcccc);
+//		}
+#if 1		
+	extern void lcd_send_data(uint32_t len, u8 *tx_buf)	;
+		lcd_send_data(240*2, t_buf);
+#endif		
+	}
+
 }
 
 /******************************************************************************

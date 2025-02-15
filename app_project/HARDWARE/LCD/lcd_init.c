@@ -4,6 +4,64 @@
 #include "stm32f10x_spi.h"
 
 
+u8 SPI1_TX_DMA_Buff[240*2] = {0xcc};
+
+
+void lcd_dma_init(){
+
+		DMA_InitTypeDef DMA_InitStruct;
+		NVIC_InitTypeDef NVIC_InitStruct;
+	
+
+    
+    
+		//tx
+    DMA_DeInit(DMA1_Channel3);
+    DMA_StructInit(&DMA_InitStruct);
+    DMA_InitStruct.DMA_PeripheralBaseAddr = (u32)(&SPI1->DR);
+    DMA_InitStruct.DMA_MemoryBaseAddr = (u32)SPI1_TX_DMA_Buff;
+    DMA_InitStruct.DMA_DIR = DMA_DIR_PeripheralDST;
+    DMA_InitStruct.DMA_BufferSize = 9; //9
+    DMA_InitStruct.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    DMA_InitStruct.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    DMA_InitStruct.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStruct.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    DMA_InitStruct.DMA_Mode = DMA_Mode_Normal;
+    DMA_InitStruct.DMA_Priority = DMA_Priority_High;
+    DMA_InitStruct.DMA_M2M = DMA_M2M_Disable;
+    
+    DMA_Init(DMA1_Channel3,&DMA_InitStruct);
+    
+    DMA_ITConfig(DMA1_Channel3,DMA_IT_TC,ENABLE);
+    DMA_ITConfig(DMA1_Channel3,DMA_IT_HT,DISABLE);
+    DMA_ITConfig(DMA1_Channel3,DMA_IT_TE,DISABLE);
+    
+		
+
+
+//    NVIC_InitStruct.NVIC_IRQChannel = DMA1_Channel3_IRQn;
+//    NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+//    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
+//    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
+//    NVIC_Init(&NVIC_InitStruct);
+
+    SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Tx, ENABLE);
+
+    DMA_Cmd(DMA1_Channel3,DISABLE);      
+
+}
+
+static u8 _flag  = 0;
+
+void DMA1_Channel3_IRQHandler()
+{
+	if(DMA_GetFlagStatus(DMA1_FLAG_TC3) != RESET){
+    DMA_ClearFlag(DMA1_FLAG_TC3);
+		_flag = 1;
+	}
+}
+
+
 void SPI1_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -45,6 +103,30 @@ void LCD_GPIO_Init(void)
 void delay(int t)
 {
 	while(t--);
+}
+
+
+void lcd_send_data(uint32_t len, u8 *tx_buf){
+
+  while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);//检查接收标志位	
+	
+	LCD_CS_Clr();
+	DMA_Cmd(DMA1_Channel3,DISABLE);
+	memcpy(SPI1_TX_DMA_Buff, tx_buf, len);
+	DMA_SetCurrDataCounter(DMA1_Channel3, len);
+	DMA_Cmd(DMA1_Channel3,ENABLE);	
+	
+	if(DMA_GetFlagStatus(DMA1_FLAG_TC3) != RESET){
+    DMA_ClearFlag(DMA1_FLAG_TC3);
+		_flag = 1;
+	}
+	
+	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_BSY) == SET);	
+	DMA_Cmd(DMA1_Channel3,DISABLE);
+
+	LCD_CS_Set();
+
+	
 }
 
 /******************************************************************************
@@ -119,6 +201,8 @@ void LCD_Init_Op(void)
 {
 	SPI1_Init();
 	LCD_GPIO_Init();//初始化GPIO
+	
+	lcd_dma_init();
 	
 	LCD_RES_Clr();//复位
 	delay_ms(100);
