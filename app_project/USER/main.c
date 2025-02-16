@@ -92,6 +92,46 @@ static void _ucgui(){
 	
 }
 
+
+static void _write_flash_test(u8* pBuffer, u32 WriteAddr ){
+	u32 addr = 0;
+	for(int i=0; i< 29; i++){
+		addr = WriteAddr + i*4096;
+		SPI_FLASH_SectorErase(addr);
+		for(int j=0; j < 16; j++){
+			SPI_FLASH_PageWrite(pBuffer, addr + j*256, 256);
+		}
+	}
+}
+
+
+static void _read_flash_test(u32 WriteAddr, int len){
+	u32 addr = 0;
+	u8 t_buf[256] = {0};
+	
+	for(int i=0; i < 115200; i=i+len){
+		if(115200 - i >= len){
+			SPI_FLASH_BufferRead(t_buf, WriteAddr+i, len);
+			for(int j=0; j<len; j++){
+				printf("[%02X]", t_buf[j]);
+			}
+			printf(" end\r\n");
+			
+		}else{
+			SPI_FLASH_BufferRead(t_buf, WriteAddr+i, 115200 - i);
+			
+			for(int j=0; j<115200 - i; j++){
+				printf("[%02X]", t_buf[j]);
+			}
+			printf(" end\r\n");
+			
+			break;
+		}
+	}
+}
+
+static int g_open = 0;
+
 static void _flash(){
 	
 		__IO uint32_t Flash_Size = 0;
@@ -141,13 +181,27 @@ static void _flash(){
 				// 这里写一页，一页的大小为256个字节
 				SPI_FLASH_BufferWrite(Tx_Buffer, FLASH_WriteAddress, BufferSize);		
 				printf("\r\n 写入的数据为：%s \r\t", Tx_Buffer);
-#endif
+
 			
 				/* 将刚刚写入的数据读出来放到接收缓冲区中 */
 				SPI_FLASH_BufferRead(Rx_Buffer, FLASH_ReadAddress, BufferSize);
 				printf("\r\n 读出的数据为：%s \r\n", Rx_Buffer);
-			
+#endif
 
+				uint8_t t_buf[256] = {0};
+				memset(t_buf, 0xcc, 256);
+
+
+				if(g_open == 1){
+					
+					_write_flash_test(t_buf, FLASH_SectorToErase);
+					g_open = 0;
+				}	
+				
+				if(g_open == 2){
+					_read_flash_test(FLASH_SectorToErase, 256);
+				}
+				
 
 		}// if (FlashID == sFLASH_ID)
 		else// if (FlashID == sFLASH_ID)
@@ -157,6 +211,49 @@ static void _flash(){
 		}
 
 }
+
+void show_pic(){
+//	extern void lcd_send_data(uint32_t len, const u8 *tx_buf)	;
+//	extern const unsigned char gImage_111[4800];
+//	for(int i=0; i < 4800; i = i + 240*2){
+//		if(4800 -i >= 240*2){
+//			lcd_send_data(240*2, gImage_111 + i);
+//		}else{
+//			lcd_send_data(4800 - i, gImage_111 + i);
+//			break;
+//		}
+//	}
+}
+
+
+//
+
+
+void flash2lcd_dma(){
+extern void lcd_send_data(uint32_t len, const u8 *tx_buf)	;
+	
+extern void W25QXX_FLASH_BufferRead(u8* pBuffer, u32 ReadAddr, u16 NumByteToRead);	
+	
+	LCD_Address_Set(0,0,239,239);//设置显示范围
+	int len = 240*2;
+	uint32_t WriteAddr = 0;
+	uint8_t t_buf[500] = {0};
+	
+	
+	for(int i=0; i < 115200; i=i+len){
+		if(115200 - i >= len){
+			//SPI_FLASH_BufferRead(t_buf, WriteAddr+i, len);
+			W25QXX_FLASH_BufferRead(t_buf, WriteAddr+i, len);
+			lcd_send_data(len, t_buf +4);
+		}else{
+			//SPI_FLASH_BufferRead(t_buf, WriteAddr+i, 115200 - i);
+			W25QXX_FLASH_BufferRead(t_buf, WriteAddr+i, len);
+			lcd_send_data(115200 - i, t_buf +4);
+			break;
+		}
+	}	
+}
+
 
 
 int main(void)
@@ -180,7 +277,7 @@ int main(void)
 #if 1
 
 extern void W25QXX_RX_DMA_Init(void);	
-extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);	
+extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_buf);
 	
 	
 	W25QXX_RX_DMA_Init();
@@ -192,13 +289,13 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 	tx_buf[3] = 0xFF;
 	tx_buf[4] = 0xFF;
 	
-	W25QXX_read_data(5,rx_buf, tx_buf);
+	W25QXX_read_data(5,5,rx_buf, tx_buf);
 	
 	tx_buf[0] = 0x9F;
 	tx_buf[1] = 0xFF;
 	tx_buf[2] = 0xFF;
 	tx_buf[3] = 0xFF;
-	W25QXX_read_data(4,rx1_buf, tx_buf);
+	W25QXX_read_data(4,4,rx1_buf, tx_buf);
 	
 	
 #if 0	
@@ -217,14 +314,15 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
 	_ucgui();
 
+	GUI_SetBkColor( GUI_RED);			
+	GUI_Clear();	
+	delay_ms(1000);
 
 
 
+	//show_pic();
 
-
-	
-
-
+	flash2lcd_dma();
 
 	while(1)
 	{
@@ -242,6 +340,7 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 		GUI_DispStringAt(test, 0, 0);
 #else
 
+#if 1		
 		GUI_SetBkColor( GUI_RED);			
 		GUI_Clear();
 		delay_ms(1000);
@@ -252,7 +351,7 @@ extern void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf);
 		GUI_Clear();			
 		
 		delay_ms(1000);
-
+#endif
 
 #endif		
 

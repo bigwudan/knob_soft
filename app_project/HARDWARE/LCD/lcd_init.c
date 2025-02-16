@@ -12,7 +12,7 @@ void lcd_dma_init(){
 		DMA_InitTypeDef DMA_InitStruct;
 		NVIC_InitTypeDef NVIC_InitStruct;
 	
-
+		RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1,ENABLE);
     
     
 		//tx
@@ -106,7 +106,7 @@ void delay(int t)
 }
 
 
-void lcd_send_data(uint32_t len, u8 *tx_buf){
+void lcd_send_data(uint32_t len, const u8 *tx_buf){
 
   while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);//检查接收标志位	
 	

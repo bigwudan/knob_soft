@@ -13,7 +13,35 @@
 #include "W25QXX.h"
 
 
-#define SPI2_RX_DMA_BUFF_SIZE        32
+/* Private typedef -----------------------------------------------------------*/
+//#define SPI_FLASH_PageSize      4096
+#define SPI_FLASH_PageSize      256
+#define SPI_FLASH_PerWritePageSize      256
+
+/* Private define ------------------------------------------------------------*/
+#define W25X_WriteEnable		      0x06 
+#define W25X_WriteDisable		      0x04 
+#define W25X_ReadStatusReg		    0x05 
+#define W25X_WriteStatusReg		    0x01 
+#define W25X_ReadData			        0x03 
+#define W25X_FastReadData		      0x0B 
+#define W25X_FastReadDual		      0x3B 
+#define W25X_PageProgram		      0x02 
+#define W25X_BlockErase			      0xD8 
+#define W25X_SectorErase		      0x20 
+#define W25X_ChipErase			      0xC7 
+#define W25X_PowerDown			      0xB9 
+#define W25X_ReleasePowerDown	    0xAB 
+#define W25X_DeviceID			        0xAB 
+#define W25X_ManufactDeviceID   	0x90 
+#define W25X_JedecDeviceID		    0x9F 
+
+#define WIP_Flag                  0x01  /* Write In Progress (WIP) flag */
+
+#define Dummy_Byte                0xFF
+
+
+#define SPI2_RX_DMA_BUFF_SIZE        240*2
 static u8 SPI2_RX_DMA_Buff[SPI2_RX_DMA_BUFF_SIZE] = {0};
 
 
@@ -105,12 +133,14 @@ void W25QXX_RX_DMA_Init(void)
 
 }
 
-void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf){
+
+
+void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_buf){
 	SPI_FLASH_CS_LOW();
 	DMA_Cmd(DMA1_Channel4,DISABLE);
 	DMA_Cmd(DMA1_Channel5,DISABLE);
 	
-	memcpy(SPI2_TX_DMA_Buff, tx_buf, len);
+	memcpy(SPI2_TX_DMA_Buff, tx_buf, tx_len);
 	DMA_SetCurrDataCounter(DMA1_Channel4, len);
 	DMA_SetCurrDataCounter(DMA1_Channel5, len);
 	
@@ -123,6 +153,18 @@ void W25QXX_read_data(uint32_t len, u8 *rx_buf, u8 *tx_buf){
 	DMA_Cmd(DMA1_Channel5,DISABLE);	
 
 	SPI_FLASH_CS_HIGH();
+}
+
+void W25QXX_FLASH_BufferRead(u8* pBuffer, u32 ReadAddr, u16 NumByteToRead)
+{
+	u8 tx_buf[4] = {0};
+	tx_buf[0]	 = W25X_ReadData;
+	tx_buf[1]	 = ((ReadAddr & 0xFF0000) >> 16);
+	tx_buf[2]	 = ((ReadAddr& 0xFF00) >> 8);
+	tx_buf[3]	 = (ReadAddr & 0xFF);
+	
+	W25QXX_read_data(NumByteToRead + 4, 4, pBuffer, tx_buf);
+	
 }
 
 void DMA1_Channel4_IRQHandler()

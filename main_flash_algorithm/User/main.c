@@ -65,7 +65,7 @@ extern void sf_SetCS(uint8_t _Level);
 int main(void)
 {
 	Init(0,0,0);
-
+	_write_flash();
 	while(1){
 		__NOP;	
 		__NOP;	
