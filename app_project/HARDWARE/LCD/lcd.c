@@ -16,8 +16,6 @@ void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
 	u16 i,j; 
 	LCD_Address_Set(xsta,ysta,xend-1,yend-1);//…Ë÷√œ‘ æ∑∂Œß
 	u8 t_buf[240*2] = {0};
-
-	
 	int idx = 0;
 	do{
 	

@@ -60,6 +60,9 @@ typedef enum { FAILED = 0, PASSED = !FAILED} TestStatus;
 #define  FLASH_ReadAddress      FLASH_WriteAddress
 #define  FLASH_SectorToErase    FLASH_WriteAddress
 
+
+#define  FLASH_1_Sector    0x1E000
+
 #define Erase 0
 uint8_t Tx_Buffer[] = "123456";
 
@@ -97,11 +100,15 @@ static void _write_flash_test(u8* pBuffer, u32 WriteAddr ){
 	u32 addr = 0;
 	for(int i=0; i< 29; i++){
 		addr = WriteAddr + i*4096;
+		printf("sect [%02X] ", addr);
 		SPI_FLASH_SectorErase(addr);
 		for(int j=0; j < 16; j++){
 			SPI_FLASH_PageWrite(pBuffer, addr + j*256, 256);
+			printf("page [%02X] ", addr + j*256);
 		}
+		printf("\r\n");
 	}
+	printf("xxxxxxx\n");
 }
 
 
@@ -189,19 +196,33 @@ static void _flash(){
 #endif
 
 				uint8_t t_buf[256] = {0};
-				memset(t_buf, 0xcc, 256);
+				
 
 
 				if(g_open == 1){
-					
+					memset(t_buf, 0xcc, 256);	
 					_write_flash_test(t_buf, FLASH_SectorToErase);
-					g_open = 0;
+					
 				}	
 				
+
 				if(g_open == 2){
+				memset(t_buf, 0x66, 256);	
+					_write_flash_test(t_buf, FLASH_1_Sector);
+					
+				}	
+
+				
+				
+				if(g_open == 3){
 					_read_flash_test(FLASH_SectorToErase, 256);
 				}
-				
+
+
+				if(g_open == 4){
+					_read_flash_test(FLASH_1_Sector, 256);
+				}				
+				g_open = 0;
 
 		}// if (FlashID == sFLASH_ID)
 		else// if (FlashID == sFLASH_ID)
@@ -229,14 +250,14 @@ void show_pic(){
 //
 
 
-void flash2lcd_dma(){
+void flash2lcd_dma(uint32_t addr_var){
 extern void lcd_send_data(uint32_t len, const u8 *tx_buf)	;
 	
 extern void W25QXX_FLASH_BufferRead(u8* pBuffer, u32 ReadAddr, u16 NumByteToRead);	
 	
 	LCD_Address_Set(0,0,239,239);//设置显示范围
 	int len = 240*2;
-	uint32_t WriteAddr = 0;
+	uint32_t WriteAddr = addr_var;
 	uint8_t t_buf[500] = {0};
 	
 	
@@ -308,7 +329,7 @@ extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_b
 	_flash();	
 #endif	
 		
-
+	_flash();	
 	
 	LCD_Init_Op();//LCD初始化
 	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
@@ -321,8 +342,10 @@ extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_b
 
 
 	//show_pic();
+	flash2lcd_dma(FLASH_SectorToErase);
+	
+	flash2lcd_dma(FLASH_1_Sector);
 
-	flash2lcd_dma();
 
 	while(1)
 	{
@@ -340,7 +363,7 @@ extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_b
 		GUI_DispStringAt(test, 0, 0);
 #else
 
-#if 1		
+#if 0		
 		GUI_SetBkColor( GUI_RED);			
 		GUI_Clear();
 		delay_ms(1000);
@@ -354,7 +377,10 @@ extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_b
 #endif
 
 #endif		
+		flash2lcd_dma(FLASH_SectorToErase);
 
+		flash2lcd_dma(FLASH_1_Sector);
+		
 	}
 	
 }
