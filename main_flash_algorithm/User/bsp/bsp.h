@@ -88,6 +88,9 @@ int SystemClock_Config(void);
 #define PIN_MISO					GPIO_Pin_14
 #define MISO_IS_HIGH()	        	(GPIO_ReadInputDataBit(PORT_MISO, PIN_MISO) == Bit_SET)
 
+#define SPI_FLASH_CS_LOW()       GPIO_ResetBits(GPIOB, GPIO_Pin_12)
+#define SPI_FLASH_CS_HIGH()      GPIO_SetBits(GPIOB, GPIO_Pin_12)
+
 #endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

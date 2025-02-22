@@ -42,7 +42,9 @@ int Init (unsigned long adr, unsigned long clk, unsigned long fnc)
         return 1;        
     }
 
-    bsp_InitSPIBus();
+    //bsp_InitSPIBus();
+extern void SPI_FLASH_Init(void);
+		SPI_FLASH_Init();
 
     return 0;
 }

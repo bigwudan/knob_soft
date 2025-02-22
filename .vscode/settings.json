@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "w25qxx.h": "c",
+        "stm32f10x.h": "c"
+    }
+}

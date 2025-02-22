@@ -16,6 +16,32 @@
 */
 #include "bsp.h"
 
+/* Private typedef -----------------------------------------------------------*/
+//#define SPI_FLASH_PageSize      4096
+#define SPI_FLASH_PageSize      256
+#define SPI_FLASH_PerWritePageSize      256
+
+/* Private define ------------------------------------------------------------*/
+#define W25X_WriteEnable		      0x06 
+#define W25X_WriteDisable		      0x04 
+#define W25X_ReadStatusReg		    0x05 
+#define W25X_WriteStatusReg		    0x01 
+#define W25X_ReadData			        0x03 
+#define W25X_FastReadData		      0x0B 
+#define W25X_FastReadDual		      0x3B 
+#define W25X_PageProgram		      0x02 
+#define W25X_BlockErase			      0xD8 
+#define W25X_SectorErase		      0x20 
+#define W25X_ChipErase			      0xC7 
+#define W25X_PowerDown			      0xB9 
+#define W25X_ReleasePowerDown	    0xAB 
+#define W25X_DeviceID			        0xAB 
+#define W25X_ManufactDeviceID   	0x90 
+#define W25X_JedecDeviceID		    0x9F 
+
+#define WIP_Flag                  0x01  /* Write In Progress (WIP) flag */
+
+#define Dummy_Byte                0xFF
 
 static void sf_WriteEnable(void);
 static void sf_WaitForWriteEnd(void);
@@ -40,6 +66,81 @@ void sf_SetCS(uint8_t _Level)
 	}
 }
 
+/*******************************************************************************
+* Function Name  : SPI_FLASH_SendByte
+* Description    : Sends a byte through the SPI interface and return the byte
+*                  received from the SPI bus.
+* Input          : byte : byte to send.
+* Output         : None
+* Return         : The value of the received byte.
+*******************************************************************************/
+u8 SPI_FLASH_SendByte(u8 byte)
+{
+  /* Loop while DR register in not emplty */
+  while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
+
+  /* Send byte through the SPI1 peripheral */
+  SPI_I2S_SendData(SPI2, byte);
+
+  /* Wait to receive a byte */
+  while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET);
+
+  /* Return the byte read from the SPI bus */
+  return SPI_I2S_ReceiveData(SPI2);
+}
+
+
+/*******************************************************************************
+* Function Name  : SPI_FLASH_WriteEnable
+* Description    : Enables the write access to the FLASH.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_FLASH_WriteEnable(void)
+{
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+
+  /* Send "Write Enable" instruction */
+  SPI_FLASH_SendByte(W25X_WriteEnable);
+
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
+}
+
+/*******************************************************************************
+* Function Name  : SPI_FLASH_WaitForWriteEnd
+* Description    : Polls the status of the Write In Progress (WIP) flag in the
+*                  FLASH's status  register  and  loop  until write  opertaion
+*                  has completed.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_FLASH_WaitForWriteEnd(void)
+{
+  u8 FLASH_Status = 0;
+
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+
+  /* Send "Read Status Register" instruction */
+  SPI_FLASH_SendByte(W25X_ReadStatusReg);
+
+  /* Loop as long as the memory is busy with a write cycle */
+  do
+  {
+    /* Send a dummy byte to generate the clock needed by the FLASH
+    and put the value of the status register in FLASH_Status variable */
+    FLASH_Status = SPI_FLASH_SendByte(Dummy_Byte);	 
+  }
+  while ((FLASH_Status & WIP_Flag) == SET); /* Write in progress */
+
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: sf_EraseSector
@@ -48,19 +149,26 @@ void sf_SetCS(uint8_t _Level)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void sf_EraseSector(uint32_t _uiSectorAddr)
+void sf_EraseSector(uint32_t SectorAddr)
 {
-	sf_WriteEnable();								/* 发送写使能命令 */
-
-	/* 擦除扇区操作 */
-	sf_SetCS(0);										/* 使能片选 */
-	bsp_spiWrite0(CMD_SE);								/* 发送擦除命令 */
-	bsp_spiWrite0((_uiSectorAddr & 0xFF0000) >> 16);	/* 发送扇区地址的高8bit */
-	bsp_spiWrite0((_uiSectorAddr & 0xFF00) >> 8);		/* 发送扇区地址中间8bit */
-	bsp_spiWrite0(_uiSectorAddr & 0xFF);				/* 发送扇区地址低8bit */
-	sf_SetCS(1);									/* 禁能片选 */
-
-	sf_WaitForWriteEnd();							/* 等待串行Flash内部写操作完成 */
+  /* Send write enable instruction */
+  SPI_FLASH_WriteEnable();
+  SPI_FLASH_WaitForWriteEnd();
+  /* Sector Erase */
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+  /* Send Sector Erase instruction */
+  SPI_FLASH_SendByte(W25X_SectorErase);
+  /* Send SectorAddr high nibble address byte */
+  SPI_FLASH_SendByte((SectorAddr & 0xFF0000) >> 16);
+  /* Send SectorAddr medium nibble address byte */
+  SPI_FLASH_SendByte((SectorAddr & 0xFF00) >> 8);
+  /* Send SectorAddr low nibble address byte */
+  SPI_FLASH_SendByte(SectorAddr & 0xFF);
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
+  /* Wait the end of Flash writing */
+  SPI_FLASH_WaitForWriteEnd();
 }
 
 /*
@@ -73,14 +181,19 @@ void sf_EraseSector(uint32_t _uiSectorAddr)
 */
 void sf_EraseChip(void)
 {	
-	sf_WriteEnable();								/* 发送写使能命令 */
+  /* Send write enable instruction */
+  SPI_FLASH_WriteEnable();
 
-	/* 擦除扇区操作 */
-	sf_SetCS(0);		/* 使能片选 */
-	bsp_spiWrite0(CMD_BE);							/* 发送整片擦除命令 */
-	sf_SetCS(1);									/* 禁能片选 */
+  /* Bulk Erase */
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+  /* Send Bulk Erase instruction  */
+  SPI_FLASH_SendByte(W25X_ChipErase);
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
 
-	sf_WaitForWriteEnd();							/* 等待串行Flash内部写操作完成 */
+  /* Wait the end of Flash writing */
+  SPI_FLASH_WaitForWriteEnd();
 }
 
 /*
@@ -93,31 +206,42 @@ void sf_EraseChip(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void sf_PageWrite(uint8_t * _pBuf, uint32_t _uiWriteAddr, uint16_t _usSize)
+void sf_PageWrite(u8* pBuffer, u32 WriteAddr, u16 NumByteToWrite)
 {
-	uint32_t i;
+  /* Enable the write access to the FLASH */
+  SPI_FLASH_WriteEnable();
 
-	sf_WriteEnable();								/* 发送写使能命令 */
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+  /* Send "Write to Memory " instruction */
+  SPI_FLASH_SendByte(W25X_PageProgram);
+  /* Send WriteAddr high nibble address byte to write to */
+  SPI_FLASH_SendByte((WriteAddr & 0xFF0000) >> 16);
+  /* Send WriteAddr medium nibble address byte to write to */
+  SPI_FLASH_SendByte((WriteAddr & 0xFF00) >> 8);
+  /* Send WriteAddr low nibble address byte to write to */
+  SPI_FLASH_SendByte(WriteAddr & 0xFF);
 
-	sf_SetCS(0);									/* 使能片选 */
-	bsp_spiWrite0(CMD_PAGEWR);						/* 页编程 */
-	bsp_spiWrite0((_uiWriteAddr & 0xFF0000) >> 16);	/* 发送扇区地址的高8bit */
-	bsp_spiWrite0((_uiWriteAddr & 0xFF00) >> 8);	/* 发送扇区地址中间8bit */
-	bsp_spiWrite0(_uiWriteAddr & 0xFF);				/* 发送扇区地址低8bit */
-	for (i = 0; i < _usSize; i++)
-	{
-		bsp_spiWrite0(*_pBuf++);				/* 发送数据 */
-	}
-	sf_SetCS(1);								/* 禁止片选 */
+  if(NumByteToWrite > SPI_FLASH_PerWritePageSize)
+  {
+     NumByteToWrite = SPI_FLASH_PerWritePageSize;
+     //printf("\n\r Err: SPI_FLASH_PageWrite too large!");
+  }
 
-	sf_WaitForWriteEnd();						/* 等待串行Flash内部写操作完成 */
+  /* while there is data to be written on the FLASH */
+  while (NumByteToWrite--)
+  {
+    /* Send the current byte */
+    SPI_FLASH_SendByte(*pBuffer);
+    /* Point on the next byte to be written */
+    pBuffer++;
+  }
 
-	/* 进入写保护状态 */
-	sf_SetCS(0);
-	bsp_spiWrite0(CMD_DISWR);
-	sf_SetCS(1);
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
 
-	sf_WaitForWriteEnd();							/* 等待串行Flash内部写操作完成 */
+  /* Wait the end of Flash writing */
+  SPI_FLASH_WaitForWriteEnd();
 }
 
 /*
@@ -130,20 +254,31 @@ void sf_PageWrite(uint8_t * _pBuf, uint32_t _uiWriteAddr, uint16_t _usSize)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void sf_ReadBuffer(uint8_t * _pBuf, uint32_t _uiReadAddr, uint32_t _uiSize)
+void sf_ReadBuffer(u8* pBuffer, u32 ReadAddr, u32 NumByteToRead)
 {
-	/* 擦除扇区操作 */
-	sf_SetCS(0);									/* 使能片选 */
-	bsp_spiWrite0(CMD_READ);							/* 发送读命令 */
-	bsp_spiWrite0((_uiReadAddr & 0xFF0000) >> 16);	/* 发送扇区地址的高8bit */
-	bsp_spiWrite0((_uiReadAddr & 0xFF00) >> 8);		/* 发送扇区地址中间8bit */
-	bsp_spiWrite0(_uiReadAddr & 0xFF);				/* 发送扇区地址低8bit */
-	while (_uiSize--)
-	{
-		*_pBuf++ = bsp_spiRead0();			/* 读一个字节并存储到pBuf，读完后指针自加1 */
-	}
-	
-	sf_SetCS(1);									/* 禁能片选 */
+  /* Select the FLASH: Chip Select low */
+  SPI_FLASH_CS_LOW();
+
+  /* Send "Read from Memory " instruction */
+  SPI_FLASH_SendByte(W25X_ReadData);
+
+  /* Send ReadAddr high nibble address byte to read from */
+  SPI_FLASH_SendByte((ReadAddr & 0xFF0000) >> 16);
+  /* Send ReadAddr medium nibble address byte to read from */
+  SPI_FLASH_SendByte((ReadAddr& 0xFF00) >> 8);
+  /* Send ReadAddr low nibble address byte to read from */
+  SPI_FLASH_SendByte(ReadAddr & 0xFF);
+
+  while (NumByteToRead--) /* while there is data to be read */
+  {
+    /* Read a byte from the FLASH */
+    *pBuffer = SPI_FLASH_SendByte(Dummy_Byte);
+    /* Point to the next location where the byte read will be saved */
+    pBuffer++;
+  }
+
+  /* Deselect the FLASH: Chip Select high */
+  SPI_FLASH_CS_HIGH();
 }
 
 /*

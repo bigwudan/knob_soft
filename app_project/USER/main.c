@@ -378,9 +378,9 @@ extern void W25QXX_read_data(uint32_t len, uint32_t tx_len, u8 *rx_buf, u8 *tx_b
 
 #endif		
 		flash2lcd_dma(FLASH_SectorToErase);
-
+		delay_ms(500);
 		flash2lcd_dma(FLASH_1_Sector);
-		
+		delay_ms(500);
 	}
 	
 }
