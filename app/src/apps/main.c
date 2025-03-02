@@ -232,6 +232,12 @@ static void _ucgui(){
 
 }
 
+
+extern void Test_LCD_L0_FillRect(int x0, int y0, int x1, int y1);
+
+
+
+
 int main(void)
 {
     /* 在调测阶段(版本 Release 时可注释), 预防程序跑飞后, 上电瞬间锁死内核导致无法通过 SWD 访问, 也可用作等待个别硬件模块上电稳定 */
@@ -250,72 +256,19 @@ int main(void)
     printf("@Copyright by Synwit Technology");
     printf("\r\n-------------------------------------\r\n");
 
-		_ucgui();
-	
-    /* Start scheduler. */
-//    synwit_ug_start(&sys_ops, &sys_conf);
 
-    /* Should not reach here as the scheduler is already started. */
-	
-//		extern void test_case_task();
-//		test_case_task();
-	
-		app_ready();
-
-		
-
-		
-		
-		
-		
-		
-//		void test_case_draw_rect(void);
-//		test_case_draw_rect();
     for (;;)
     {
-#if 0			
-			test_case_show_pic_from_flash(0);
-      systick_delay_ms(1000); //等待 1s 观察
-			test_case_show_pic_from_flash(1);
-			systick_delay_ms(1000); //等待 1s 观察
-#endif
-			
-#if 0			
-				GUI_SetColor( GUI_GREEN);
-				GUI_FillCircle(180,180,180);
-				GUI_SetColor( GUI_RED);
-				GUI_FillCircle(180,180,60);
-					
-				systick_delay_ms(1000); //等待 1s 观察
-				GUI_SetColor( GUI_YELLOW);
-				GUI_FillCircle(180,180,180);
-				GUI_SetColor( GUI_RED);
-				GUI_FillCircle(180,180,60);
-			
-			
-				systick_delay_ms(1000); //等待 1s 观察
-#endif
-
-#if 0
-				GUI_Clear();	
-				GUI_SetColor( GUI_GREEN);
-				GUI_DispStringAt("abcdqwertyuiopasdf", 0, 160);
-				systick_delay_ms(1000); //等待 1s 观察
-				
-				GUI_Clear();	
-				GUI_SetColor( GUI_YELLOW);
-				GUI_DispStringAt("123456789012345678", 0, 160);
-				systick_delay_ms(1000); //等待 1s 观察
-#endif
-
-#if 0
-			GUI_Clear();	
-			for(int i=0; i<=360;i++){
-			
-				GUI_DrawArc(180, 180, 180, 0, 0, i);
-			}
+			GUI_SetColor( GUI_GREEN);
+			Test_LCD_L0_FillRect(0, 0, 360 ,360);
 			systick_delay_ms(1000);
-#endif
+    printf("@Copyright by Synwit Technology");
+    printf("\r\n-------------------------------------\r\n");
+			GUI_SetColor( GUI_RED);
+			Test_LCD_L0_FillRect(0, 0, 360 ,360);
+			systick_delay_ms(1000);
+
+			
     }
     return 0;
 }
@@ -348,7 +301,7 @@ static void driver_init(void)
     
     qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
 
-    __IMPORT_TEST_CASE(driver_init);
+
 }
 
 void HardFault_Handler(void)

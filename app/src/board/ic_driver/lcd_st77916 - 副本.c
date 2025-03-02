@@ -512,10 +512,16 @@ void st77916_set_disp_area(lcd_mpu_driver_t *self, uint16_t xs, uint16_t xe, uin
     lcd_qspi_seq_t seq;
     ST77916_WR_CMD_DATA_VA(&seq, 0x2A, (xs >> 8) & 0xFF, xs & 0xFF, (xe >> 8) & 0xFF, xe & 0xFF );
     ST77916_WR_CMD_DATA_VA(&seq, 0x2B, (ys >> 8) & 0xFF, ys & 0xFF, (ye >> 8) & 0xFF, ye & 0xFF );
-    
+		ST77916_WR_CMD_SEQ(0x2c, &seq, 0);  
+        
+    uint32_t pixels = (xe - xs + 1) * (ye - ys + 1);        
+
+    ST77916_QSPI_SEQ_SET_WR_GRAM(&seq, 0x3C, pixels);
+#if 0	
     uint32_t pixels = (xe - xs + 1) * (ye - ys + 1);
     ST77916_QSPI_SEQ_SET_WR_GRAM(&seq, 0x2C, pixels << 1); //RGB565: 1 pixel = 2 Bytes
     ST77916_WR_CMD(0x2C, &seq);
+#endif	
 }
 
 /**

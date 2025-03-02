@@ -34,17 +34,17 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000513C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000440C [memory type] 2 [memory ID] 3
 
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000018B8 [memory type] 1 [memory ID] 2
-		[ZI block] addr: 0x20000010, size: 0x000018A8 (6312)
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001888 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000010, size: 0x00001878 (6264)
 
 
 [object name max length] 22
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-b568e7.o       [path] (null)
+[object name] lto-llvm-06597e.o       [path] (null)
 [object name] startup_swm221.o        [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 
 [file path in keil project]
@@ -159,22 +159,22 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000514C [type] 2 [ID] 3
-	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000018B8 [type] 1 [ID] 2
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x000043CC [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x00001880 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
 [memory print mode]: 0
 LR_IROM1
         RAM 1             [0x20000000 | 0x00002000 (8192)]
                 [zi start] 1   [zi end] 38
-                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ____________| (   6.1 KB /   8.0 KB )  77.2%  
+                RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ____________| (   6.1 KB /   8.0 KB )  76.7%  [+8]
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö___________________________________________| (  20.3 KB / 128.0 KB )  15.9%  [-16]
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö____________________________________________| (  17.0 KB / 128.0 KB )  13.3%  [+64]
  
 [htm file path] D:\document\knob_soft\app\out\Debug\ugui_app.htm
 Maximum Stack Usage =        240 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.029 s
+run time: 0.035 s

@@ -499,6 +499,16 @@ void LCD_L0_FillRect(int x0, int y0, int x1, int y1) {
 	lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1+1-x0) * (y1+1-y0));	
 }
 
+extern void st77916_set_disp_area(lcd_mpu_driver_t *self, uint16_t xs, uint16_t xe, uint16_t ys, uint16_t ye);
+
+void Test_LCD_L0_FillRect(int x0, int y0, int x1, int y1) {
+
+	st77916_set_disp_area(&This_LCD->board.driver, x0, x1-1, y0, y1-1);
+	lcd_mpu_fill_color(This_LCD, LCD_COLORINDEX, (x1-x0) * (y1-y0));
+}
+
+
+
 /*********************************************************************
 *
 *       LCD_L0_DrawBitmap
