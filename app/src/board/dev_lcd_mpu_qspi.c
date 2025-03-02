@@ -213,7 +213,7 @@ void __DECL_LCD_NAME(flush_bitmap, qspi)(void *data, uint32_t pixels)
         return;
     }
     
-    if (0 != qspi_dma_xfer_bitmap(data, pixels))
+    if (1== 1|| 0 != qspi_dma_xfer_bitmap(data, pixels))
     {
         uint16_t *p = (uint16_t *)data;
         

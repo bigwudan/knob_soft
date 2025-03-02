@@ -515,7 +515,7 @@ void st77916_set_disp_area(lcd_mpu_driver_t *self, uint16_t xs, uint16_t xe, uin
     
     uint32_t pixels = (xe - xs + 1) * (ye - ys + 1);
     ST77916_QSPI_SEQ_SET_WR_GRAM(&seq, 0x2C, pixels << 1); //RGB565: 1 pixel = 2 Bytes
-    ST77916_WR_CMD(0x2C, &seq);
+    ST77916_WR_CMD(0x3C, &seq);
 }
 
 /**

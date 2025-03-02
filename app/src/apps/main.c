@@ -173,7 +173,7 @@ void systick_handler_hook(void)
 typedef struct {
 	uint32_t idx;
 	uint32_t addr;
-	uint8_t RdBuff[READ_NUM*2];
+	uint8_t RdBuff[READ_NUM*4];
 
 
 }pic_flash_struct;	
@@ -181,6 +181,35 @@ typedef struct {
 pic_flash_struct pic_flash;
 
 
+//uint8_t test_RdBuff[READ_NUM*4] = {0};
+
+
+
+extern const unsigned char gImage_av40_40[3200];
+
+
+void test_show_1(){
+
+		qspi_multiplex_lcd();
+		lcd_mpu_set_disp_area(This_LCD, 60, 39+60, 60, 39+60);
+		//memset(pic_flash.RdBuff, 0x33, READ_NUM*4);
+		lcd_mpu_flush_bitmap(This_LCD, gImage_av40_40, 40*40);		
+}
+
+void test_show(uint32_t pic_idx){
+
+	
+	pic_flash.addr = pic_idx*360*360*2;
+	for(int i = 0; i<READ_NUM; i = i+2){
+		qspi_multiplex_flash(); // QSPI 分时复用 Flash 
+		qspi_dma_read(pic_flash.addr + i*READ_NUM*2, pic_flash.RdBuff, READ_NUM*4, 4, 4);
+		//memset(pic_flash.RdBuff, 0x33, READ_NUM*4);
+		qspi_multiplex_lcd();
+		lcd_mpu_set_disp_area(This_LCD, 0, 0 + READ_NUM - 1, i, i+1);
+		lcd_mpu_flush_bitmap(This_LCD, pic_flash.RdBuff, READ_NUM*2);		
+	}	
+	
+}
 
 void test_case_show_pic_from_flash(uint32_t pic_idx){
 	//read data from flash
@@ -212,31 +241,16 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_FontHZ12x12;
 
 static void _ucgui(){
   GUI_Init();
-	GUI_SetBkColor( GUI_RED);
+	GUI_SetBkColor( GUI_GREEN);
 	GUI_SetColor( GUI_GREEN);
 	GUI_Clear();	
-	GUI_SetPenSize(80);//画笔粗细设置
 
-	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-	
-//	GUI_DrawBitmap(&bmucgui_1, 80,80);
-	
-	GUI_SetFont(&GUI_FontHZ12x12);
-	
-	char test[] = {0x31,0x32,0xce,0xd2,0xb5,0xa4,0x00};
-	GUI_DispStringAt(test, 0, 160);
-	
-	//GUI_DrawArc(180, 180, 180, 0, 0, 0);
 	
 
 
 }
 
-
 extern void Test_LCD_L0_FillRect(int x0, int y0, int x1, int y1);
-
-
-
 
 int main(void)
 {
@@ -256,18 +270,21 @@ int main(void)
     printf("@Copyright by Synwit Technology");
     printf("\r\n-------------------------------------\r\n");
 
+		_ucgui();
+		GUI_SetColor( GUI_RED);
+		Test_LCD_L0_FillRect(0, 0, 360 ,360);
+	
 
     for (;;)
     {
-			GUI_SetColor( GUI_GREEN);
-			Test_LCD_L0_FillRect(0, 0, 360 ,360);
+			test_show(0);
 			systick_delay_ms(1000);
-    printf("@Copyright by Synwit Technology");
-    printf("\r\n-------------------------------------\r\n");
-			GUI_SetColor( GUI_RED);
-			Test_LCD_L0_FillRect(0, 0, 360 ,360);
+			
+			test_show(1);
 			systick_delay_ms(1000);
 
+			test_show(2);
+			systick_delay_ms(1000);
 			
     }
     return 0;
@@ -301,7 +318,7 @@ static void driver_init(void)
     
     qspi_multiplex_lcd(); // QSPI 分时复用 LCD 
 
-
+    __IMPORT_TEST_CASE(driver_init);
 }
 
 void HardFault_Handler(void)
