@@ -2,12 +2,12 @@
 =================================================== keil-build-viewer v1.5b ==================================================
  
 [Search keil project] 1 item(s)
-	D:\knob_soft\app\ugui_app.uvprojx
+	D:\document\knob_soft\app\ugui_app.uvprojx
 
 [User input] 
-[Current folder] D:\knob_soft\app
+[Current folder] D:\document\knob_soft\app
 [Encoding] 936
-[Keil project path] D:\knob_soft\app\ugui_app.uvprojx
+[Keil project path] D:\document\knob_soft\app\ugui_app.uvprojx
 [Keil project name] ugui_app.uvprojx
 [Is keil v4] 0
 [target name] SWM221-Debug
@@ -30,11 +30,11 @@
 [name] IROM [base addr] 0x00000000 [size] 0x00020000 [type] 2 [off-chip] 0 [is pack] 1 [ID] 3 
 
 
-[map file path] D:\knob_soft\app\out\ugui_app.map
+[map file path] D:\document\knob_soft\app\out\ugui_app.map
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00006D3C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000513C [memory type] 2 [memory ID] 3
 
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000018B8 [memory type] 1 [memory ID] 2
 		[ZI block] addr: 0x20000010, size: 0x000018A8 (6312)
@@ -44,7 +44,7 @@
 [object path max length] 58
 
 [object in map file]
-[object name] lto-llvm-ae4a8d.o       [path] (null)
+[object name] lto-llvm-b568e7.o       [path] (null)
 [object name] startup_swm221.o        [path] .\src\CSL\CMSIS\DeviceSupport\startup\arm\startup_SWM221.s
 
 [file path in keil project]
@@ -159,7 +159,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x00006D3C [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x00000000, 0x00020000, 0x0000514C [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x00002000, 0x000018B8 [type] 1 [ID] 2
 [WARNING] Because LTO is enabled, information for each file cannot be displayed
  
@@ -170,11 +170,11 @@ LR_IROM1
                 RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ____________| (   6.1 KB /   8.0 KB )  77.2%  
  
         FLASH 1           [0x00000000 | 0x00020000 (131072)]
-                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö________________________________________| (  27.3 KB / 128.0 KB )  21.3%  
+                ER_IROM1  [0x00000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö___________________________________________| (  20.3 KB / 128.0 KB )  15.9%  [-16]
  
-[htm file path] D:\knob_soft\app\out\Debug\ugui_app.htm
-Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)
+[htm file path] D:\document\knob_soft\app\out\Debug\ugui_app.htm
+Maximum Stack Usage =        240 bytes + Unknown(Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.027 s
+run time: 0.029 s
